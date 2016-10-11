@@ -72,7 +72,7 @@ public class BWA {
 	
 	////////////////
 	//////// prepare mate pair command for execution
-	public void pairedEndSingleFileCmd(String platform) {
+	public void singelEndedCommand(String platform) {
 
 		for (String curPat : patients.keySet()){
 			
@@ -89,8 +89,8 @@ public class BWA {
 			// add number of threads
 			cmd.add("-t " + cpus);
 			
-			// specify paired end in single file
-			cmd.add("-p");
+//			// specify paired end in single file
+//			cmd.add("-p");
 			
 			// add reference
 			cmd.add(config.getHg19Fasta());
@@ -110,7 +110,7 @@ public class BWA {
 
 	////////////////
 	//////// prepare mate pair command for execution
-	public void pairedEndMateFileCmd(String platform) {
+	public void matePairCommand(String platform) {
 
 		for (String curPat : patients.keySet()){
 			

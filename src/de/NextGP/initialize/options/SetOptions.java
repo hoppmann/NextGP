@@ -55,12 +55,13 @@ public class SetOptions {
 		// alignment specific options
 		opts.put(alignment, new OptionValue(options, "fastqList", true, "List containing name of forward and backward read files."));
 		opts.put(alignment, new OptionValue(options, "bamList", true, "List containing bamfiles. (needed if alignment not done in pipeline)"));
-		
+				
 		// pipeline parts
 		opts.put(pipeline, new OptionValue(options, "alignment", false, "if chosen alignment part of pipeline is executed."));
 		opts.put(pipeline, new OptionValue(options, "illuminaPanel", false, "if chosen runs all steps necessary for analysis of an Illumina panel."));
 		opts.put(pipeline, new OptionValue(options, "ionExon", false, "Executes the Ion Torrent exone pipeline"));
 		opts.put(pipeline, new OptionValue(options, "bamExon", false, "run an exon starting with a bam file"));
+		opts.put(pipeline, new OptionValue(options, "customPipeline", true, "Path to file containing information for custom pipeline."));
 	}
 
 	

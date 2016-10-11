@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import de.NextGP.general.Log;
 import de.NextGP.general.Patients;
 import de.NextGP.general.Writer;
 
@@ -14,18 +18,24 @@ public class ReadInputFile {
 	///////////////////////////
 
 	private Map<String, Patients> patients = new HashMap<>();
-
+	private static Logger logger = LoggerFactory.getLogger(ReadInputFile.class);
+	
+	
 	/////////////////////////////
 	//////// constructor ////////
 	/////////////////////////////
 
+	public ReadInputFile() {
 
+		Log.logger(logger, "Reading input file");
+	}
 
 
 
 	/////////////////////////
 	//////// methods ////////
 	/////////////////////////
+
 
 	////////////////
 	//////// read mate fastq files
@@ -54,6 +64,7 @@ public class ReadInputFile {
 			pat.setForward(forward);
 			pat.setBackward(backward);
 			patients.put(patID, pat);
+
 
 		}
 
@@ -101,28 +112,28 @@ public class ReadInputFile {
 	public Map<String, Patients> readBamList(String listName) {
 		// read in bam file list
 		LinkedList<String> lines = new Writer().openFile(listName);
-		
+
 		// sort reads to corresponding patient
 		ListIterator<String> listIterator = lines.listIterator();
 		while (listIterator.hasNext()) {
-			
+
 			String curLine = listIterator.next();
-			
+
 			// check if line starts with # or is empty
 			if (curLine.isEmpty() || curLine.startsWith("#")) {
 				continue;
 			}
-			
+
 			// if it is real line split and sort to patient
 			String[] splitLine = curLine.split("\t");
 			String patID = splitLine[0];
 			String bam = splitLine[1];
-			
+
 			// save to corresponding patient
 			Patients pat = new Patients();
 			pat.setLastOutFile(bam);
 			patients.put(patID, pat);
-			
+
 		}
 
 		// return patient map
@@ -131,27 +142,14 @@ public class ReadInputFile {
 	}
 
 
-	//	/////////////
-	//	//////// File reader
-	//	public LinkedList<String> openFile(String filePath) {
-	//
-	//		BufferedReader br = null;
-	//		String line;
-	//		LinkedList<String> lines = new LinkedList<>();
-	//		try {
-	//			br = new BufferedReader(new FileReader(filePath));
-	//			while ((line = br.readLine()) != null) {
-	//				lines.add(line);
-	//			}
-	//			br.close();
-	//
-	//		} catch (Exception e1) {
-	//			System.out.println("Failed open file " + filePath);
-	//			System.exit(1);
-	//		}
-	//
-	//		return lines;
-	//	}
+	/////////////
+	//////// File reader
+	public LinkedList<String> openFile(String listName) {
+
+		LinkedList<String> lines = new Writer().openFile(listName);
+
+		return lines;
+	}
 
 
 

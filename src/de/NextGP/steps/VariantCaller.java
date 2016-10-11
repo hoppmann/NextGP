@@ -37,7 +37,7 @@ public class VariantCaller {
 		this.patients = patients;
 
 		// make log entry
-		Log.logger(logger, "preparing variant filtering");
+		Log.logger(logger, "preparing variant calling");
 		
 	}
 
@@ -61,7 +61,11 @@ public class VariantCaller {
 			String outDir = options.getOutDir() + sep + config.getVariantCalling();
 			String output = outDir + sep + curPat + sep + curPat + ".raw.g.vcf";
 			String logfile = outDir + sep + curPat + sep + curPat + ".log";
-			
+			String input = patients.get(curPat).getLastOutFile();
+			if (input == null || input.isEmpty()) {
+				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+			}
+
 			// prepare command
 
 			cmd.add(config.getJava());
@@ -76,7 +80,7 @@ public class VariantCaller {
 			cmd.add("-ERC GVCF");
 //			cmd.add("-variant_index_type LINEAR");
 //			cmd.add("-variant_index_parameter 128000");
-			cmd.add("-I " + patients.get(curPat).getLastOutFile());
+			cmd.add("-I " + input);
 			cmd.add("-o " + output);
 			cmd.add("-log " + logfile);
 
@@ -118,10 +122,11 @@ public class VariantCaller {
 		cmd.add("-o " + outFile);
 		cmd.add("-log " + logfile);
 		
+		
+		
 		// save command
 		combined.setGenotypeGVCF(cmd);
-		combined.setRawVCF(outFile);
-	
+		combined.setLastOutFile(outFile);
 	}
 	
 

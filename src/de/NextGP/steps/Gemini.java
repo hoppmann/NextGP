@@ -63,6 +63,7 @@ public class Gemini {
 		String sep = File.separator;
 		String outDir = options.getOutDir() + sep + config.getDatabase();
 		String cmd = "mkdir -p " + outDir;
+
 		combined.mkdir(cmd);
 	}
 
@@ -86,7 +87,7 @@ public class Gemini {
 		// prepare command
 		cmd.add(config.getGemini());
 		cmd.add("load");
-		cmd.add("-t VEP");
+		cmd.add("-t all");
 		cmd.add("--cores " + options.getCpu());
 		cmd.add("-v " + vcfFile);
 		cmd.add(outDB);

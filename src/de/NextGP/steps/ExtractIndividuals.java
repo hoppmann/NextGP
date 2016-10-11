@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.NextGP.general.Combined;
+import de.NextGP.general.Log;
 import de.NextGP.general.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -37,7 +38,11 @@ public class ExtractIndividuals {
 		this.patients = patients;
 		this.combined = combined;
 
-
+		// make log entry
+		Log.logger(logger, "Extractiong individuals");
+		
+		extractInd();
+		
 	}
 
 

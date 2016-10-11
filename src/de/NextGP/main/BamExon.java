@@ -14,14 +14,11 @@ import de.NextGP.general.Writer;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.ReadInputFile;
 import de.NextGP.initialize.options.GetOptions;
-import de.NextGP.steps.AddReaplaceReadgroups;
 import de.NextGP.steps.Annotate;
 import de.NextGP.steps.BQSR;
-import de.NextGP.steps.BWA;
 import de.NextGP.steps.CreateMetrices;
 import de.NextGP.steps.Gemini;
 import de.NextGP.steps.Realigner;
-import de.NextGP.steps.SamToBam;
 import de.NextGP.steps.VariantCaller;
 import de.NextGP.steps.VariantEval;
 import de.NextGP.steps.VariantFilter;
@@ -152,13 +149,10 @@ public class BamExon {
 		ArrayList<String> cmd = new ArrayList<>();
 		// get vt master command
 		Annotate annotate = new Annotate(options, config, patients, combined);
-		cmd = annotate.vtMaster(vcfFile);
-		combined.setVtMaster(cmd);
+		cmd = annotate.vtMaster();
 		
 		// get vep command
-		cmd = annotate.vep(vcfFile);
-		combined.setVepAnnotation(cmd);
-		combined.setLastOutFile(annotate.getOutVEP());
+		cmd = annotate.vep();
 	}
 	
 	

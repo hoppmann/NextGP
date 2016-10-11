@@ -39,6 +39,8 @@ public class GetOptions {
 	private boolean illuminaPanel;
 	private boolean ionExon;
 	private boolean bamExon;
+	private String customPipeline;
+	private boolean custom;
 	
 	
 
@@ -152,6 +154,10 @@ public class GetOptions {
 			bamExon = true;
 		}
 		
+		if (cmd.hasOption("customPipeline")) {
+			customPipeline = cmd.getOptionValue("customPipeline");
+			custom = true;
+		}
 		
 		
 	}
@@ -221,6 +227,15 @@ public class GetOptions {
 
 	public boolean isBamExon() {
 		return bamExon;
+	}
+
+	public String getCustomPipeline() {
+		return customPipeline;
+	}
+
+
+	public boolean isCustom() {
+		return custom;
 	}
 	
 	

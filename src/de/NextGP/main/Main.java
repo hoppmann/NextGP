@@ -44,6 +44,12 @@ public class Main {
 			new BamExon(options, config);
 		}
 
+		// run custom chosen pipeline
+		if (options.isCustom()) {
+			
+			
+		}
+		
 		// to finish close log file
 		Log.logger(logger, "NextGP succesfully finished");
 

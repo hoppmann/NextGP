@@ -35,6 +35,8 @@ public class VariantFilter {
 		this.config = config;
 		this.combined = combined;
 
+		// make log entry
+		Log.logger(logger, "Preparing hard filtering");
 
 
 
@@ -50,8 +52,6 @@ public class VariantFilter {
 	// run hard filtering for variant calls (panel)
 	public void hardFiltering() {
 
-		// make log entry
-		Log.logger(logger, "Preparing hard filtering");
 
 
 		// initialize and gather variables
@@ -61,6 +61,10 @@ public class VariantFilter {
 		String subDir = "SNPs";
 		String outFileSnpSet = outDir + sep + subDir + sep + "raw_snps.vcf";
 		String logExtractSnpSet = outDir + sep + subDir + sep + "raw_snps.log";
+		String input = combined.getLastOutFile();
+		if (input == null || input.isEmpty()) {
+			input = options.getOutDir() + sep + config.getVariantCalling() + sep + "combined.raw.vcf";
+		}
 
 		//////// extract all SNPs
 
@@ -69,7 +73,7 @@ public class VariantFilter {
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T SelectVariants");
 		cmd.add("-R " + config.getHg19Fasta());
-		cmd.add("-V " + combined.getRawVCF());
+		cmd.add("-V " + input);
 		cmd.add("-selectType SNP");
 		cmd.add("-o " + outFileSnpSet);
 		cmd.add("-log " + logExtractSnpSet);
@@ -125,7 +129,7 @@ public class VariantFilter {
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T SelectVariants");
 		cmd.add("-R " + config.getHg19Fasta());
-		cmd.add("-V " + combined.getRawVCF());
+		cmd.add("-V " + input);
 		cmd.add("-selectType INDEL");
 		cmd.add("-o " + outExtractIndelSet);
 		cmd.add("-log " + logExtractIndelSet);
@@ -213,9 +217,6 @@ public class VariantFilter {
 		// store command
 		combined.setRemoveFilteredReads(cmd);
 		combined.setLastOutFile(outFileFiltered + ".recode.vcf");
-//		combined.setLastOutFile(outFileFiltered);
-		
-
 	}
 
 

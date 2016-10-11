@@ -39,7 +39,7 @@ public class CreateMetrices {
 		this.combined = combined;
 
 		// make log etntry
-		Log.logger(logger, "Preapring create metrics");
+		Log.logger(logger, "Preapring metrics");
 
 		// create directory
 		mkdir();
@@ -84,12 +84,17 @@ public class CreateMetrices {
 			String sep = File.separator;
 			String outDir = options.getOutDir() + sep + config.getMetrices();
 			String depthOut = outDir + sep + curPat + sep + curPat + ".meanDepth.txt";
+			String input = patients.get(curPat).getLastOutFile();
+			if (input == null || input.isEmpty()) {
+				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+			}
+
 
 			// prepare command
 			cmd.add(config.getSamtools());
 			cmd.add("depth");
 			cmd.add("-b " + config.getTargetBED());
-			cmd.add(patients.get(curPat).getLastOutFile());
+			cmd.add(input);
 			cmd.add("| awk '{sum+=$3;cnt++} END {print \"" + patients.get(curPat).getLastOutFile() + "\\t\"sum/cnt}'");
 			cmd.add("> " + depthOut);
 
@@ -118,7 +123,11 @@ public class CreateMetrices {
 			String sep = File.separator;
 			String outDir = options.getOutDir() + sep + config.getMetrices();
 
-			String asIn = patients.get(curPat).getLastOutFile();
+			String input = patients.get(curPat).getLastOutFile();
+			if (input == null || input.isEmpty()) {
+				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+			}
+
 			String asOut = outDir + sep + curPat + sep + curPat + ".ASMetric.txt";
 			String asLog = outDir + sep + curPat + sep + curPat + ".ASMetric.log";
 
@@ -130,7 +139,7 @@ public class CreateMetrices {
 			cmd.add("CollectAlignmentSummaryMetrics");
 			cmd.add("REFERENCE_SEQUENCE=" + config.getHg19Fasta());
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
-			cmd.add("INPUT=" + asIn);
+			cmd.add("INPUT=" + input);
 			cmd.add("OUTPUT=" + asOut);
 			cmd.add("2> " + asLog);
 
@@ -155,7 +164,11 @@ public class CreateMetrices {
 			ArrayList<String> cmd = new ArrayList<>();
 			String sep = File.separator;
 			String outDir = options.getOutDir() + sep + config.getMetrices();
-			String gcMetricIn = patients.get(curPat).getLastOutFile();
+			String input = patients.get(curPat).getLastOutFile();
+			if (input == null || input.isEmpty()) {
+				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+			}
+
 			String gcMetricChartOut = outDir + sep + curPat + sep + curPat + ".GcBMetrics.pdf";
 			String gcMetricSummaryOut = outDir + sep + curPat + sep + curPat + ".GcBMetrics.txt";
 			String gcMetricLog = outDir + sep + curPat + sep + curPat + ".GcBMetric.log";
@@ -168,7 +181,7 @@ public class CreateMetrices {
 			cmd.add("CollectGcBiasMetrics");
 			cmd.add("REFERENCE_SEQUENCE=" + config.getHg19Fasta());
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
-			cmd.add("INPUT=" + gcMetricIn);
+			cmd.add("INPUT=" + input);
 			cmd.add("OUTPUT=" + output);
 			cmd.add("CHART_OUTPUT=" + gcMetricChartOut);
 			cmd.add("SUMMARY_OUTPUT=" + gcMetricSummaryOut);
@@ -196,7 +209,11 @@ public class CreateMetrices {
 			ArrayList<String> cmd = new ArrayList<>();
 			String sep = File.separator;
 			String outDir = options.getOutDir() + sep + config.getMetrices();
-			String isIn = patients.get(curPat).getLastOutFile();
+			String input = patients.get(curPat).getLastOutFile();
+			if (input == null || input.isEmpty()) {
+				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+			}
+
 			String isOut = outDir +  sep + curPat + sep + curPat + ".GCBMetric.txt";
 			String isHistOut = outDir + sep + curPat + sep + curPat + ".ISMetric.pdf";
 			String isLog = outDir + sep + curPat + sep + curPat + ".isMetrics.log";
@@ -208,7 +225,7 @@ public class CreateMetrices {
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectInsertSizeMetrics");
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
-			cmd.add("INPUT=" + isIn);
+			cmd.add("INPUT=" + input);
 			cmd.add("OUTPUT= " + isOut);
 			cmd.add("HISTOGRAM_FILE=" + isHistOut);
 			cmd.add("2> " + isLog);
@@ -239,11 +256,15 @@ public class CreateMetrices {
 			String sep = File.separator;
 			String outDir = options.getOutDir() + sep + config.getMetrices();
 			String covOut = outDir + sep + curPat + sep + curPat + ".converageBed.hist";
+			String input = patients.get(curPat).getLastOutFile();
+			if (input == null || input.isEmpty()) {
+				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+			}
 
 
 			// prepare command
 			cmd.add(config.getBedTools() + sep + "coverageBed");
-			cmd.add("-abam " + patients.get(curPat).getLastOutFile());
+			cmd.add("-abam " + input);
 			cmd.add("-b " + config.getTargetBED());
 			cmd.add("-hist");
 			cmd.add("> " + covOut);

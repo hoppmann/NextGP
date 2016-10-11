@@ -21,9 +21,9 @@ public class Annotate {
 	private static  Logger logger = LoggerFactory.getLogger(Annotate.class);
 	private GetOptions options;
 	private LoadConfig config;
-//	private Map<String, Patients> patients;
 	private Combined combined;
 	private String outVEP;
+	private String outSnpEff;
 
 
 	/////////////////////////////
@@ -34,7 +34,6 @@ public class Annotate {
 		// retrieve variables
 		this.options = options;
 		this.config = config;
-//		this.patients = patients;
 		this.combined = combined;
 
 		Log.logger(logger, "preparing anotations");
@@ -43,9 +42,6 @@ public class Annotate {
 		mkDir();
 		
 	}
-
-
-
 
 
 	/////////////////////////
@@ -66,7 +62,7 @@ public class Annotate {
 	
 	
 	//// prepare VEP annotation using vt-master
-	public ArrayList<String> vtMaster(String vcfFile) {
+	public void vtMaster(String vcfFile) {
 
 		// make log entry
 		Log.logger(logger, "preparing annotaions using VEP");
@@ -78,12 +74,14 @@ public class Annotate {
 		ArrayList<String> cmd = new ArrayList<>();
 		String sep = File.separator;
 		String outDir = options.getOutDir();
+
 		
 		// get name for outfile
 		String[] splitFile = vcfFile.split(File.separator);
 		String name = splitFile[splitFile.length - 1].split("\\.")[0];
 		String outVtMaster = outDir + sep + config.getAnnotation() + sep + name + "-sed-norm-decomp.vcf";
 
+		
 		// prepare command
 		cmd.add("zless " + vcfFile);
 		cmd.add ("| sed 's/ID=AD,Number=./ID=AD,Number=R/'");
@@ -95,8 +93,8 @@ public class Annotate {
 		cmd.add("-");
 		
 		
-		// return command
-		return cmd;
+		// store command
+		combined.setVtMaster(cmd);
 		
 	}
 	
@@ -104,7 +102,7 @@ public class Annotate {
 	
 	//// prepare VEP annotation
 	
-	public ArrayList<String> vep(String vcfFile) {
+	public void vep(String vcfFile) {
 		
 		//////// running VEP
 		
@@ -118,8 +116,7 @@ public class Annotate {
 		String name = splitFile[splitFile.length - 1].split("\\.")[0];
 		String outVtMaster = outDir + sep + name + "-sed-norm-decomp.vcf";
 
-		cmd = new ArrayList<>();
-		outVEP = outDir + sep + name + ".vcf" ;
+		outVEP = outDir + sep + name + "-vep.vcf" ;
 		
 		// prepare command
 		cmd.add(config.getVep());
@@ -141,13 +138,78 @@ public class Annotate {
 		cmd.add("--offline");
 		cmd.add("--fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE");
 
-		// return command
-		return cmd;
+		// store command
+		combined.setVepAnnotation(cmd);
+		combined.setLastOutFile(outVEP);
 		
 	}
 
 
-
+	
+	//// annotate variants using SNPeff
+	
+	public void snpEff (){
+		
+		// get name for outfile
+		outSnpEff = outVEP.split("\\.")[0] + "-snpEff.vcf"; 
+		
+		
+		// prepare command
+		ArrayList<String> cmd = new ArrayList<>();
+		
+		
+		cmd.add(config.getJava());
+		cmd.add(options.getXmx());
+		cmd.add("-jar " +  config.getSnpEff());
+		cmd.add("GRCh37.75");
+		cmd.add("-classic");
+		cmd.add("-formatEff");
+		cmd.add(outVEP);
+		cmd.add("> " + outSnpEff);
+		
+		
+		// store command
+		combined.setSnpEffAnnotation(cmd);
+		combined.setLastOutFile(outSnpEff);
+		
+	}
+	
+	
+	
+	public void bgzip() {
+		
+		Log.logger(logger, "Bgzipping files.");
+		
+		// preparig command
+		ArrayList<String> cmd = new ArrayList<>();
+		cmd.add(config.getBgzip());
+		cmd.add("-c " + outSnpEff);
+		cmd.add("> " + outSnpEff + ".gz");
+		
+		// store command
+		combined.setBgzip(cmd);
+		
+		
+	}
+	
+	public void tabix() {
+		Log.logger(logger, "Indexing files.");
+		
+		// preparing command
+		ArrayList<String> cmd = new ArrayList<>();
+		cmd.add(config.getTabix());
+		cmd.add("-f ");
+		cmd.add("-p vcf");
+		cmd.add(outSnpEff + ".gz");
+		
+		// store command
+		combined.setTabix(cmd);
+		
+	}
+	
+	
+	
+	
 
 	/////////////////////////////////
 	//////// getter / setter ////////

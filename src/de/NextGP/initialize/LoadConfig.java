@@ -16,6 +16,9 @@ public class LoadConfig {
 	private String gemini;
 	private String vtMaster;
 	private String gatk;
+	private String snpEff;
+	private String tabix;
+	private String bgzip;
 	
 	// references
 	private String hg19Fasta;
@@ -64,9 +67,12 @@ public class LoadConfig {
 				bedTools = prop.getProperty("bedTools");
 				vcfTools = prop.getProperty("vcfTools");
 				vep = prop.getProperty("VEP");
+				snpEff = prop.getProperty("snpEff");
 				gemini = prop.getProperty("gemini");
 				vtMaster = prop.getProperty("vtMaster");
 				gatk = prop.getProperty("gatk");
+				tabix = prop.getProperty("tabix");
+				bgzip = prop.getProperty("bgzip");
 				
 				// read in reference directory names
 				hg19Fasta = prop.getProperty("hg19Fasta");
@@ -215,6 +221,18 @@ public class LoadConfig {
 
 			public String getDatabase() {
 				return database;
+			}
+
+			public String getSnpEff() {
+				return snpEff;
+			}
+
+			public String getTabix() {
+				return tabix;
+			}
+
+			public String getBgzip() {
+				return bgzip;
 			}
 			
 			
