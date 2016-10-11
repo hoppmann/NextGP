@@ -133,7 +133,6 @@ public class ReadInputFile {
 			Patients pat = new Patients();
 			pat.setLastOutFile(bam);
 			patients.put(patID, pat);
-
 		}
 
 		// return patient map

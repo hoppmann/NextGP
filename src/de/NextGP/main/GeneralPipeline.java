@@ -83,7 +83,7 @@ public class GeneralPipeline {
 	////////////////
 	//////// read in file containing list of fastq files
 
-	public Map<String, Patients> readFastqFile() {
+	public Map<String, Patients> readFastqList() {
 
 		String fastqList = options.getFastqList();
 
@@ -151,6 +151,14 @@ public class GeneralPipeline {
 
 	}
 
+	//////// read in bam list and save in patient map
+	
+	public Map<String, Patients> readBamList(String bamList) {
+		
+		patients = new ReadInputFile().readBamList(bamList);
+		return patients;
+		
+	}
 
 
 	////////////////

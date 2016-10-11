@@ -40,7 +40,7 @@ public class IonTorrentExome {
 		Log.logger(logger, "Preparing IonProton batch files.");
 
 		// read input file
-		patients = pipeline.readFastqFile();
+		patients = pipeline.readFastqList();
 
 		// step 01 align reads
 		pipeline.align("ionTorrent");

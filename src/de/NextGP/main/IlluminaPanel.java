@@ -1,13 +1,10 @@
 package de.NextGP.main;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.NextGP.general.Combined;
 import de.NextGP.general.Log;
-import de.NextGP.general.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -16,7 +13,6 @@ public class IlluminaPanel {
 	//////////////
 	//// Variables
 	GetOptions options;
-	Map<String, Patients> patients;
 	LoadConfig config;
 	Combined combined;
 
@@ -41,13 +37,10 @@ public class IlluminaPanel {
 		GeneralPipeline pipeline = new GeneralPipeline(options, config);
 		
 		// read input file
-		pipeline.readFastqFile();
+		pipeline.readFastqList();
 
-		
 		// check if input is given
 		pipeline.checkPatMap();
-		
-		
 		
 		// 01 align reads 
 		pipeline.align("Illumina");
