@@ -16,26 +16,11 @@ public final class Log {
 	//////// Construcor
 
 	static {
-		// init log file writer
-//		createLogfile("bash.txt");
 	}
 
 
 	////////////////
 	//////// Methods
-
-	// create log file
-//	private static void createLogfile(String logfile){
-//		// open writer 
-//		try {
-//			writer = new PrintWriter(logfile);
-//		} catch (FileNotFoundException e) {
-//			System.out.println("\nERROR: Can not open " + logfile);
-//			System.out.println(e);
-//			System.exit(1);
-//
-//		}
-//	}
 
 
 	//writes handed over String to file

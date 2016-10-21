@@ -93,7 +93,7 @@ public class CreateMetrices {
 			// prepare command
 			cmd.add(config.getSamtools());
 			cmd.add("depth");
-			cmd.add("-b " + config.getTargetBED());
+			cmd.add("-b " + options.getBedFile());
 			cmd.add(input);
 			cmd.add("| awk '{sum+=$3;cnt++} END {print \"" + patients.get(curPat).getLastOutFile() + "\\t\"sum/cnt}'");
 			cmd.add("> " + depthOut);
@@ -265,7 +265,7 @@ public class CreateMetrices {
 			// prepare command
 			cmd.add(config.getBedTools() + sep + "coverageBed");
 			cmd.add("-abam " + input);
-			cmd.add("-b " + config.getTargetBED());
+			cmd.add("-b " + options.getBedFile());
 			cmd.add("-hist");
 			cmd.add("> " + covOut);
 

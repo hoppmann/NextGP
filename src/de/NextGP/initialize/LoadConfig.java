@@ -26,7 +26,7 @@ public class LoadConfig {
 	private String indel1kgp;
 	private String snps1kgp;
 	private String dbsnp;
-	private String targetBED;
+//	private String targetBED;
 	private String hapmap;
 	private String omni;
 	
@@ -80,7 +80,7 @@ public class LoadConfig {
 				indel1kgp = prop.getProperty("indel1kgp");
 				snps1kgp = prop.getProperty("snp1kgp");
 				dbsnp = prop.getProperty("dbSNP");
-				targetBED = prop.getProperty("targetBed");
+//				targetBED = prop.getProperty("targetBed");
 				hapmap = prop.getProperty("hapmap");
 				omni = prop.getProperty("omni");
 				
@@ -158,14 +158,14 @@ public class LoadConfig {
 			public String getDbsnp() {
 				return dbsnp;
 			}
-
-			public String getTargetBED() {
-				return targetBED;
-			}
-
-			public void setTargetBED(String targetBED) {
-				this.targetBED = targetBED;
-			}
+//
+//			public String getTargetBED() {
+//				return targetBED;
+//			}
+//
+//			public void setTargetBED(String targetBED) {
+//				this.targetBED = targetBED;
+//			}
 
 			public String getHapmap() {
 				return hapmap;

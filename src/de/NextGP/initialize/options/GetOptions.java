@@ -8,6 +8,7 @@ import org.apache.commons.cli.PosixParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.NextGP.general.Log;
 import de.NextGP.initialize.LoadConfig;
 
 public class GetOptions {
@@ -28,6 +29,7 @@ public class GetOptions {
 	private String cpu;
 	private String mem;
 	private String xmx;
+	private String bedFile;
 	
 
 	// alignment variables
@@ -119,11 +121,9 @@ public class GetOptions {
 		
 		// set bed file as reference
 		if (cmd.hasOption("bedFile")) {
-			config.setTargetBED(cmd.getOptionValue("bedFile"));
+			bedFile = cmd.getOptionValue("bedFile");
+//			config.setTargetBED(cmd.getOptionValue("bedFile"));
 		}
-		
-		
-		
 		
 		//////// get alignment specific options
 		if (cmd.hasOption("fastqList")) {
@@ -236,6 +236,22 @@ public class GetOptions {
 
 	public boolean isCustom() {
 		return custom;
+	}
+
+	public static Logger getLogger() {
+		return logger;
+	}
+
+	public LoadConfig getConfig() {
+		return config;
+	}
+
+	public String getBedFile() {
+		if (bedFile == null || bedFile.isEmpty()){
+			Log.error(logger, "No bed file chosen. Use bedFile option.");
+			System.exit(3);
+		}
+		return bedFile;
 	}
 	
 	

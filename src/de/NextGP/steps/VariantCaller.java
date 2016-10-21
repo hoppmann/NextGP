@@ -76,7 +76,7 @@ public class VariantCaller {
 			cmd.add("-l INFO");
 			cmd.add("-R " + config.getHg19Fasta());
 			cmd.add("-D " + config.getDbsnp());
-			cmd.add("-L " + config.getTargetBED());
+			cmd.add("-L " + options.getBedFile());
 			cmd.add("-ERC GVCF");
 //			cmd.add("-variant_index_type LINEAR");
 //			cmd.add("-variant_index_parameter 128000");
