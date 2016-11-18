@@ -47,7 +47,6 @@ public class BWA {
 		this.combined = combined;
 		
 		
-		
 		// write log message
 		Log.logger(logger, "Preparing BWA");
 

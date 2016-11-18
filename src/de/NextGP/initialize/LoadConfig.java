@@ -26,7 +26,6 @@ public class LoadConfig {
 	private String indel1kgp;
 	private String snps1kgp;
 	private String dbsnp;
-//	private String targetBED;
 	private String hapmap;
 	private String omni;
 	
@@ -158,14 +157,6 @@ public class LoadConfig {
 			public String getDbsnp() {
 				return dbsnp;
 			}
-//
-//			public String getTargetBED() {
-//				return targetBED;
-//			}
-//
-//			public void setTargetBED(String targetBED) {
-//				this.targetBED = targetBED;
-//			}
 
 			public String getHapmap() {
 				return hapmap;

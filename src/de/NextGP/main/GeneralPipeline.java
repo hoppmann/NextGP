@@ -325,7 +325,7 @@ public class GeneralPipeline {
 	public void saveCommands() {
 
 		// save commands to slurm batch files
-		SlurmWriter slurm = new SlurmWriter(patients, combined);
+		SlurmWriter slurm = new SlurmWriter(patients, combined, options);
 		slurm.generateFiles();
 	}
 

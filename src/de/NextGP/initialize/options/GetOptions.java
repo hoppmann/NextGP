@@ -30,6 +30,7 @@ public class GetOptions {
 	private String mem;
 	private String xmx;
 	private String bedFile;
+	private String slurmDir = "slurm";
 	
 
 	// alignment variables
@@ -91,21 +92,6 @@ public class GetOptions {
 			System.exit(1);
 		}
 		
-		
-		
-		//////// general options
-		if (cmd.hasOption("help")) {
-			new SetOptions().callHelp();
-			System.exit(0);
-		}
-		
-		
-		// define out dir
-		if (cmd.hasOption("outDir")) {
-			outDir = cmd.getOptionValue("outDir");
-		}
-		
-		// set number of possible CPU per thread
 		if (cmd.hasOption("CPU")) {
 			cpu = cmd.getOptionValue("CPU");
 		} else {
@@ -122,8 +108,21 @@ public class GetOptions {
 		// set bed file as reference
 		if (cmd.hasOption("bedFile")) {
 			bedFile = cmd.getOptionValue("bedFile");
-//			config.setTargetBED(cmd.getOptionValue("bedFile"));
 		}
+		
+		
+		// set slurm output directory
+		if (cmd.hasOption("slurmDir")) {
+			slurmDir = cmd.getOptionValue("slurmDir");
+		} 
+
+		// set output directory for pipeline results
+		if (cmd.hasOption("outDir")) {
+			outDir = cmd.getOptionValue("outDir");
+		} 
+		
+		
+		
 		
 		//////// get alignment specific options
 		if (cmd.hasOption("fastqList")) {
@@ -133,6 +132,9 @@ public class GetOptions {
 		if (cmd.hasOption("bamList")) {
 			bamList = cmd.getOptionValue("bamList");
 		}
+
+		
+		
 		
 		
 		
@@ -252,6 +254,10 @@ public class GetOptions {
 			System.exit(3);
 		}
 		return bedFile;
+	}
+
+	public String getSlurmDir() {
+		return slurmDir;
 	}
 	
 	

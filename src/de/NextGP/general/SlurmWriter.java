@@ -9,6 +9,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.NextGP.initialize.options.GetOptions;
+
 public class SlurmWriter {
 	///////////////////////////
 	//////// variables ////////
@@ -16,7 +18,7 @@ public class SlurmWriter {
 	private Map<String, Patients> patients;
 	private static Logger logger = LoggerFactory.getLogger(SlurmWriter.class);
 	private String sep = File.separator;
-	private String slurmDir = "slurm";
+	private String slurmDir;
 	private String combFileOut;
 	private String masterScript;
 	private Combined combined;
@@ -26,10 +28,12 @@ public class SlurmWriter {
 	//////// constructor ////////
 	/////////////////////////////
 
-	public SlurmWriter(Map<String, Patients> patients, Combined combined) {
+	public SlurmWriter(Map<String, Patients> patients, Combined combined, GetOptions options) {
 
 		this.patients = patients;
 		this.combined = combined;
+		this.slurmDir = options.getSlurmDir();
+		
 		
 		// make log entry
 		logger.info("Writeing commands in batch files");
@@ -57,6 +61,9 @@ public class SlurmWriter {
 	//////// generate all files needed
 	
 	public void generateFiles() {
+		
+		
+		
 		try {
 			saveSinglePatCommands();
 			saveCombinedCommands();
@@ -194,57 +201,6 @@ public class SlurmWriter {
 		
 		
 	}
-
-
-
-
-	//	// save command collection corresponding to patient
-	//	private void saveCommand(){
-	//
-	//		//// prepare names for out files
-	//		String sep = File.separator;
-	//		String masterScript = slurmDir + sep + "01-master.sh";
-	//		String combFileOut = slurmDir + sep + "02-combinded.sh";
-	//
-	//		
-	//		// file to prepare wait command for execution of combined steps after
-	//		// single steps are done
-	//		String waitCommand = "\nsbatch -p genepi -d afterok"; 
-	//
-	//		
-	//		
-	//		
-	//		/////////////////////
-	//		//////// create batch file for combined tasks
-	//		Writer comb = new Writer();
-	//		comb.openWriter(combFileOut);
-	//
-	//		
-	//		// add first line to combined commands
-	//		comb.writeLine("#!/bin/bash");
-	//
-	//		
-	//		// write commands in master script needed for all together 
-	//		comb.writeCmd(combined.getGenotypeGVCF());
-	//
-	//		// hard filtering
-	//		comb.writeCmd(combined.getExtractSnpSet());
-	//		comb.writeCmd(combined.getExtractIndelSet());
-	//		comb.writeCmd(combined.getHardFiterSnpSet());
-	//		comb.writeCmd(combined.getHardFilterIndelSet());
-	//		comb.writeCmd(combined.getCombineVariants());
-	//		comb.writeCmd(combined.getRemoveFilteredReads());
-	//		comb.writeCmd(combined.getVarEval());
-	//		
-	//		// VEP annotation
-	//		comb.writeCmd(combined.getVtMaster());
-	//		comb.writeCmd(combined.getVepAnnotation());
-	//		
-	//		// load in gemini
-	//		comb.writeCmd(combined.getGeminiLoad());
-	//		
-	//		// close open writer
-	//		comb.close();
 
 
 

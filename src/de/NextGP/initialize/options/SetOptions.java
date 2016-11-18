@@ -47,10 +47,11 @@ public class SetOptions {
 		
 		// general options
 		opts.put(general, new OptionValue(options, "help", false, "\tCalls this help."));
-		opts.put(general, new OptionValue(options, "outDir", true, "Name of directory for output. (default = out"));
+		opts.put(general, new OptionValue(options, "outDir", true, "Name of directory for output. (default = out)"));
 		opts.put(general, new OptionValue(options, "CPU", true, "Number of CPU per thread (default:4)"));
 		opts.put(general, new OptionValue(options, "mem", true, "Amount of memory allowed per thread in Gb (default 10Gb)"));
 		opts.put(general, new OptionValue(options, "bedFile", true, "Path to bed file containing covered regions"));
+		opts.put(general, new OptionValue(options, "slurmDir", true, "Set directory slurm commands will be written to."));
 		
 		// alignment specific options
 		opts.put(alignment, new OptionValue(options, "fastqList", true, "List containing name of forward and backward read files."));
