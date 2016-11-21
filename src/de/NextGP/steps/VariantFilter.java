@@ -28,16 +28,15 @@ public class VariantFilter {
 	/////////////////////////////
 
 
-	public VariantFilter(GetOptions options, LoadConfig config, Combined combined, String callerName) {
+	public VariantFilter(GetOptions options, LoadConfig config, Combined combined) {
 
 		// retrieve variables
 		this.options = options;
 		this.config = config;
-//		this.combined = combined;
 		this.combined = combined;
 		
 		// make log entry
-		Log.logger(logger, "Preparing hard filtering " + callerName);
+		Log.logger(logger, "Preparing hard filtering ");
 
 
 

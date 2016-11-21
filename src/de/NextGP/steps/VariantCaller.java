@@ -178,6 +178,9 @@ public class VariantCaller {
 
 	// run platypus
 	public void runPlatypus() {
+		
+		// init object
+		VariantFilter filter = new VariantFilter(options, config, combined);
 
 
 		// run for each patient
@@ -220,7 +223,6 @@ public class VariantCaller {
 			output = outDir + sep + curPat + ".vcf";
 
 			// prepare command
-			VariantFilter filter = new VariantFilter(options, config, combined, caller);
 			cmd =  filter.removeFiltered(output, input);
 
 			// save command

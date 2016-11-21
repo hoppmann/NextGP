@@ -244,7 +244,7 @@ public class GeneralPipeline {
 		
 		////// run GATK Haplotype caller 
 		VariantCaller caller = new VariantCaller(options, config, patients, combined);
-		VariantFilter filter = new VariantFilter(options, config, combined, "gatk");
+		VariantFilter filter = new VariantFilter(options, config, combined);
 		
 		
 		// call variants using Haplotype caller
