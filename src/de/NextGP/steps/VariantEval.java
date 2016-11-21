@@ -7,9 +7,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.NextGP.general.Combined;
 import de.NextGP.general.Log;
-import de.NextGP.general.Patients;
+import de.NextGP.general.outfiles.Combined;
+import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -58,7 +58,7 @@ public class VariantEval {
 		String inputVCF = combined.getLastOutFile();
 		String sep = File.separator;
 		String outDir = options.getOutDir();
-		String output = outDir + sep + config.getVariantFiltering() + sep + "eval.xls";
+		String output = outDir + sep + config.getVariantCalling() +sep + "gatk" + sep + "filtered" + sep + "eval.xls";
 		
 		
 		

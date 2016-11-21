@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.NextGP.general.Log;
-import de.NextGP.general.Patients;
+import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -204,6 +204,7 @@ public class BQSR {
 		// save command
 		patients.get(curPat).setPrintReads(cmd);
 		patients.get(curPat).setLastOutFile(output);
+		patients.get(curPat).setBam(output);
 
 
 

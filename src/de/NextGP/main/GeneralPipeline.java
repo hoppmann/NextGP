@@ -10,10 +10,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.NextGP.general.Combined;
 import de.NextGP.general.Log;
-import de.NextGP.general.Patients;
 import de.NextGP.general.SlurmWriter;
+import de.NextGP.general.outfiles.Combined;
+import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.ReadInputFile;
 import de.NextGP.initialize.options.GetOptions;
@@ -26,7 +26,6 @@ import de.NextGP.steps.Gemini;
 import de.NextGP.steps.Realigner;
 import de.NextGP.steps.SamToBam;
 import de.NextGP.steps.VariantCaller;
-import de.NextGP.steps.VariantEval;
 import de.NextGP.steps.VariantFilter;
 
 
@@ -49,7 +48,7 @@ public class GeneralPipeline {
 
 	public GeneralPipeline (GetOptions options, LoadConfig config) {
 
-		// gather and inti variables
+		// gather and init variables
 		this.options = options;
 		this.config = config;
 		combined = new Combined();
@@ -182,8 +181,8 @@ public class GeneralPipeline {
 		new SamToBam(options, config, patients, combined);
 
 		//////// add read groups
-		new AddReaplaceReadgroups(config, options, patients, platform);
-
+		AddReaplaceReadgroups readgroups = new AddReaplaceReadgroups(config, options, patients);
+		readgroups.addReadgroups(platform);
 
 	}
 
@@ -241,26 +240,48 @@ public class GeneralPipeline {
 	///////////////
 	//////// run variant caller 
 
-	// GATK haplotype caller
-	public void gatkHapCaller() {
-		VariantCaller caller = new VariantCaller(options, config, patients);
+	public void panelVariantCalling() {
+		
+		////// run GATK Haplotype caller 
+		VariantCaller caller = new VariantCaller(options, config, patients, combined);
+		VariantFilter filter = new VariantFilter(options, config, combined, "gatk");
+		
+		
+		// call variants using Haplotype caller
 		caller.runHaplotypeCaller();
-		caller.runGenotypeGVCF(combined);
-	}
-
-
-	/////////////////
-	//////// hard filtering
-
-	public void hardFilter() {
-		VariantFilter filter = new VariantFilter(options, config, combined);
+		caller.runGenotypeGVCF();
+		
+		// filter variants called by Haplotype caller
 		filter.hardFiltering();
 
-		new VariantEval(options, config, combined, patients);
-
+		// call variants using samtools
+		caller.runMpileup();
+		
+		// call variants using platypus
+		caller.runPlatypus();
+		
+		// call variants using freebayes
+		caller.runFreebayes();
+		
+		// extract individuals for later consensus calling
+		caller.extractInd();
+		
+		// rename sample name to the caller name
+		caller.renameSampleNames();
+		
+		// merge variants
+		caller.mergeDifCallerVariants();
+		
+		// get consensus call
+		caller.runConsensus();
+		
+		// merge all samples
+		caller.mergeConsensusVariants();
+		
+		
+		
 	}
-
-
+	
 	//////////////////
 	//////// annotate Variants
 
@@ -272,7 +293,7 @@ public class GeneralPipeline {
 
 			// get general vcf-file prior steps are scipped
 			String sep = File.separator;
-			vcfFile = options.getOutDir() + sep + config.getVariantFiltering() + sep + "combined_filtered.recode.vcf";
+			vcfFile = options.getOutDir() + sep + config.getVariantCalling() + sep + "consensus.vcf";
 		}
 
 
@@ -333,162 +354,6 @@ public class GeneralPipeline {
 
 
 
-	//	// load in gemini
-	//	private void gemini(){
-	//		// initialize and gather variables
-	//		String vcfFile = combined.getLastOutFile();
-	//		ArrayList<String> cmd = new ArrayList<>();
-	//		cmd = new Gemini(options, config, patients, combined).load(vcfFile);
-	//		combined.setGeminiLoad(cmd);
-	//	}
-	//	
-	//	
-	//	
-	//	
-	//	
-	//	
-	//
-	//	// save command collection corresponding to patient
-	//	private void saveCommand(){
-	//
-	//		// create directory for master dir 
-	//		String slurmDir = "slurm";
-	//		new File(slurmDir).mkdirs();
-	//				
-	//		//// prepare names for out files
-	//		String sep = File.separator;
-	//		String masterScript = slurmDir + sep + "01-master.sh";
-	//		String combFileOut = slurmDir + sep + "02-combinded.sh";
-	//
-	//		
-	//		/////////////
-	//		//////// create master script
-	//		Writer master = new Writer();
-	//		master.openWriter(masterScript);
-	//		
-	//		// create header in master script
-	//		master.writeLine("#!/bin/bash");
-	//				
-	//
-	//		// create folders
-	//		for (String dir : combined.getMkDirs()) {
-	//			master.writeLine(dir);
-	//		}
-	//		
-	//		// file to prepare wait command for execution of combined steps after
-	//		// single steps are done
-	//		String waitCommand = "\nsbatch -p genepi -d afterok"; 
-	//
-	//		
-	//		
-	//		///////////////////
-	//		//////// create batch file for each patients 
-	//		// for each patient create batch file containing patient specific commands
-	//		for (String curPat : patients.keySet()){
-	//			
-	//			String outFile = slurmDir + sep + curPat + ".sh";
-	//			Writer batch = new Writer();
-	//			batch.openWriter(outFile);
-	//
-	//			
-	//			// write bash execution in master file and prepare wait command
-	//			String curPatVar = "Pat_" + curPat;
-	//			master.writeLine(curPatVar + "=$(sbatch -p genepi " + outFile + ")");
-	//			master.writeLine( curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
-	//			
-	//			waitCommand += ":$" + curPatVar;
-	//			
-	//			// write first lien of bash file
-	//			batch.writeLine("#!/bin/bash");
-	//			
-	//			// write directives in batch files
-	//			batch.writeLine("#SBATCH --cpus-per-task=" + options.getCpu());
-	//
-	//			
-	//			// alignment
-	//			batch.writeCmd(patients.get(curPat).getBwa());
-	//			batch.writeCmd(patients.get(curPat).getSamToBam());
-	//			batch.writeCmd(patients.get(curPat).getAddOrReplaceReadgroups());
-	//
-	//			// indel realign
-	//			batch.writeCmd(patients.get(curPat).getRealignmentTargetCreator());
-	//			batch.writeCmd(patients.get(curPat).getIndelRealigner());
-	//			
-	//			// BQSR
-	//			batch.writeCmd(patients.get(curPat).getBaseRecalibration_pre());
-	//			batch.writeCmd(patients.get(curPat).getBaseRecalibration_post());
-	//			batch.writeCmd(patients.get(curPat).getAnalyzeCovariates());
-	//			batch.writeCmd(patients.get(curPat).getPrintReads());
-	//			
-	//			// metrices
-	//			batch.writeCmd(patients.get(curPat).getStatsMeanDepth());
-	//			batch.writeCmd(patients.get(curPat).getStatsAsMetric());
-	//			batch.writeCmd(patients.get(curPat).getStatsGCBMetric());
-	//			batch.writeCmd(patients.get(curPat).getStatsISMetric());
-	//			batch.writeCmd(patients.get(curPat).getStatsCoverage());
-	//			
-	//			// variant calling
-	//			batch.writeCmd(patients.get(curPat).getHaplotypeCaller());
-	//			
-	//			// close writer
-	//			batch.close();
-	//		}
-	//		
-	//		
-	//		
-	//		///////////////////
-	//		//////// finish master batch
-	//		// write wait command in master file
-	//		master.writeLine(waitCommand + " " + combFileOut);
-	//		
-	//		// close master file
-	//		master.close();
-	//
-	//		
-	//		
-	//		
-	//		
-	//		
-	//		
-	//		/////////////////////
-	//		//////// create batch file for combined tasks
-	//		Writer comb = new Writer();
-	//		comb.openWriter(combFileOut);
-	//
-	//		
-	//		// add first line to combined commands
-	//		comb.writeLine("#!/bin/bash");
-	//
-	//		
-	//		// write commands in master script needed for all together 
-	//		comb.writeCmd(combined.getGenotypeGVCF());
-	//
-	//		// hard filtering
-	//		comb.writeCmd(combined.getExtractSnpSet());
-	//		comb.writeCmd(combined.getExtractIndelSet());
-	//		comb.writeCmd(combined.getHardFiterSnpSet());
-	//		comb.writeCmd(combined.getHardFilterIndelSet());
-	//		comb.writeCmd(combined.getCombineVariants());
-	//		comb.writeCmd(combined.getRemoveFilteredReads());
-	//		comb.writeCmd(combined.getVarEval());
-	//		
-	//		// VEP annotation
-	//		comb.writeCmd(combined.getVtMaster());
-	//		comb.writeCmd(combined.getVepAnnotation());
-	//		
-	//		// load in gemini
-	//		comb.writeCmd(combined.getGeminiLoad());
-	//		
-	//		// close open writer
-	//		comb.close();
-	//
-	//	}
-	//
-	//	
-	//	
-	//	
-	//		
-	//	}
 
 
 

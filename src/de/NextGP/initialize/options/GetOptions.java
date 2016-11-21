@@ -30,7 +30,8 @@ public class GetOptions {
 	private String mem;
 	private String xmx;
 	private String bedFile;
-	private String slurmDir = "slurm";
+	private String slurmDir = "pipeline";
+	private int minConsCall = 2;
 	
 
 	// alignment variables
@@ -121,7 +122,10 @@ public class GetOptions {
 			outDir = cmd.getOptionValue("outDir");
 		} 
 		
-		
+		// set number of min consensus calls
+		if (cmd.hasOption("consensus")) {
+			minConsCall = Integer.parseInt(cmd.getOptionValue("consensus"));
+		}
 		
 		
 		//////// get alignment specific options
@@ -258,6 +262,10 @@ public class GetOptions {
 
 	public String getSlurmDir() {
 		return slurmDir;
+	}
+
+	public int getMinConsCall() {
+		return minConsCall;
 	}
 	
 	

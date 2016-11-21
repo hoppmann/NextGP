@@ -3,8 +3,8 @@ package de.NextGP.main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.NextGP.general.Combined;
 import de.NextGP.general.Log;
+import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -55,10 +55,10 @@ public class IlluminaPanel {
 		pipeline.metrices();
 
 		// 06 Variant calling
-		pipeline.gatkHapCaller();
+		pipeline.panelVariantCalling();
 
 		// 07 Variant Filtering
-		pipeline.hardFilter();
+//		pipeline.hardFilter();
 		
 		// 09 annotate
 		pipeline.annotate();

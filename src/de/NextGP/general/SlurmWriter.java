@@ -9,6 +9,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.NextGP.general.outfiles.Combined;
+import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.options.GetOptions;
 
 public class SlurmWriter {
@@ -20,6 +22,7 @@ public class SlurmWriter {
 	private String sep = File.separator;
 	private String slurmDir;
 	private String combFileOut;
+	private String combGenoOut;
 	private String masterScript;
 	private Combined combined;
 
@@ -33,17 +36,19 @@ public class SlurmWriter {
 		this.patients = patients;
 		this.combined = combined;
 		this.slurmDir = options.getSlurmDir();
-		
-		
+
 		// make log entry
 		logger.info("Writeing commands in batch files");
 
 		// create directory for saving slurm scripts
 		new File(slurmDir).mkdirs();
-		
+
 		// gather general variables
 		masterScript = slurmDir + sep + "01-master.sh";
-		combFileOut = slurmDir + sep + "combinded.sh";
+		combFileOut = slurmDir + sep + "combined.sh";
+		combGenoOut = slurmDir + sep + "gatkGenotyping.sh";
+
+
 
 	}
 
@@ -55,34 +60,35 @@ public class SlurmWriter {
 	//////// methods ////////
 	/////////////////////////
 
-	
-	
+
+
 	////////////////////////
 	//////// generate all files needed
-	
+
 	public void generateFiles() {
-		
-		
-		
+
+
+
 		try {
 			saveSinglePatCommands();
 			saveCombinedCommands();
 			saveMasterScript();
+			savecombinedGenotyping();
+			saveSecondaryCommands();
 
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	///////////////////////
 	//////// for each patient save prepared commands in slurm file
 	@SuppressWarnings("unchecked")
 	public void saveSinglePatCommands() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
 
-		//		LinkedList<Method> list = new LinkedList<>();
 		for (String curPat : patients.keySet()) {
 
 			Patients curPatObject = patients.get(curPat);
@@ -100,7 +106,7 @@ public class SlurmWriter {
 
 
 			//////// for each command created write in batch file
-			for (Method getCurCmd : curPatObject.getCommands()) {
+			for (Method getCurCmd : curPatObject.getPrimaryCommands()) {
 
 				// retrieve command
 				Object returnValue = getCurCmd.invoke(curPatObject);
@@ -121,6 +127,93 @@ public class SlurmWriter {
 
 
 
+	///////////////////
+	//////// prepare patient file post gatk calling
+
+	@SuppressWarnings("unchecked")
+	public void saveSecondaryCommands() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+		for (String curPat : patients.keySet()) {
+
+			Patients curPatObject = patients.get(curPat);
+
+			// create batch file to write commands in
+			// prepare writer
+			String outFile = slurmDir + sep + curPat + "-secondary.sh";
+			Writer secondary = new Writer();
+			secondary.openWriter(outFile);
+
+			// Write first/genral lines of batch file
+			secondary.writeLine("#!/bin/bash");
+			secondary.writeLine("#SBATCH --cpus-per-task=4");
+
+			//////// foreach command created write in batch file
+			for (Method getCurCommand : curPatObject.getSecondaryCommands()){
+
+				// retrieve command
+				Object returnValue = getCurCommand.invoke(curPatObject);
+				ArrayList<String> cmd = (ArrayList<String>) returnValue;
+
+				// write in file
+				secondary.writeCmd(cmd);
+
+			}
+
+			// close writer
+			secondary.close();
+
+		}
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+	///////////////////////
+	//////// save command from combined genotyping 
+	@SuppressWarnings("unchecked")
+	public void savecombinedGenotyping() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+		// create File
+		Writer combGeno = new Writer();
+		combGeno.openWriter(combGenoOut);
+
+
+		// add first line to file
+		combGeno.writeLine("#!/bin/bash");
+		combGeno.writeLine("#SBATCH --cpus-per-task=4");
+
+
+		// for each entered command save in combined file
+		for (Method getCmd : combined.getGenotypeCommands()) {
+
+
+			ArrayList<String> cmd = (ArrayList<String>) getCmd.invoke(combined);
+			combGeno.writeCmd(cmd);
+
+		}
+
+		combGeno.close();
+
+	}
+
+
+
+
+
+
+
+
+
+
+
 	//////////////////
 	//////// save commands to be run on combined file
 
@@ -136,10 +229,10 @@ public class SlurmWriter {
 
 		// for each entered command save in combined file
 		for (Method getCmd : combined.getCommands()) {
-			
+
 			ArrayList<String> cmd = (ArrayList<String>) getCmd.invoke(combined);
 			comb.writeCmd(cmd);
-			
+
 		}
 
 
@@ -159,24 +252,30 @@ public class SlurmWriter {
 		master.openWriter(masterScript);
 
 
+		///////////////////////////////
+		//////// Pre consensus //////// 
+		///////////////////////////////
+
+
 		// enter first line 
 		master.writeLine("#!/bin/bash");
 
 
 		// enter command to create folder
 		for (String mkdirCmd : combined.getMkDirs()){
-			master.writeLine(mkdirCmd);
+			master.writeLine("mkdir -p " + mkdirCmd);
 		}
-
+		
+		// enter empty line for better visibility
+		master.writeLine("");
 
 		// prepare wait command for execution of combined steps after
 		// single steps are done
-		String waitCommand = "\nsbatch -p genepi -d afterok";
+		String waitCombinedGenotypePrep ="";
 
-
-
+		
+		// single patient files
 		// for each patient get write sbatch command and add to wait command
-
 		for (String curPat : patients.keySet()) {
 
 			// prepare variables
@@ -186,20 +285,64 @@ public class SlurmWriter {
 			String curPatVar = "Pat_" + curPat;
 			master.writeLine(curPatVar + "=$(sbatch -p genepi " + outFile + ")");
 			master.writeLine( curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
-			waitCommand += ":$" + curPatVar;
+			waitCombinedGenotypePrep += ":$" + curPatVar;
 
 		}
 
+		
+		
+		
+		// create slurm command for the combined genotyping step
+		String waitCombinedGenotype = "\ncomb=$(sbatch -p genepi -d afterok" + waitCombinedGenotypePrep + " " + combGenoOut + ")";
 
-		///////////////////
-		//////// finish master batch
 		// write wait command in master file
-		master.writeLine(waitCommand + " " + combFileOut);
+		master.writeLine(waitCombinedGenotype);
+		master.writeLine("comb=$(echo $comb | sed 's/Submitted batch job //')");
+
+
+
+
+
+
+
+
+		////////////////////////////////
+		//////// post consensus ////////
+		////////////////////////////////
+
+		// add emtpy lines for better visibility
+		master.writeLine("\n");
+		
+
+		// prepare wait command for second combined steps
+		String waitPostCombinedGenotype ="\nsbatch -p genepi -d afterok";
+
+
+		for (String curPat : patients.keySet()) {
+
+			// prepare name of patient file and other variables
+			String outFile = slurmDir + sep + curPat + "-secondary.sh";
+			String curPatVar = "Pat2_" + curPat;
+
+			// write bash execution in master file and prepare wair command
+			master.writeLine(curPatVar + "=$(sbatch -p genepi -d afterok:$comb " + outFile + ")");
+			master.writeLine(curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
+			waitPostCombinedGenotype += ":$" + curPatVar;
+
+		}
+
+		// write wait command in master file
+		master.writeLine(waitPostCombinedGenotype + " " + combFileOut);
+
+		
+
+
+
 
 		// close master file
 		master.close();
-		
-		
+
+
 	}
 
 

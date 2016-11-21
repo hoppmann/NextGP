@@ -19,6 +19,11 @@ public class LoadConfig {
 	private String snpEff;
 	private String tabix;
 	private String bgzip;
+	private String bcftools;
+	private String platypus;
+	private String freebayes;
+	private String vcfFilter;
+	private String consensus;
 	
 	// references
 	private String hg19Fasta;
@@ -39,7 +44,6 @@ public class LoadConfig {
 	private String baseReacalibration;
 	private String metrices;
 	private String variantCalling;
-	private String variantFiltering;
 	private String extractInd;
 	private String annotation;
 	private String database;
@@ -72,6 +76,11 @@ public class LoadConfig {
 				gatk = prop.getProperty("gatk");
 				tabix = prop.getProperty("tabix");
 				bgzip = prop.getProperty("bgzip");
+				bcftools = prop.getProperty("bcftools");
+				platypus = prop.getProperty("platypus");
+				freebayes = prop.getProperty("freebayes");
+				vcfFilter = prop.getProperty("vcfFilter");
+				consensus = prop.getProperty("consensus");
 				
 				// read in reference directory names
 				hg19Fasta = prop.getProperty("hg19Fasta");
@@ -79,7 +88,6 @@ public class LoadConfig {
 				indel1kgp = prop.getProperty("indel1kgp");
 				snps1kgp = prop.getProperty("snp1kgp");
 				dbsnp = prop.getProperty("dbSNP");
-//				targetBED = prop.getProperty("targetBed");
 				hapmap = prop.getProperty("hapmap");
 				omni = prop.getProperty("omni");
 				
@@ -92,7 +100,6 @@ public class LoadConfig {
 				baseReacalibration = prop.getProperty("baseReacalibration");
 				metrices = prop.getProperty("matrices");
 				variantCalling = prop.getProperty("variantCalling");
-				variantFiltering = prop.getProperty("variantFiltering");
 				extractInd = prop.getProperty("extractInd");
 				annotation = prop.getProperty("annotation");
 				database = prop.getProperty("database");
@@ -198,10 +205,6 @@ public class LoadConfig {
 				return variantCalling;
 			}
 
-			public String getVariantFiltering() {
-				return variantFiltering;
-			}
-
 			public String getExtractInd() {
 				return extractInd;
 			}
@@ -224,6 +227,26 @@ public class LoadConfig {
 
 			public String getBgzip() {
 				return bgzip;
+			}
+
+			public String getBcftools() {
+				return bcftools;
+			}
+
+			public String getPlatypus() {
+				return platypus;
+			}
+
+			public String getFreebayes() {
+				return freebayes;
+			}
+
+			public String getVcfFilter() {
+				return vcfFilter;
+			}
+
+			public String getConsensus() {
+				return consensus;
 			}
 			
 			

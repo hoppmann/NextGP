@@ -3,8 +3,8 @@ package de.NextGP.main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.NextGP.general.Combined;
 import de.NextGP.general.Log;
+import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -54,7 +54,7 @@ public class BamExon {
 		pipeline.hardFilter();
 
 		// 09 annotate
-		pipeline.annotate();
+//		pipeline.annotate();
 
 		// 10  gemini
 		pipeline.loadInGemini();

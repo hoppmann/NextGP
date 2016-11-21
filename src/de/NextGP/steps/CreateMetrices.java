@@ -7,9 +7,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.NextGP.general.Combined;
 import de.NextGP.general.Log;
-import de.NextGP.general.Patients;
+import de.NextGP.general.outfiles.Combined;
+import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -61,7 +61,7 @@ public class CreateMetrices {
 		for (String curPat : patients.keySet()) {
 			String sep = File.separator;
 			String outDir = options.getOutDir() + sep + config.getMetrices();
-			String cmd = "mkdir -p " + outDir + sep + curPat;
+			String cmd = outDir + sep + curPat;
 			combined.mkdir(cmd); 
 		}
 	}

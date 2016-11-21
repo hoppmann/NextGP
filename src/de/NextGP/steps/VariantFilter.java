@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.NextGP.general.Combined;
 import de.NextGP.general.Log;
+import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -28,15 +28,16 @@ public class VariantFilter {
 	/////////////////////////////
 
 
-	public VariantFilter(GetOptions options, LoadConfig config, Combined combined) {
+	public VariantFilter(GetOptions options, LoadConfig config, Combined combined, String callerName) {
 
 		// retrieve variables
 		this.options = options;
 		this.config = config;
+//		this.combined = combined;
 		this.combined = combined;
-
+		
 		// make log entry
-		Log.logger(logger, "Preparing hard filtering");
+		Log.logger(logger, "Preparing hard filtering " + callerName);
 
 
 
@@ -57,11 +58,11 @@ public class VariantFilter {
 		// initialize and gather variables
 		ArrayList<String> cmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getOutDir() + sep + config.getVariantFiltering();
+		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "filtered";
 		String subDir = "SNPs";
 		String outFileSnpSet = outDir + sep + subDir + sep + "raw_snps.vcf";
 		String logExtractSnpSet = outDir + sep + subDir + sep + "raw_snps.log";
-		String input = combined.getLastOutFile();
+		String input = combined.getCombinedVcfFile();
 		if (input == null || input.isEmpty()) {
 			input = options.getOutDir() + sep + config.getVariantCalling() + sep + "combined.raw.vcf";
 		}
@@ -168,6 +169,7 @@ public class VariantFilter {
 
 
 		// save command
+		
 		combined.setHardFilterIndelSet(cmd);
 
 
@@ -200,26 +202,39 @@ public class VariantFilter {
 		
 		
 		
-		
-		//////// remove filtered reads
-		// initialize and gather variables
-		cmd = new ArrayList<>();
+		//	remove filtered reads
 		String outFileFiltered = outDir + sep + "combined_filtered";
-		
-		// prepare command
-		cmd.add(config.getVcfTools());
-		cmd.add("--vcf " + outFileCombined);
-		cmd.add("--remove-filtered-all");
-		cmd.add("--recode");
-		cmd.add("--out " + outFileFiltered);
-		
+		cmd = removeFiltered(outFileFiltered, input);
 		
 		// store command
+		combined.setCombinedVcfFile(outFileFiltered + ".recode.vcf");
 		combined.setRemoveFilteredReads(cmd);
-		combined.setLastOutFile(outFileFiltered + ".recode.vcf");
+		
 	}
 
 
+	// remove filtered reads
+	
+	public ArrayList<String> removeFiltered(String output, String input) {
+
+		
+		////////remove filtered reads
+		// initialize and gather variables
+		ArrayList<String> cmd = new ArrayList<>();
+		
+		// prepare command
+		cmd.add(config.getVcfTools());
+		cmd.add("--vcf " + input);
+		cmd.add("--remove-filtered-all");
+		cmd.add("--recode");
+		cmd.add("--out " + output);
+		
+		
+		// store command
+		return cmd;
+	}
+	
+	
 
 	// run VQSR on called variants (WES)
 	public void vqsr() {
