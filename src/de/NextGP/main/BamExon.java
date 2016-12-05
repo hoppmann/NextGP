@@ -47,14 +47,11 @@ public class BamExon {
 		// 05 create metrics
 		pipeline.metrices();
 
-		// 06 Variant calling
-		pipeline.gatkHapCaller();
-
-		// 07 Variant Filtering
-		pipeline.hardFilter();
-
+		// 06 variant calling using hard filtering
+		pipeline.panelVariantCalling();
+		
 		// 09 annotate
-//		pipeline.annotate();
+		pipeline.annotate();
 
 		// 10  gemini
 		pipeline.loadInGemini();

@@ -54,14 +54,13 @@ public class IonTorrentExome {
 		// step 04 create metrics
 		pipeline.metrices();
 		
-		// step 05 prepare variant calling
-		pipeline.gatkHapCaller();
-		
-		// step 06 Variant hard filtering
-		pipeline.hardFilter();
+		// step 05 variant calling
+		// TODO 
+		// implementation of VQSR instead of hard filtering
+		pipeline.panelVariantCalling();
 		
 		// step 07 annotate variants
-//		pipeline.annotate();
+		pipeline.annotate();
 		
 		// step 08 add to gemini database
 		pipeline.loadInGemini();

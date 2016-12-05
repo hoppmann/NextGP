@@ -39,11 +39,16 @@ public class Patients {
 	private ArrayList<String> statsISMetric;
 	private ArrayList<String> statsCoverage;
 	private ArrayList<String> haplotypeCaller;
+	private ArrayList<String> extractInd;
+	private ArrayList<String> sortHaploCaller;
 	private ArrayList<String> mpileup;
+	private ArrayList<String> sortMpileup;
 	private ArrayList<String> bgzipSamtools;
 	private ArrayList<String> platypus;
+	private ArrayList<String> sortPlatypus;
 	private ArrayList<String> filterPlatypus;
 	private ArrayList<String> freebayes;
+	private ArrayList<String> sortFreebayes;
 	
 	
 	////////////////////////
@@ -55,8 +60,6 @@ public class Patients {
 
 	
 	//////// commands
-	
-	private ArrayList<String> extractInd;
 	private ArrayList<String> sampleNameModSamtools;
 	private ArrayList<String> sampleNameModPlatypus;
 	private ArrayList<String> sampleNameModGATK;
@@ -144,11 +147,8 @@ public class Patients {
 	}
 
 	
-	
 	///////////
 	//////// Commands
-	
-	
 
 
 	public ArrayList<String> getBwa() {
@@ -376,6 +376,7 @@ public class Patients {
 	}
 	
 	
+	
 	public ArrayList<String> getMpileup() {
 		return mpileup;
 	}
@@ -451,8 +452,49 @@ public class Patients {
 
 	
 	
+	public ArrayList<String> getSortMpileup() {
+		return sortMpileup;
+	}
+
+	public void setSortMpileup(ArrayList<String> sortMpileup) {
+		this.sortMpileup = sortMpileup;
+		try {
+			primaryCommands.add(Patients.class.getMethod("getSortMpileup"));
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	
+	public ArrayList<String> getSortPlatypus() {
+		return sortPlatypus;
+	}
+
+	public void setSortPlatypus(ArrayList<String> sortPlatypus) {
+		this.sortPlatypus = sortPlatypus;
+		try {
+			primaryCommands.add(Patients.class.getMethod("getSortPlatypus"));
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	
+	public ArrayList<String> getSortFreebayes() {
+		return sortFreebayes;
+	}
+
+	public void setSortFreebayes(ArrayList<String> sortFreebayes) {
+		this.sortFreebayes = sortFreebayes;
+		try {
+			primaryCommands.add(Patients.class.getMethod("getSortFreebayes"));
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	//////// post combined steps ////////
 	
@@ -469,8 +511,22 @@ public class Patients {
 			e.printStackTrace();
 		}
 	}
-
 	
+	
+	
+	public ArrayList<String> getSortHaploCaller() {
+		return sortHaploCaller;
+	}
+
+	public void setSortHaploCaller(ArrayList<String> sortHaploCaller) {
+		this.sortHaploCaller = sortHaploCaller;
+		try {
+			secondaryCommands.add(Patients.class.getMethod("getSortHaploCaller"));
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	
 	public ArrayList<String> getSampleNameModSamtools() {

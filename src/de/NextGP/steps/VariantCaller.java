@@ -168,7 +168,19 @@ public class VariantCaller {
 
 			// save command 
 			patients.get(curPat).setMpileup(cmd);
-			patients.get(curPat).setVcfFiles("samtools", output);
+			
+			
+			// sort VCF file to get rid of contig order error
+			String fileIn = output;
+			String fileOut = outDir + sep + curPat + "-sorted.vcf";
+			String bamFile = patients.get(curPat).getBam();
+
+			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
+			
+			
+			// save command
+			patients.get(curPat).setSortMpileup(sortCmd);
+			patients.get(curPat).setVcfFiles("samtools", fileOut);
 			combined.mkdir(outDir );
 
 
@@ -178,7 +190,7 @@ public class VariantCaller {
 
 	// run platypus
 	public void runPlatypus() {
-		
+
 		// init object
 		VariantFilter filter = new VariantFilter(options, config, combined);
 
@@ -210,7 +222,6 @@ public class VariantCaller {
 
 
 			// save command
-
 			patients.get(curPat).setPlatypus(cmd);
 			combined.mkdir(outDir);
 
@@ -223,12 +234,23 @@ public class VariantCaller {
 			output = outDir + sep + curPat + ".vcf";
 
 			// prepare command
-			cmd =  filter.removeFiltered(output, input);
+			ArrayList<String> filterCmd =  filter.removeFiltered(output, input);
 
 			// save command
 			combined.mkdir(outDir);
-			patients.get(curPat).setFilterPlatypus(cmd);
-			patients.get(curPat).setVcfFiles(caller, output + ".recode.vcf");
+			patients.get(curPat).setFilterPlatypus(filterCmd);
+			
+			
+			// sort VCF file to get rid of contig order error
+			String fileIn = output + ".recode.vcf";
+			String fileOut = output + "-sorted.vcf";
+			String bamFile = patients.get(curPat).getBam();
+
+			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
+
+			// save command
+			patients.get(curPat).setSortPlatypus(sortCmd);
+			patients.get(curPat).setVcfFiles(caller, fileOut);
 
 		}
 	}
@@ -247,7 +269,7 @@ public class VariantCaller {
 			String caller = "freebayes";
 			String sep = File.separator;
 			String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + caller;
-			String output = outDir + sep + curPat + ".vcf";
+			String output = outDir + sep + curPat + "-presorted.vcf";
 			String input = patients.get(curPat).getBam();
 
 
@@ -262,10 +284,21 @@ public class VariantCaller {
 			cmd.add("> " + output);
 
 
+			// sort VCF file to get rid of contig order error
+			String fileIn = output;
+			String fileOut = outDir + sep + curPat + "-sorted.vcf";
+			String bamFile = patients.get(curPat).getBam();
+			
+			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
+			
+			
+			
+			
 
 			// save commands
 			patients.get(curPat).setFreebayes(cmd);
-			patients.get(curPat).setVcfFiles(caller, output);
+			patients.get(curPat).setSortFreebayes(sortCmd);
+			patients.get(curPat).setVcfFiles(caller, fileOut);
 			combined.mkdir(outDir );
 
 
@@ -294,9 +327,17 @@ public class VariantCaller {
 			cmd.add("--out " + outFile);
 
 
-			// store command
+			// sort VCF file to get rid of contig order error
+			String fileIn = outFile + ".recode.vcf";
+			String fileOut = outFile + "-sorted.vcf";
+			String bamFile = patients.get(curPat).getBam();
+			
+			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
+			
+			// store commands
 			patients.get(curPat).setExtractInd(cmd);
-			patients.get(curPat).setVcfFiles(caller, outFile + ".recode.vcf");
+			patients.get(curPat).setSortHaploCaller(sortCmd);
+			patients.get(curPat).setVcfFiles(caller, fileOut);
 
 
 		}
@@ -438,6 +479,26 @@ public class VariantCaller {
 	}
 
 
+	// sort vcf-file
+	public ArrayList<String> sortVcf(String curPat, String fileIn, String fileOut, String bamFile) {
+
+		// gater and initialize variables
+		ArrayList<String> cmd = new ArrayList<>();
+
+		
+		// prepare command
+		cmd.add(config.getJava());
+		cmd.add("-jar " + config.getPicard());
+		cmd.add("SortVcf");
+		cmd.add("I=" + fileIn);
+		cmd.add("O=" + fileOut);
+		cmd.add("SEQUENCE_DICTIONARY=" + bamFile);
+
+		
+		// return ready command
+		return cmd;
+
+	}
 
 
 
