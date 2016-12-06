@@ -404,6 +404,7 @@ public class VariantCaller {
 
 			cmd.add("-genotypeMergeOptions Unsorted");
 			cmd.add("-o " + output);
+			cmd.add("-U ALLOW_SEQ_DICT_INCOMPATIBILITY");
 
 
 			// store commands
