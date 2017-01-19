@@ -36,7 +36,12 @@ public class Main {
 		
 		// run IonTorrentExon
 		if (options.isIonExon()){
-			new IonTorrentExome(options, config);
+			new IonTorrent(options, config).runExon();;
+		}
+		
+		// run IonTorrentPanel
+		if (options.isIonPanel()){
+			new IonTorrent(options, config).runPanel();
 		}
 
 		// run exonBam

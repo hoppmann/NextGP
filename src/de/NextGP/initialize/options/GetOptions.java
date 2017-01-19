@@ -42,6 +42,7 @@ public class GetOptions {
 	private boolean bwa;
 	private boolean illuminaPanel;
 	private boolean ionExon;
+	private boolean ionPanel;
 	private boolean bamExon;
 	private String customPipeline;
 	private boolean custom;
@@ -165,6 +166,9 @@ public class GetOptions {
 			custom = true;
 		}
 		
+		if (cmd.hasOption("ionPanel")) {
+			ionPanel = true;
+		}
 		
 	}
 
@@ -266,6 +270,10 @@ public class GetOptions {
 
 	public int getMinConsCall() {
 		return minConsCall;
+	}
+
+	public boolean isIonPanel() {
+		return ionPanel;
 	}
 	
 	

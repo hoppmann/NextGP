@@ -2,10 +2,7 @@ package de.NextGP.steps;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-
-import javax.print.DocFlavor.STRING;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,12 +88,12 @@ public class AddReaplaceReadgroups {
 
 	}
 
-
+	
 	// modify sample name
 	public ArrayList<String> replaceSampleName(String newName, String curPat){
 
 		// prepare return map
-		Map<String, ArrayList<String>> allCmd = new HashMap<>();
+//		Map<String, ArrayList<String>> allCmd = new HashMap<>();
 		
 			
 			// init and prepare variables

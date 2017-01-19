@@ -11,7 +11,7 @@ import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
-public class IonTorrentExome {
+public class IonTorrent {
 
 	//////////////
 	//// Variables
@@ -21,21 +21,31 @@ public class IonTorrentExome {
 	Combined combined;
 	GeneralPipeline pipeline;
 
-	private static Logger logger = LoggerFactory.getLogger(IonTorrentExome.class);
+	private static Logger logger = LoggerFactory.getLogger(IonTorrent.class);
 
 
 	// run pipeline corresponding to an Illumina Panel
 
-	public IonTorrentExome(GetOptions options, LoadConfig config) {
+	public IonTorrent(GetOptions options, LoadConfig config) {
 
 		//prepare and initialize variables
 		this.options = options;
 		this.config = config;
 		combined = new Combined();
 
+
+
+	}
+
+
+	/////////////////////////
+	//////// Methods ////////
+	/////////////////////////
+
+	public void runExon() {
 		// init class to adress pipeline parts
 		pipeline = new GeneralPipeline(options, config);
-		
+
 		// make log entry for starting IonProton pipeline
 		Log.logger(logger, "Preparing IonProton batch files.");
 
@@ -44,28 +54,73 @@ public class IonTorrentExome {
 
 		// step 01 align reads
 		pipeline.align("ionTorrent");
-		
+
 		// step 02 prepare indel realignment
 		pipeline.indelRealigner();
-		
+
 		// step 03 prepare BQSR
 		pipeline.bqsr();
-		
+
 		// step 04 create metrics
 		pipeline.metrices();
-		
+
 		// step 05 variant calling
 		// TODO 
 		// implementation of VQSR instead of hard filtering
 		pipeline.panelVariantCalling();
-		
+
 		// step 07 annotate variants
 		pipeline.annotate();
-		
+
 		// step 08 add to gemini database
 		pipeline.loadInGemini();
+
+
+		// save commands
+		pipeline.saveCommands();
+
+	}
+	
+	
+	
+	public void runPanel() {
 		
+		// init class to address pipeline parts
+		pipeline = new GeneralPipeline(options, config);
 		
+		// make log entry for starting IonPanel pipeline
+		Log.logger(logger, "Preparing IonPanel pipeline files");
+		
+		// read input file
+		pipeline.readFastqList();
+
+		// check if input is given
+		pipeline.checkPatMap();
+		
+		// 01 align reads 
+		pipeline.align("IonTorrent");
+		
+		// 03 realign
+		pipeline.indelRealigner();
+
+		// 04 BQSR
+		pipeline.bqsr();
+
+		// 05 create metrics
+		pipeline.metrices();
+
+		// 06 Variant calling
+		pipeline.panelVariantCalling();
+
+		// 07 Variant Filtering
+//		pipeline.hardFilter();
+		
+		// 09 annotate
+		pipeline.annotate();
+		
+		// 10  gemini
+		pipeline.loadInGemini();
+
 		// save commands
 		pipeline.saveCommands();
 		
