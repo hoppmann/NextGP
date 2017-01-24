@@ -22,6 +22,8 @@ public class VariantCaller {
 	private LoadConfig config;
 	private Map<String, Patients> patients;
 	private Combined combined; 
+	private int first;
+	private int last;
 
 
 
@@ -38,6 +40,8 @@ public class VariantCaller {
 		this.config = config;
 		this.patients = patients;
 		this.combined = combined;
+		this.first = options.getFirst();
+		this.last = options.getLast();
 
 		// make log entry
 		Log.logger(logger, "Preparing variant calling");
@@ -90,7 +94,9 @@ public class VariantCaller {
 
 
 			// save command
-			patients.get(curPat).setHaplotypeCaller(cmd);
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setHaplotypeCaller(cmd);
+			}
 			patients.get(curPat).setVcfFiles("gatk", output);
 			patients.get(curPat).setLastOutFile(output);
 
@@ -129,8 +135,9 @@ public class VariantCaller {
 
 
 		// save command
-
-		combined.setGenotypeGVCF(cmd);
+		if (first <= 6 && last >= 6 ) {
+			combined.setGenotypeGVCF(cmd);
+		}
 		combined.setCombinedVcfFile(outFile);
 	}
 
@@ -174,19 +181,20 @@ public class VariantCaller {
 			cmd.add("> " + logfile);
 
 			// save command 
-			patients.get(curPat).setMpileup(cmd);
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setMpileup(cmd);
+			}
 
-
-//			// sort VCF file to get rid of contig order error
-//			String fileIn = output;
-//			String fileOut = outDir + sep + curPat + "-sorted.vcf";
-//			String bamFile = patients.get(curPat).getBam();
-//
-//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
+			//			// sort VCF file to get rid of contig order error
+			//			String fileIn = output;
+			//			String fileOut = outDir + sep + curPat + "-sorted.vcf";
+			//			String bamFile = patients.get(curPat).getBam();
+			//
+			//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
 
 
 			// save command
-//			patients.get(curPat).setSortMpileup(sortCmd);
+			//			patients.get(curPat).setSortMpileup(sortCmd);
 			patients.get(curPat).setVcfFiles("samtools", fileOut);
 
 
@@ -227,6 +235,7 @@ public class VariantCaller {
 			cmd.add("callVariants");
 			cmd.add("--bamFiles=" + input);
 			cmd.add("--refFile=" + config.getHg19Fasta());
+			cmd.add("--regions=" + options.getBedFile());
 			cmd.add("--nCPU=" + options.getCpu());
 			cmd.add("--mergeClusteredVariants=1");
 			cmd.add("--output=" + output);
@@ -235,8 +244,9 @@ public class VariantCaller {
 
 
 			// save command
-			patients.get(curPat).setPlatypus(cmd);
-
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setPlatypus(cmd);
+			}
 
 
 
@@ -249,8 +259,9 @@ public class VariantCaller {
 			ArrayList<String> filterCmd =  filter.removeFiltered(output, input);
 
 			// save command
-			patients.get(curPat).setFilterPlatypus(filterCmd);
-
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setFilterPlatypus(filterCmd);
+			}
 
 			// sort VCF file to get rid of contig order error
 			String fileIn = output + ".recode.vcf";
@@ -260,7 +271,9 @@ public class VariantCaller {
 			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
 
 			// save command
-			patients.get(curPat).setSortPlatypus(sortCmd);
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setSortPlatypus(sortCmd);
+			}
 			patients.get(curPat).setVcfFiles(caller, fileOut);
 
 		}
@@ -299,20 +312,22 @@ public class VariantCaller {
 			cmd.add("> " + fileOut);
 
 
-//			// sort VCF file to get rid of contig order error
-//			String fileIn = output;
-//			String fileOut = outDir + sep + curPat + "-sorted.vcf";
-//			String bamFile = patients.get(curPat).getBam();
-//
-//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
+			//			// sort VCF file to get rid of contig order error
+			//			String fileIn = output;
+			//			String fileOut = outDir + sep + curPat + "-sorted.vcf";
+			//			String bamFile = patients.get(curPat).getBam();
+			//
+			//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
 
 
 
 
 
 			// save commands
-			patients.get(curPat).setFreebayes(cmd);
-//			patients.get(curPat).setSortFreebayes(sortCmd);
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setFreebayes(cmd);
+				//			patients.get(curPat).setSortFreebayes(sortCmd);
+			}
 			patients.get(curPat).setVcfFiles(caller, fileOut);
 
 
@@ -340,17 +355,19 @@ public class VariantCaller {
 			cmd.add("--vcf " + combined.getCombinedVcfFile());
 			cmd.add("--out " + fileOut);
 
-//
-//			// sort VCF file to get rid of contig order error
-//			String fileIn = outFile + ".recode.vcf";
-//			String fileOut = outFile + "-sorted.vcf";
-//			String bamFile = patients.get(curPat).getBam();
-//
-//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
+			//
+			//			// sort VCF file to get rid of contig order error
+			//			String fileIn = outFile + ".recode.vcf";
+			//			String fileOut = outFile + "-sorted.vcf";
+			//			String bamFile = patients.get(curPat).getBam();
+			//
+			//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
 
 			// store commands
-			patients.get(curPat).setExtractInd(cmd);
-//			patients.get(curPat).setSortHaploCaller(sortCmd);
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setExtractInd(cmd);
+				//			patients.get(curPat).setSortHaploCaller(sortCmd);
+			}
 			patients.get(curPat).setVcfFiles(caller, fileOut + ".recode.vcf");
 
 
@@ -372,19 +389,18 @@ public class VariantCaller {
 				// run replacement of sample name with caller name
 				ArrayList<String> cmd = readgroups.replaceSampleName(callerName, curPat);
 
-
-				// for each patient save commands of current caller
-				if (callerName.equals("gatk")) {
-					patients.get(curPat).setSampleNameModGATK(cmd);
-				} else if (callerName.equals("platypus")) {
-					patients.get(curPat).setSampleNameModPlatypus(cmd);
-				} else if (callerName.equals("freebayes")) {
-					patients.get(curPat).setSampleNameModFreebayes(cmd);
-				} else if (callerName.equals("samtools")) {
-					patients.get(curPat).setSampleNameModSamtools(cmd);
+				if (first <= 6 && last >= 6 ) {
+					// for each patient save commands of current caller
+					if (callerName.equals("gatk")) {
+						patients.get(curPat).setSampleNameModGATK(cmd);
+					} else if (callerName.equals("platypus")) {
+						patients.get(curPat).setSampleNameModPlatypus(cmd);
+					} else if (callerName.equals("freebayes")) {
+						patients.get(curPat).setSampleNameModFreebayes(cmd);
+					} else if (callerName.equals("samtools")) {
+						patients.get(curPat).setSampleNameModSamtools(cmd);
+					}
 				}
-
-
 			}
 		}
 	}
@@ -425,7 +441,9 @@ public class VariantCaller {
 
 
 			// store commands
-			patients.get(curPat).setCombineVariants(cmd);
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setCombineVariants(cmd);
+			}
 			patients.get(curPat).setLastOutFile(output);
 		}
 	}
@@ -459,7 +477,9 @@ public class VariantCaller {
 
 
 			// store command
-			patients.get(curPat).setConsensus(cmd);
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).setConsensus(cmd);
+			}
 			patients.get(curPat).setLastOutFile(output);
 		}
 	}
@@ -491,7 +511,9 @@ public class VariantCaller {
 
 
 		// store commands
-		combined.setCombineSampleVariants(cmd);
+		if (first <= 6 && last >= 6 ) {
+			combined.setCombineSampleVariants(cmd);
+		}
 		combined.setLastOutFile(output);
 
 

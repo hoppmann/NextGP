@@ -22,6 +22,8 @@ public class CreateMetrices {
 	private LoadConfig config;
 	private Map<String, Patients> patients;
 	private Combined combined;
+	private int first;
+	private int last;
 
 
 
@@ -37,6 +39,8 @@ public class CreateMetrices {
 		this.config = config;
 		this.patients = patients;
 		this.combined = combined;
+		this.first = options.getFirst();
+		this.last = options.getLast();
 
 		// make log etntry
 		Log.logger(logger, "Preapring metrics");
@@ -100,8 +104,9 @@ public class CreateMetrices {
 
 
 			// save command
-			patients.get(curPat).setStatsMeanDepth(cmd);
-
+			if (first <= 5 && last >= 5 ) {
+				patients.get(curPat).setStatsMeanDepth(cmd);
+			}
 
 		}
 	}
@@ -145,7 +150,9 @@ public class CreateMetrices {
 
 
 			// save command
-			patients.get(curPat).setStatsAsMetric(cmd);
+			if (first <= 5 && last >= 5 ) {
+				patients.get(curPat).setStatsAsMetric(cmd);
+			}
 		}
 	}
 
@@ -189,8 +196,9 @@ public class CreateMetrices {
 
 
 			// save command
-			patients.get(curPat).setStatsGCBMetric(cmd);
-
+			if (first <= 5 && last >= 5 ) {
+				patients.get(curPat).setStatsGCBMetric(cmd);
+			}
 		}
 
 	}
@@ -232,7 +240,9 @@ public class CreateMetrices {
 
 
 			// save command
-			patients.get(curPat).setStatsISMetric(cmd);
+			if (first <= 5 && last >= 5 ) {
+				patients.get(curPat).setStatsISMetric(cmd);
+			}
 		}
 	}
 
@@ -271,8 +281,9 @@ public class CreateMetrices {
 
 
 			// save command
-			patients.get(curPat).setStatsCoverage(cmd);
-
+			if (first <= 5 && last >= 5 ) {
+				patients.get(curPat).setStatsCoverage(cmd);
+			}
 
 		}
 	}

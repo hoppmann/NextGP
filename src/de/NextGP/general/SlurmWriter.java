@@ -40,13 +40,10 @@ public class SlurmWriter {
 		// make log entry
 		logger.info("Writeing commands in batch files");
 
-		// create directory for saving slurm scripts
-		new File(slurmDir).mkdirs();
-
 		// gather general variables
 		masterScript = slurmDir + sep + "01-master.sh";
-		combFileOut = slurmDir + sep + "combined.sh";
-		combGenoOut = slurmDir + sep + "gatkGenotyping.sh";
+		combFileOut = slurmDir + sep + "05-combined.sh";
+		combGenoOut = slurmDir + sep + "03-gatkGenotyping.sh";
 
 
 
@@ -95,7 +92,7 @@ public class SlurmWriter {
 
 			// Create batch file to write commands in.
 			// prepare writer			
-			String outFile = slurmDir + sep + curPat + ".sh";
+			String outFile = slurmDir + sep + "02-" + curPat + ".sh";
 			Writer batch = new Writer();
 			batch.openWriter(outFile);
 
@@ -139,7 +136,7 @@ public class SlurmWriter {
 
 			// create batch file to write commands in
 			// prepare writer
-			String outFile = slurmDir + sep + curPat + "-secondary.sh";
+			String outFile = slurmDir + sep + "04-" + curPat + ".sh";
 			Writer secondary = new Writer();
 			secondary.openWriter(outFile);
 
@@ -279,7 +276,7 @@ public class SlurmWriter {
 		for (String curPat : patients.keySet()) {
 
 			// prepare variables
-			String outFile = slurmDir + sep + curPat + ".sh";
+			String outFile = slurmDir + sep + "01-" + curPat + ".sh";
 
 			// write bash execution in master file and prepare wait command
 			String curPatVar = "Pat_" + curPat;
@@ -321,10 +318,10 @@ public class SlurmWriter {
 		for (String curPat : patients.keySet()) {
 
 			// prepare name of patient file and other variables
-			String outFile = slurmDir + sep + curPat + "-secondary.sh";
+			String outFile = slurmDir + sep + "01-" + curPat + ".sh";
 			String curPatVar = "Pat2_" + curPat;
 
-			// write bash execution in master file and prepare wair command
+			// write bash execution in master file and prepare wait command
 			master.writeLine(curPatVar + "=$(sbatch -p genepi -d afterok:$comb " + outFile + ")");
 			master.writeLine(curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
 			waitPostCombinedGenotype += ":$" + curPatVar;

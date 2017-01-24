@@ -52,19 +52,22 @@ public class IonTorrent {
 		// read input file
 		patients = pipeline.readFastqList();
 
+		// prepare bed file
+		pipeline.prepareBedFile();
+		
 		// step 01 align reads
 		pipeline.align("ionTorrent");
 
-		// step 02 prepare indel realignment
+		// step 03 prepare indel realignment
 		pipeline.indelRealigner();
 
-		// step 03 prepare BQSR
+		// step 04 prepare BQSR
 		pipeline.bqsr();
 
-		// step 04 create metrics
+		// step 05 create metrics
 		pipeline.metrices();
 
-		// step 05 variant calling
+		// step 06 variant calling
 		// TODO 
 		// implementation of VQSR instead of hard filtering
 		pipeline.panelVariantCalling();
@@ -97,6 +100,9 @@ public class IonTorrent {
 		// check if input is given
 		pipeline.checkPatMap();
 		
+		// 00 prepare bed file
+		pipeline.prepareBedFile();
+		
 		// 01 align reads 
 		pipeline.align("IonTorrent");
 		
@@ -112,13 +118,10 @@ public class IonTorrent {
 		// 06 Variant calling
 		pipeline.panelVariantCalling();
 
-		// 07 Variant Filtering
-//		pipeline.hardFilter();
-		
-		// 09 annotate
+		// 07 annotate
 		pipeline.annotate();
 		
-		// 10  gemini
+		// 08  gemini
 		pipeline.loadInGemini();
 
 		// save commands

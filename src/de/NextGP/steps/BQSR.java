@@ -25,6 +25,8 @@ public class BQSR {
 	private String outDir;
 	private String outputPre;
 	private String outputPost;
+	private int first;
+	private int last;
 
 
 	/////////////////////////////
@@ -37,6 +39,8 @@ public class BQSR {
 		this.patients = patients;
 		this.config = config;
 		this.options = options;
+		this.first = options.getFirst();
+		this.last = options.getLast();
 
 		// make log entry
 		Log.logger(logger, "Preparing BQSR");
@@ -87,8 +91,9 @@ public class BQSR {
 		cmd.add("-log " + logfile);
 
 		// save command in patient object
-		patients.get(curPat).setBaseRecalibration_pre(cmd);
-
+		if (first <= 4 && last >= 4 ) {
+			patients.get(curPat).setBaseRecalibration_pre(cmd);
+		}
 	}
 
 
@@ -131,8 +136,9 @@ public class BQSR {
 		cmd.add("-log " + logfile);
 
 		// save command in patients object
-		patients.get(curPat).setBaseRecalibration_post(cmd);
-
+		if (first <= 4 && last >= 4 ) {
+			patients.get(curPat).setBaseRecalibration_post(cmd);
+		}
 
 	}
 
@@ -164,8 +170,9 @@ public class BQSR {
 		cmd.add("-log " + logfile);
 
 		// save command
-		patients.get(curPat).setAnalyzeCovariates(cmd);
-
+		if (first <= 4 && last >= 4 ) {
+			patients.get(curPat).setAnalyzeCovariates(cmd);
+		}
 
 
 	}
@@ -202,7 +209,9 @@ public class BQSR {
 		cmd.add("-log " + logfile);
 
 		// save command
-		patients.get(curPat).setPrintReads(cmd);
+		if (first <= 4 && last >= 4 ) {
+			patients.get(curPat).setPrintReads(cmd);
+		}
 		patients.get(curPat).setLastOutFile(output);
 		patients.get(curPat).setBam(output);
 

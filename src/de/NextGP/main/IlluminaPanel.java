@@ -42,6 +42,9 @@ public class IlluminaPanel {
 		// check if input is given
 		pipeline.checkPatMap();
 		
+		// prepare bed file
+		pipeline.prepareBedFile();
+		
 		// 01 align reads 
 		pipeline.align("Illumina");
 		

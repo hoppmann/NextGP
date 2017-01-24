@@ -23,6 +23,9 @@ public class Realigner {
 	private String outDir;
 	private Map<String, Patients> patients;
 	private String sep;
+	private int first; 
+	private int last;
+	
 
 	/////////////////////////////
 	//////// constructor ////////
@@ -35,6 +38,8 @@ public class Realigner {
 		this.options = options;
 		this.outDir = options.getOutDir();
 		this.patients = patients;
+		this.first = options.getFirst();
+		this.last = options.getLast();
 
 		// init variables
 		sep = File.separator;
@@ -91,8 +96,9 @@ public class Realigner {
 
 
 		// add command in Patient object
-		patients.get(curPat).setRealignmentTargetCreator(cmd);
-
+		if (first <= 3 && last >= 3 ) {
+			patients.get(curPat).setRealignmentTargetCreator(cmd);
+		}
 	}
 
 
@@ -132,7 +138,9 @@ public class Realigner {
 		cmd.add("-log " + logfileRealign);
 
 		// save cmd in patient object
-		patients.get(curPat).setIndelRealigner(cmd);
+		if (first <= 3 && last >= 3 ) {
+			patients.get(curPat).setIndelRealigner(cmd);
+		}
 		patients.get(curPat).setLastOutFile(outFile);
 
 	}

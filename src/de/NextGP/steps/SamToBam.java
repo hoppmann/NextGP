@@ -25,6 +25,8 @@ public class SamToBam {
 	private Map<String, Patients> patients;
 	private String outDir;
 	private Combined combined;
+	private int first;
+	private int last;
 	
 	
 	private static Logger logger = LoggerFactory.getLogger(SamToBam.class);
@@ -40,6 +42,8 @@ public class SamToBam {
 		this.patients = patients;
 		this.outDir = options.getOutDir() + File.separator + config.getAlignment();
 		this.combined = combined;
+		this.first = options.getFirst();
+		this.last = options.getLast();
 		
 		// make log entry
 		Log.logger(logger, "Converting sam to bam");
@@ -47,11 +51,6 @@ public class SamToBam {
 		// create directory
 		mkdir();
 
-//		// get version number of picard
-//		logger.info("Picard SortSam version: " + new getVersion().getPicardVersion(config) + "\n");
-		
-		
-		
 		// prepare command
 
 		prepareCmd();
@@ -101,8 +100,9 @@ public class SamToBam {
 			cmd.add("OUTPUT=" + outBam);
 			
 			// save cmd in patient object
-			patients.get(curPat).setSamToBam(cmd);
-			
+			if (first <= 1 && last >= 1 ) {
+				patients.get(curPat).setSamToBam(cmd);
+			}
 			// save name of bam files
 			patients.get(curPat).setLastOutFile(outBam);
 		}		

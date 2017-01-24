@@ -20,6 +20,8 @@ public class AddReaplaceReadgroups {
 	private LoadConfig config;
 	private GetOptions options;
 	private Map<String, Patients> patients;
+	private int first;
+	private int last;
 
 
 	/////////////////////////////
@@ -32,7 +34,9 @@ public class AddReaplaceReadgroups {
 		this.config = config;
 		this.options = options;
 		this.patients = patients;
-
+		this.first = options.getFirst();
+		this.last = options.getLast();
+		
 		// make log entry
 		Log.logger(logger, "Preparing AddOrReplaceReadgroups");
 	}
@@ -81,11 +85,12 @@ public class AddReaplaceReadgroups {
 
 
 			// add command to patient object
-			patients.get(curPat).setAddOrReplaceReadgroups(cmd);
+			if (first <= 1 && last >= 1 ) {
+				patients.get(curPat).setAddOrReplaceReadgroups(cmd);
+			}
 			patients.get(curPat).setLastOutFile(outputFile);
 
 		}
-
 	}
 
 	

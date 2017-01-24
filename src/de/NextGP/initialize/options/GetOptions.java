@@ -38,7 +38,7 @@ public class GetOptions {
 	private String fastqList;
 	private String bamList;
 	
-	// pipeline parts
+	// pipelines
 	private boolean bwa;
 	private boolean illuminaPanel;
 	private boolean ionExon;
@@ -47,6 +47,9 @@ public class GetOptions {
 	private String customPipeline;
 	private boolean custom;
 	
+	// pipeline parts
+	private int first = 1;
+	private int last = 8;
 	
 
 	////////////////
@@ -143,7 +146,7 @@ public class GetOptions {
 		
 		
 		
-		//////// pipeline parts
+		//////// pipelines
 		
 		if (cmd.hasOption("bwa")) {
 			bwa = true;
@@ -169,6 +172,20 @@ public class GetOptions {
 		if (cmd.hasOption("ionPanel")) {
 			ionPanel = true;
 		}
+		
+		
+		
+		//////// pipeline parts
+		if (cmd.hasOption("first")){
+			first = Integer.valueOf(cmd.getOptionValue("first"));
+		}
+		
+		if (cmd.hasOption("last")){
+			last = Integer.valueOf(cmd.getOptionValue("last"));
+		}
+		
+		
+		
 		
 	}
 
@@ -251,11 +268,17 @@ public class GetOptions {
 	public static Logger getLogger() {
 		return logger;
 	}
+	
 
 	public LoadConfig getConfig() {
 		return config;
 	}
 
+	public void setBedFile(String bedFile) {
+		this.bedFile = bedFile;
+	}
+
+	
 	public String getBedFile() {
 		if (bedFile == null || bedFile.isEmpty()){
 			Log.error(logger, "No bed file chosen. Use bedFile option.");
@@ -275,7 +298,14 @@ public class GetOptions {
 	public boolean isIonPanel() {
 		return ionPanel;
 	}
-	
+
+	public int getFirst() {
+		return first;
+	}
+
+	public int getLast() {
+		return last;
+	}
 	
 	
 	

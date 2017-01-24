@@ -1,7 +1,6 @@
 package de.NextGP.main;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -23,6 +22,7 @@ import de.NextGP.steps.BQSR;
 import de.NextGP.steps.BWA;
 import de.NextGP.steps.CreateMetrices;
 import de.NextGP.steps.Gemini;
+import de.NextGP.steps.PrepareBedFile;
 import de.NextGP.steps.Realigner;
 import de.NextGP.steps.SamToBam;
 import de.NextGP.steps.VariantCaller;
@@ -150,6 +150,7 @@ public class GeneralPipeline {
 
 	}
 
+	////////////////
 	//////// read in bam list and save in patient map
 	
 	public Map<String, Patients> readBamList(String bamList) {
@@ -159,7 +160,14 @@ public class GeneralPipeline {
 		
 	}
 
-
+	///////////////
+	//////// prepare bed file ////////
+	public void prepareBedFile() {
+		PrepareBedFile prepare = new PrepareBedFile(options);
+		prepare.createBed();
+	}
+		
+	
 	////////////////
 	//////// run alignment steps
 
@@ -332,9 +340,9 @@ public class GeneralPipeline {
 			vcfFile = outDir + sep + "combined_filtered.vcf";
 		}
 
-		ArrayList<String> cmd = new ArrayList<>();
-		cmd = new Gemini(options, config, patients, combined).load(vcfFile);
-		combined.setGeminiLoad(cmd);
+//		ArrayList<String> cmd = new ArrayList<>();
+		new Gemini(options, config, patients, combined).load(vcfFile);
+//		combined.setGeminiLoad(cmd);
 
 	}
 

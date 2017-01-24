@@ -19,11 +19,12 @@ public class Gemini {
 	///////////////////////////
 
 	private static Logger logger = LoggerFactory.getLogger(Gemini.class);
-	GetOptions options;
-	LoadConfig config;
-	Map<String, Patients> patients;
-	Combined combined;
-
+	private GetOptions options;
+	private LoadConfig config;
+//	private Map<String, Patients> patients;
+	private Combined combined;
+	private int first;
+	private int last;
 
 	/////////////////////////////
 	//////// constructor ////////
@@ -33,9 +34,11 @@ public class Gemini {
 			Map<String, Patients> patients, Combined combined) {
 		this.options = options;
 		this.config = config;
-		this.patients = patients;
+//		this.patients = patients;
 		this.combined = combined;
-
+		this.first = options.getFirst();
+		this.last = options.getLast();
+		
 		// make log entry
 		Log.logger(logger, "Preparing Gemini");
 
@@ -69,7 +72,7 @@ public class Gemini {
 
 
 	// prepare load in database
-	public ArrayList<String> load(String vcfFile) {
+	public void load(String vcfFile) {
 
 		// initialize and prepare command
 		ArrayList<String> cmd = new ArrayList<>();
@@ -93,11 +96,11 @@ public class Gemini {
 		cmd.add(outDB);
 
 
-
-
 		// return command
-		return cmd;
-
+		if (first <= 8 && last >= 7 ) {
+			combined.setGeminiLoad(cmd);
+		}
+//		return cmd;
 	}
 
 

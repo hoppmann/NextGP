@@ -18,10 +18,11 @@ public class VariantFilter {
 	///////////////////////////
 
 	static private Logger logger = LoggerFactory.getLogger(VariantCaller.class);
-	GetOptions options;
-	LoadConfig config; 
-	Combined combined;
-
+	private GetOptions options;
+	private LoadConfig config; 
+	private Combined combined;
+	private int first;
+	private int last;
 
 	/////////////////////////////
 	//////// constructor ////////
@@ -34,11 +35,11 @@ public class VariantFilter {
 		this.options = options;
 		this.config = config;
 		this.combined = combined;
+		this.first = options.getFirst();
+		this.last = options.getLast();
 		
 		// make log entry
 		Log.logger(logger, "Preparing hard filtering ");
-
-
 
 	}
 
@@ -79,8 +80,9 @@ public class VariantFilter {
 		cmd.add("-log " + logExtractSnpSet);
 
 		// save command
-		combined.setExtractSnpSet(cmd);
-
+		if (first <= 6 && last >= 6 ) {
+			combined.setExtractSnpSet(cmd);
+		}
 
 		//////// Apply filter to SNP call set
 
@@ -111,8 +113,9 @@ public class VariantFilter {
 
 
 		// save command
-		combined.setHardFiterSnpSet(cmd);
-
+		if (first <= 6 && last >= 6 ) {
+			combined.setHardFiterSnpSet(cmd);
+		}
 
 
 		//////// extract all Indel
@@ -136,8 +139,9 @@ public class VariantFilter {
 
 
 		// save command
-		combined.setExtractIndelSet(cmd);
-
+		if (first <= 6 && last >= 6 ) {
+			combined.setExtractIndelSet(cmd);
+		}
 
 
 
@@ -168,9 +172,9 @@ public class VariantFilter {
 
 
 		// save command
-		
-		combined.setHardFilterIndelSet(cmd);
-
+		if (first <= 6 && last >= 6 ) {
+			combined.setHardFilterIndelSet(cmd);
+		}
 
 		
 		
@@ -197,8 +201,9 @@ public class VariantFilter {
 		
 		
 		// store command
-		combined.setCombineVariants(cmd);
-		
+		if (first <= 6 && last >= 6 ) {
+			combined.setCombineVariants(cmd);
+		}		
 		
 		
 		//	remove filtered reads
@@ -206,8 +211,10 @@ public class VariantFilter {
 		cmd = removeFiltered(outFileFiltered, input);
 		
 		// store command
-		combined.setCombinedVcfFile(outFileFiltered + ".recode.vcf");
-		combined.setRemoveFilteredReads(cmd);
+		if (first <= 6 && last >= 6 ) {
+			combined.setCombinedVcfFile(outFileFiltered + ".recode.vcf");
+					combined.setRemoveFilteredReads(cmd);
+		}
 		
 	}
 

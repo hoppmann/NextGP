@@ -24,6 +24,8 @@ public class BWA {
 	private String outDir;
 	private Combined combined;
 	private static Logger logger = LoggerFactory.getLogger(BWA.class);
+	private int first;
+	private int last;
 	
 	
 	// command defaults
@@ -45,7 +47,8 @@ public class BWA {
 		this.patients = patients;
 		this.cpus = opts.getCpu();
 		this.combined = combined;
-		
+		this.first = opts.getFirst();
+		this.last = opts.getLast();
 		
 		// write log message
 		Log.logger(logger, "Preparing BWA");
@@ -98,10 +101,10 @@ public class BWA {
 			cmd.add("> " + OutFile);
 
 			// save command in patient object
-			patients.get(curPat).setBwa(cmd);
+			if (first <= 1 && last >= 1 ) {
+				patients.get(curPat).setBwa(cmd);
+			}
 			patients.get(curPat).setLastOutFile(OutFile);
-			
-
 		}
 	}
 
@@ -134,9 +137,10 @@ public class BWA {
 			cmd.add("> " + OutFile);
 
 			// save command in patient object
-			patients.get(curPat).setBwa(cmd);
+			if (first < 1 && last >= 1 ) {
+				patients.get(curPat).setBwa(cmd);
+			}			
 			patients.get(curPat).setLastOutFile(OutFile);
-			
 
 		}
 	}

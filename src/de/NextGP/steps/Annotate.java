@@ -24,6 +24,8 @@ public class Annotate {
 	private Combined combined;
 	private String outVEP;
 	private String outSnpEff;
+	private int first;
+	private int last;
 
 
 	/////////////////////////////
@@ -35,6 +37,8 @@ public class Annotate {
 		this.options = options;
 		this.config = config;
 		this.combined = combined;
+		this.first = options.getFirst();
+		this.last = options.getLast();
 
 		Log.logger(logger, "preparing anotations");
 
@@ -94,8 +98,9 @@ public class Annotate {
 		
 		
 		// store command
-		combined.setVtMaster(cmd);
-		
+		if (first <= 7 && last >= 7 ) {
+			combined.setVtMaster(cmd);
+		}		
 	}
 	
 	
@@ -139,7 +144,9 @@ public class Annotate {
 		cmd.add("--fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE");
 
 		// store command
-		combined.setVepAnnotation(cmd);
+		if (first <= 7 && last >= 7 ) {
+			combined.setVepAnnotation(cmd);
+		}
 		combined.setLastOutFile(outVEP);
 		
 	}
@@ -169,7 +176,9 @@ public class Annotate {
 		
 		
 		// store command
-		combined.setSnpEffAnnotation(cmd);
+		if (first <= 7 && last >= 7 ) {
+			combined.setSnpEffAnnotation(cmd);
+		}
 		combined.setLastOutFile(outSnpEff);
 		
 	}
@@ -180,15 +189,16 @@ public class Annotate {
 		
 		Log.logger(logger, "Bgzipping files.");
 		
-		// preparig command
+		// preparing command
 		ArrayList<String> cmd = new ArrayList<>();
 		cmd.add(config.getBgzip());
 		cmd.add("-c " + outSnpEff);
 		cmd.add("> " + outSnpEff + ".gz");
 		
 		// store command
-		combined.setBgzip(cmd);
-		
+		if (first <= 7 && last >= 7 ) {
+			combined.setBgzip(cmd);
+		}
 		
 	}
 	
@@ -203,7 +213,9 @@ public class Annotate {
 		cmd.add(outSnpEff + ".gz");
 		
 		// store command
-		combined.setTabix(cmd);
+		if (first <= 7 && last >= 7 ) {
+			combined.setTabix(cmd);
+		}
 		
 	}
 	

@@ -1,5 +1,6 @@
 package de.NextGP.main;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.slf4j.Logger;
@@ -26,7 +27,9 @@ public class Main {
 		// get options
 		GetOptions options = new GetOptions(args, config);
 
-
+		// create output directory
+		new File(options.getSlurmDir()).mkdirs();
+		
 
 		// run Illumina Panel if chosen
 		if (options.isIlluminaPanel()){
