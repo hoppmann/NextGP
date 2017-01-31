@@ -66,9 +66,9 @@ public class PrepareBedFile {
 
 
 			// check number of splits (header not allways defined by symbol but has only few entries.
-			if (splitLine.length <= 1){
-				bedOut.writeLine(curLine);
-			} else {
+			if (splitLine.length > 1){
+//				bedOut.writeLine(curLine);
+//			} else {
 				bedOut.writeLine(splitLine[0] + "\t" + splitLine[1] + "\t" + splitLine[2]);
 			}
 		}

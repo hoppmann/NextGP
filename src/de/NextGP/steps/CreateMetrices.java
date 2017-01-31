@@ -288,10 +288,46 @@ public class CreateMetrices {
 		}
 	}
 
+	/////////////
+	//////// fastQC
+	public void runFastQC() {
 
 
+		// init varialbes
+		String sep = File.separator;
+		String outDir = options.getOutDir() + sep + config.getMetrices() + sep + "fastQC";
+		
+		
+		// create dir command
+		combined.mkdir(outDir);
 
+		// iterate for each patient
+		for (String curPat : patients.keySet()){
 
+			// init command array
+			ArrayList<String> cmd = new ArrayList<>();
+			
+			// prepare command
+			cmd.add(config.getFastQC());
+			cmd.add("-t " + options.getCpu());
+			cmd.add("-o " + outDir);
+			cmd.add(patients.get(curPat).getBam());
+
+			
+			// save command
+			if (first <= 5 && last >= 5 ) {
+				patients.get(curPat).setFastQC(cmd);
+			}
+//			System.out.println(cmd);
+//			System.exit(3);
+
+			
+		}
+		
+		
+		
+ 
+	}
 
 
 	/////////////////////////////////

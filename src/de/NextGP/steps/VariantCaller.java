@@ -312,12 +312,12 @@ public class VariantCaller {
 			cmd.add("> " + fileOut);
 
 
-			//			// sort VCF file to get rid of contig order error
-			//			String fileIn = output;
-			//			String fileOut = outDir + sep + curPat + "-sorted.vcf";
-			//			String bamFile = patients.get(curPat).getBam();
-			//
-			//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
+			// sort VCF file to get rid of contig order error
+			String fileIn = fileOut;
+			fileOut = outDir + sep + curPat + "-sorted.vcf";
+			String bamFile = patients.get(curPat).getBam();
+
+			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
 
 
 
@@ -326,7 +326,7 @@ public class VariantCaller {
 			// save commands
 			if (first <= 6 && last >= 6 ) {
 				patients.get(curPat).setFreebayes(cmd);
-				//			patients.get(curPat).setSortFreebayes(sortCmd);
+				patients.get(curPat).setSortFreebayes(sortCmd);
 			}
 			patients.get(curPat).setVcfFiles(caller, fileOut);
 
@@ -454,27 +454,33 @@ public class VariantCaller {
 
 		// general variables
 		String sep = File.separator;
-		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "consensus";
+		String outDir = options.getOutDir() + sep + config.getVariantCalling() ;
 		combined.mkdir(outDir);
+		
+		// for each patient merge files from different caller using GATK CombineVariants
+		for (String curPat : patients.keySet()) {
 
-
-		for (String curPat : patients.keySet()){
-
-			// init and gather variables
+			// init cmd array and general variabels
 			ArrayList<String> cmd = new ArrayList<>();
 			String output = outDir + sep + curPat + ".vcf";
-			String input = patients.get(curPat).getLastOutFile();
 
-
-
+			
+			
+			
 			// prepare command
+			cmd.add(config.getJava());
+			cmd.add("-jar " + config.getGatk());
+			cmd.add("-T CombineVariants");
+			cmd.add("-R " + config.getHg19Fasta());
 
-			cmd.add(config.getConsensus());
-			cmd.add("-vcfIn " + input);
-			cmd.add("-minHits " + options.getMinConsCall());
-			cmd.add("-consensusName " + curPat);
-			cmd.add("-out " + output);
+			for (String callerName : patients.get(curPat).getVcfFiles().keySet()){
+				String input = patients.get(curPat).getVcfFiles().get(callerName);
+				cmd.add("--variant " + input);
+			}
 
+			cmd.add("--minimumN 2");
+			cmd.add("-genotypeMergeOptions Unsorted");
+			cmd.add("-o " + output);
 
 			// store command
 			if (first <= 6 && last >= 6 ) {
@@ -482,6 +488,37 @@ public class VariantCaller {
 			}
 			patients.get(curPat).setLastOutFile(output);
 		}
+		
+//		// general variables
+//		String sep = File.separator;
+//		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "consensus";
+//		combined.mkdir(outDir);
+//
+//
+//		for (String curPat : patients.keySet()){
+//
+//			// init and gather variables
+//			ArrayList<String> cmd = new ArrayList<>();
+//			String output = outDir + sep + curPat + ".vcf";
+//			String input = patients.get(curPat).getLastOutFile();
+//
+//
+//
+//			// prepare command
+//
+//			cmd.add(config.getConsensus());
+//			cmd.add("-vcfIn " + input);
+//			cmd.add("-minHits " + options.getMinConsCall());
+//			cmd.add("-consensusName " + curPat);
+//			cmd.add("-out " + output);
+//
+//
+//			// store command
+//			if (first <= 6 && last >= 6 ) {
+//				patients.get(curPat).setConsensus(cmd);
+//			}
+//			patients.get(curPat).setLastOutFile(output);
+//		}
 	}
 
 

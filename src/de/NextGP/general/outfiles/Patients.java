@@ -33,6 +33,7 @@ public class Patients {
 	private ArrayList<String> baseRecalibration_post;
 	private ArrayList<String> analyzeCovariates;
 	private ArrayList<String> printReads;
+	private ArrayList<String> fastQC;
 	private ArrayList<String> statsMeanDepth;
 	private ArrayList<String> statsAsMetric;
 	private ArrayList<String> statsGCBMetric;
@@ -286,6 +287,23 @@ public class Patients {
 	}
 	
 	
+	public ArrayList<String> getFastQC() {
+		return fastQC;
+	}
+
+	public void setFastQC(ArrayList<String> fastQC) {
+		this.fastQC = fastQC;
+		
+		try {
+			primaryCommands.add(Patients.class.getMethod("getFastQC"));
+		} catch (NoSuchMethodException | SecurityException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	
+	
 	
 	public ArrayList<String> getStatsMeanDepth() {
 		return statsMeanDepth;
@@ -495,6 +513,15 @@ public class Patients {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//////// post combined steps ////////
 	

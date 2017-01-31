@@ -42,9 +42,8 @@ public class SlurmWriter {
 
 		// gather general variables
 		masterScript = slurmDir + sep + "01-master.sh";
-		combFileOut = slurmDir + sep + "05-combined.sh";
 		combGenoOut = slurmDir + sep + "03-gatkGenotyping.sh";
-
+		combFileOut = slurmDir + sep + "05-combined.sh";
 
 
 	}
@@ -81,7 +80,7 @@ public class SlurmWriter {
 	}
 
 	///////////////////////
-	//////// for each patient save prepared commands in slurm file
+	//////// for each patient save prepared pre-GATK calling commands in slurm file
 	@SuppressWarnings("unchecked")
 	public void saveSinglePatCommands() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
@@ -276,7 +275,7 @@ public class SlurmWriter {
 		for (String curPat : patients.keySet()) {
 
 			// prepare variables
-			String outFile = slurmDir + sep + "01-" + curPat + ".sh";
+			String outFile = slurmDir + sep + "02-" + curPat + ".sh";
 
 			// write bash execution in master file and prepare wait command
 			String curPatVar = "Pat_" + curPat;
@@ -318,7 +317,7 @@ public class SlurmWriter {
 		for (String curPat : patients.keySet()) {
 
 			// prepare name of patient file and other variables
-			String outFile = slurmDir + sep + "01-" + curPat + ".sh";
+			String outFile = slurmDir + sep + "04-" + curPat + ".sh";
 			String curPatVar = "Pat2_" + curPat;
 
 			// write bash execution in master file and prepare wait command

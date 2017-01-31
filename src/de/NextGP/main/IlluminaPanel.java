@@ -59,9 +59,6 @@ public class IlluminaPanel {
 
 		// 06 Variant calling
 		pipeline.panelVariantCalling();
-
-		// 07 Variant Filtering
-//		pipeline.hardFilter();
 		
 		// 09 annotate
 		pipeline.annotate();

@@ -161,8 +161,8 @@ public class VariantFilter {
 		cmd.add("-T VariantFiltration");
 		cmd.add("-R " + config.getHg19Fasta());
 		cmd.add("-V " + outExtractIndelSet);
-		cmd.add("--filterExpression \" QD < 2.0 \"");
-		cmd.add("--filterName \"QDFilter\"");
+//		cmd.add("--filterExpression \" QD < 2.0 \"");
+//		cmd.add("--filterName \"QDFilter\"");
 		cmd.add("--filterExpression \" FS > 200 \"");
 		cmd.add("--filterName \"FSFilter\"");
 		cmd.add("--filterExpression \" ReadPosRankSum < -20.0 \"");
@@ -232,6 +232,7 @@ public class VariantFilter {
 		cmd.add(config.getVcfTools());
 		cmd.add("--vcf " + input);
 		cmd.add("--remove-filtered-all");
+		cmd.add("--recode-INFO-all");
 		cmd.add("--recode");
 		cmd.add("--out " + output);
 		

@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,9 +67,12 @@ public class Gemini {
 		// create directory for each patient
 		String sep = File.separator;
 		String outDir = options.getOutDir() + sep + config.getDatabase();
-		String cmd = outDir;
 
-		combined.mkdir(cmd);
+		combined.mkdir(outDir);
+		
+		String filterOutDir = options.getOutDir() + sep + config.getFilter();
+		combined.mkdir(filterOutDir);
+		
 	}
 
 

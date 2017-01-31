@@ -24,6 +24,7 @@ public class LoadConfig {
 	private String freebayes;
 	private String vcfFilter;
 	private String consensus;
+	private String fastQC;
 	
 	// references
 	private String hg19Fasta;
@@ -47,6 +48,7 @@ public class LoadConfig {
 	private String extractInd;
 	private String annotation;
 	private String database;
+	private String filter;
 	
 	
 	//constructor executing the loading of the config file
@@ -81,6 +83,7 @@ public class LoadConfig {
 				freebayes = prop.getProperty("freebayes");
 				vcfFilter = prop.getProperty("vcfFilter");
 				consensus = prop.getProperty("consensus");
+				fastQC = prop.getProperty("fastQC");
 				
 				// read in reference directory names
 				hg19Fasta = prop.getProperty("hg19Fasta");
@@ -103,6 +106,7 @@ public class LoadConfig {
 				extractInd = prop.getProperty("extractInd");
 				annotation = prop.getProperty("annotation");
 				database = prop.getProperty("database");
+				filter = prop.getProperty("filter");
 			}
 
 			
@@ -247,6 +251,14 @@ public class LoadConfig {
 
 			public String getConsensus() {
 				return consensus;
+			}
+
+			public String getFilter() {
+				return filter;
+			}
+
+			public String getFastQC() {
+				return fastQC;
 			}
 			
 			

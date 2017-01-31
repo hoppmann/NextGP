@@ -137,7 +137,7 @@ public class BWA {
 			cmd.add("> " + OutFile);
 
 			// save command in patient object
-			if (first < 1 && last >= 1 ) {
+			if (first <= 1 && last >= 1 ) {
 				patients.get(curPat).setBwa(cmd);
 			}			
 			patients.get(curPat).setLastOutFile(OutFile);
