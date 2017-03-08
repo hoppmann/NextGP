@@ -93,7 +93,7 @@ public class Gemini {
 		// prepare command
 		cmd.add(config.getGemini());
 		cmd.add("load");
-		cmd.add("-t all");
+		cmd.add("-t VEP");
 		cmd.add("--cores " + options.getCpu());
 		cmd.add("-v " + vcfFile);
 		cmd.add(outDB);
