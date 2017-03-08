@@ -1,4 +1,4 @@
-package de.NextGP.steps;
+o	package de.NextGP.steps;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -141,7 +141,7 @@ public class Annotate {
 		cmd.add("--total_length");
 		cmd.add("--vcf");
 		cmd.add("--offline");
-		cmd.add("--fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE");
+//		cmd.add("--fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE");
 
 		// store command
 		if (first <= 7 && last >= 7 ) {

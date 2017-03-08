@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
