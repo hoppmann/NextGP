@@ -1,4 +1,4 @@
-o	package de.NextGP.steps;
+	package de.NextGP.steps;
 
 import java.io.File;
 import java.util.ArrayList;
