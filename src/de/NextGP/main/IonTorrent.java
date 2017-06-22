@@ -51,7 +51,6 @@ public class IonTorrent {
 
 		// read input file
 		patients = pipeline.readFastqList();
-
 		// prepare bed file
 		pipeline.prepareBedFile();
 		
@@ -95,7 +94,7 @@ public class IonTorrent {
 		Log.logger(logger, "Preparing IonPanel pipeline files");
 		
 		// read input file
-		pipeline.readFastqList();
+		patients = pipeline.readFastqList();
 
 		// check if input is given
 		pipeline.checkPatMap();

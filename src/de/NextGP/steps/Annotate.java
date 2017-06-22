@@ -139,9 +139,11 @@ public class Annotate {
 		cmd.add("--numbers");
 		cmd.add("--biotype");
 		cmd.add("--total_length");
+		cmd.add("--check_existing");
+		cmd.add("--canonical");
+		cmd.add("--pubmed");
 		cmd.add("--vcf");
 		cmd.add("--offline");
-//		cmd.add("--fields Consequence,Codons,Amino_acids,Gene,SYMBOL,Feature,EXON,PolyPhen,SIFT,Protein_position,BIOTYPE");
 
 		// store command
 		if (first <= 7 && last >= 7 ) {

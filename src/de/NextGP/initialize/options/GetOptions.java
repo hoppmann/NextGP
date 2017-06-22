@@ -32,6 +32,7 @@ public class GetOptions {
 	private String bedFile;
 	private String slurmDir = "pipeline";
 	private int minConsCall = 2;
+	private String slurmPatition = "genepi";
 	
 
 	// alignment variables
@@ -129,6 +130,11 @@ public class GetOptions {
 		// set number of min consensus calls
 		if (cmd.hasOption("consensus")) {
 			minConsCall = Integer.parseInt(cmd.getOptionValue("consensus"));
+		}
+		
+		// get name of slurm patition
+		if (cmd.hasOption("slurmPatition")){
+			slurmPatition = cmd.getOptionValue("slurmPatition");
 		}
 		
 		
@@ -305,6 +311,10 @@ public class GetOptions {
 
 	public int getLast() {
 		return last;
+	}
+
+	public String getSlurmPatition() {
+		return slurmPatition;
 	}
 	
 	

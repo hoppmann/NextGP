@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Map;
 
+import javax.swing.plaf.SliderUI;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +44,6 @@ public class ReadInputFile {
 	public Map<String, Patients> readMateFastqFile(String listName) {
 		// read in fastq file list
 		LinkedList<String> lines = new Writer().openFile(listName); 
-
 		// sort reads to corresponding patients
 		ListIterator<String> listIterator = lines.listIterator();
 		while (listIterator.hasNext()) {
@@ -126,6 +127,10 @@ public class ReadInputFile {
 
 			// if it is real line split and sort to patient
 			String[] splitLine = curLine.split("\t");
+			if ( splitLine.length < 2){
+				Log.error(logger, "Mal formed bed list!");
+				System.exit(1);
+			}
 			String patID = splitLine[0];
 			String bam = splitLine[1];
 

@@ -25,6 +25,8 @@ public class SlurmWriter {
 	private String combGenoOut;
 	private String masterScript;
 	private Combined combined;
+	private String slurmPatition;
+	private int maxCPU; 
 
 
 	/////////////////////////////
@@ -36,6 +38,8 @@ public class SlurmWriter {
 		this.patients = patients;
 		this.combined = combined;
 		this.slurmDir = options.getSlurmDir();
+		this.slurmPatition = options.getSlurmPatition();
+		this.maxCPU = Integer.valueOf(options.getCpu());
 
 		// make log entry
 		logger.info("Writeing commands in batch files");
@@ -98,7 +102,7 @@ public class SlurmWriter {
 
 			// write first/general lines of batch file
 			batch.writeLine("#!/bin/bash");
-			batch.writeLine("#SBATCH --cpus-per-task=4");
+			batch.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
 
 
 			//////// for each command created write in batch file
@@ -141,7 +145,7 @@ public class SlurmWriter {
 
 			// Write first/genral lines of batch file
 			secondary.writeLine("#!/bin/bash");
-			secondary.writeLine("#SBATCH --cpus-per-task=4");
+			secondary.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
 
 			//////// foreach command created write in batch file
 			for (Method getCurCommand : curPatObject.getSecondaryCommands()){
@@ -184,7 +188,7 @@ public class SlurmWriter {
 
 		// add first line to file
 		combGeno.writeLine("#!/bin/bash");
-		combGeno.writeLine("#SBATCH --cpus-per-task=4");
+		combGeno.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
 
 
 		// for each entered command save in combined file
@@ -279,7 +283,7 @@ public class SlurmWriter {
 
 			// write bash execution in master file and prepare wait command
 			String curPatVar = "Pat_" + curPat;
-			master.writeLine(curPatVar + "=$(sbatch -p genepi " + outFile + ")");
+			master.writeLine(curPatVar + "=$(sbatch -p " + slurmPatition + " " + outFile + ")");
 			master.writeLine( curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
 			waitCombinedGenotypePrep += ":$" + curPatVar;
 
@@ -289,7 +293,7 @@ public class SlurmWriter {
 		
 		
 		// create slurm command for the combined genotyping step
-		String waitCombinedGenotype = "\ncomb=$(sbatch -p genepi -d afterok" + waitCombinedGenotypePrep + " " + combGenoOut + ")";
+		String waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + " -d afterok" + waitCombinedGenotypePrep + " " + combGenoOut + ")";
 
 		// write wait command in master file
 		master.writeLine(waitCombinedGenotype);
@@ -311,7 +315,7 @@ public class SlurmWriter {
 		
 
 		// prepare wait command for second combined steps
-		String waitPostCombinedGenotype ="\nsbatch -p genepi -d afterok";
+		String waitPostCombinedGenotype ="\nsbatch -p " + slurmPatition + " -d afterok";
 
 
 		for (String curPat : patients.keySet()) {
@@ -321,7 +325,7 @@ public class SlurmWriter {
 			String curPatVar = "Pat2_" + curPat;
 
 			// write bash execution in master file and prepare wait command
-			master.writeLine(curPatVar + "=$(sbatch -p genepi -d afterok:$comb " + outFile + ")");
+			master.writeLine(curPatVar + "=$(sbatch -p " + slurmPatition + " -d afterok:$comb " + outFile + ")");
 			master.writeLine(curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
 			waitPostCombinedGenotype += ":$" + curPatVar;
 
