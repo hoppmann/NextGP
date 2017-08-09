@@ -34,6 +34,7 @@ public class LoadConfig {
 	private String dbsnp;
 	private String hapmap;
 	private String omni;
+	private String vepCache;
 	
 	// misc
 	private String java;
@@ -93,6 +94,7 @@ public class LoadConfig {
 				dbsnp = prop.getProperty("dbSNP");
 				hapmap = prop.getProperty("hapmap");
 				omni = prop.getProperty("omni");
+				vepCache = prop.getProperty("vepCache");
 				
 				// misc
 				java = prop.getProperty("java");
@@ -259,6 +261,10 @@ public class LoadConfig {
 
 			public String getFastQC() {
 				return fastQC;
+			}
+
+			public String getVepCache() {
+				return vepCache;
 			}
 			
 			
