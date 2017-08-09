@@ -169,7 +169,7 @@ public class Picard {
 			
 			// add command to patient object
 			if (first <= 2 && last >= 2 ) {
-				patients.get(curPat).setAddOrReplaceReadgroups(cmd);
+				patients.get(curPat).setRemoveDuplicates(cmd);
 			}
 			patients.get(curPat).setLastOutFile(outFile);
 		}

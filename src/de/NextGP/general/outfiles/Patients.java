@@ -29,6 +29,7 @@ public class Patients {
 	private ArrayList<String> realignmentTargetCreator;
 	private ArrayList<String> indelRealigner;
 	private ArrayList<String> addOrReplaceReadgroups;
+	private ArrayList<String> removeDuplicates;
 	private ArrayList<String> baseRecalibration_pre;
 	private ArrayList<String> baseRecalibration_post;
 	private ArrayList<String> analyzeCovariates;
@@ -210,6 +211,24 @@ public class Patients {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public ArrayList<String> C() {
+		return removeDuplicates;
+	}
+
+	public void setRemoveDuplicates(ArrayList<String> removeDuplicates) {
+		this.removeDuplicates = removeDuplicates;
+		try {
+			primaryCommands.add(Patients.class.getMethod("getRemoveDuplicates"));
+		} catch (NoSuchMethodException | SecurityException e) {
+
+			e.printStackTrace();
+		
+		}
+	}
+
 	
 	
 	
