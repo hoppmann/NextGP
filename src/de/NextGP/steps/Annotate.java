@@ -152,7 +152,8 @@ public class Annotate {
 			combined.setVepAnnotation(cmd);
 		}
 		combined.setLastOutFile(outVEP);
-		
+		System.out.println(outVEP);
+		System.exit(0);
 	}
 
 
