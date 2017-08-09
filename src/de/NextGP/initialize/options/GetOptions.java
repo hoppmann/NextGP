@@ -47,6 +47,7 @@ public class GetOptions {
 	private boolean bamExon;
 	private String customPipeline;
 	private boolean custom;
+	private boolean bam;
 	
 	// pipeline parts
 	private int first = 1;
@@ -98,6 +99,15 @@ public class GetOptions {
 			System.exit(1);
 		}
 		
+		
+		
+		//// check if help is called
+		if (cmd.hasOption("help")){
+			setOptions.callHelp();
+		}
+		
+		
+		
 		if (cmd.hasOption("CPU")) {
 			cpu = cmd.getOptionValue("CPU");
 		} else {
@@ -145,6 +155,8 @@ public class GetOptions {
 		
 		if (cmd.hasOption("bamList")) {
 			bamList = cmd.getOptionValue("bamList");
+			bam = true;
+			first = 2; 
 		}
 
 		
@@ -315,6 +327,10 @@ public class GetOptions {
 
 	public String getSlurmPatition() {
 		return slurmPatition;
+	}
+
+	public boolean isBam() {
+		return bam;
 	}
 	
 	

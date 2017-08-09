@@ -123,7 +123,8 @@ public class VariantCaller {
 		cmd.add("-R " + config.getHg19Fasta());
 		cmd.add("-D " + config.getDbsnp());
 		cmd.add("-stand_call_conf 30 ");
-		cmd.add("-stand_emit_conf 30");
+		// depracted since version 3.7
+		// cmd.add("-stand_emit_conf 30");
 
 		for (String curPat : patients.keySet()) {
 			cmd.add("-V " + patients.get(curPat).getLastOutFile());

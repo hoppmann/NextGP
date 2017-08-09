@@ -48,6 +48,7 @@ public class IlluminaPanel {
 		// 01 align reads 
 		pipeline.align("Illumina");
 		
+		
 		// 03 realign
 		pipeline.indelRealigner();
 
