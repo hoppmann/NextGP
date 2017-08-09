@@ -27,7 +27,6 @@ public class BamExon {
 		this.options = options;
 		this.config = config;
 		combined = new Combined();
-
 		
 		// make log entry for starting bam pipeline
 		Log.logger(logger, "Preparing bam based PE batch files.");
@@ -40,6 +39,10 @@ public class BamExon {
 
 		// prepare bed file
 		pipeline.prepareBedFile();
+		
+		// 02 markDuplicates
+		pipeline.markDuplicates();
+		pipeline.addReplaceReadgroups("SOLiD", config.getDuplicates());
 		
 		// 03 realign
 		pipeline.indelRealigner();

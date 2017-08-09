@@ -80,7 +80,7 @@ public class Annotate {
 		String outDir = options.getOutDir();
 
 		
-		// get name for outfile
+		// get name for out file
 		String[] splitFile = vcfFile.split(File.separator);
 		String name = splitFile[splitFile.length - 1].split("\\.")[0];
 		String outVtMaster = outDir + sep + config.getAnnotation() + sep + name + "-sed-norm-decomp.vcf";

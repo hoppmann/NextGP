@@ -379,7 +379,7 @@ public class VariantCaller {
 
 	// rename sampleNames
 	public void renameSampleNames() {
-		AddReaplaceReadgroups readgroups = new AddReaplaceReadgroups(config, options, patients);
+		Picard readgroups = new Picard(config, options, patients);
 
 		// for each used variant caller extract name of that caller an rename sample name accordingly
 		for (String curPat : patients.keySet()){

@@ -48,6 +48,8 @@ public class IlluminaPanel {
 		// 01 align reads 
 		pipeline.align("Illumina");
 		
+		// 02 addReplaceReadgroups
+		pipeline.addReplaceReadgroups("Illumina", config.getAlignment());
 		
 		// 03 realign
 		pipeline.indelRealigner();

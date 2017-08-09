@@ -8,27 +8,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.NextGP.general.Log;
+import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
-public class AddReaplaceReadgroups {
+public class Picard {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
-	Logger logger = LoggerFactory.getLogger(AddReaplaceReadgroups.class);
+	Logger logger = LoggerFactory.getLogger(Picard.class);
 	private LoadConfig config;
 	private GetOptions options;
 	private Map<String, Patients> patients;
 	private int first;
 	private int last;
+	private Combined combined;
 
 
 	/////////////////////////////
 	//////// constructor ////////
 	/////////////////////////////
 
-	public AddReaplaceReadgroups(LoadConfig config, GetOptions options, Map<String, Patients> patients) {
+	// constructor for addReplaceReadgroups
+	public Picard(LoadConfig config, GetOptions options, Map<String, Patients> patients) {
 
 		// retrieve variables
 		this.config = config;
@@ -41,6 +44,20 @@ public class AddReaplaceReadgroups {
 		Log.logger(logger, "Preparing AddOrReplaceReadgroups");
 	}
 
+	// constructor for markDuplicates
+	public Picard(LoadConfig config, GetOptions options, Map<String, Patients> patients, Combined combined) {
+
+		// retrieve variables
+		this.config = config;
+		this.options = options;
+		this.patients = patients;
+		this.first = options.getFirst();
+		this.last = options.getLast();
+		this.combined = combined;
+		
+		// make log entry
+		Log.logger(logger, "Preparing AddOrReplaceReadgroups");
+	}
 
 
 
@@ -50,9 +67,9 @@ public class AddReaplaceReadgroups {
 	//////// methods ////////
 	/////////////////////////
 
-
-	// change readgroup in sam file
-	public void addReadgroups(String platform) {
+	/////////////////////////
+	//////// change readgroup in sam file
+	public void addReadgroups(String platform, String outDir) {
 
 		// prepare command for each patient
 		for (String curPat : patients.keySet()){
@@ -62,8 +79,8 @@ public class AddReaplaceReadgroups {
 			String rgpl = platform;
 			String rgpu = curPat;
 			String rgsm = curPat;
-			String outputFile = options.getOutDir() + File.separator + config.getAlignment() + File.separator + curPat + ".bam"; 
-			String logOut = options.getOutDir() + File.separator + config.getAlignment() + File.separator + curPat + ".log";
+			String outputFile = options.getOutDir() + File.separator + outDir + File.separator + curPat + ".bam"; 
+			String logOut = options.getOutDir() + File.separator + outDir + File.separator + curPat + ".log";
 
 
 			// retrive variables
@@ -85,11 +102,10 @@ public class AddReaplaceReadgroups {
 
 
 			// add command to patient object
-			if (first <= 1 && last >= 1 ) {
+			if ((first <= 1 && last >= 1) ||(first <= 2 && last >= 2)  ) {
 				patients.get(curPat).setAddOrReplaceReadgroups(cmd);
 			}
 			patients.get(curPat).setLastOutFile(outputFile);
-
 		}
 	}
 
@@ -97,10 +113,6 @@ public class AddReaplaceReadgroups {
 	// modify sample name
 	public ArrayList<String> replaceSampleName(String newName, String curPat){
 
-		// prepare return map
-//		Map<String, ArrayList<String>> allCmd = new HashMap<>();
-		
-			
 			// init and prepare variables
 			ArrayList<String> cmd = new ArrayList<>();
 			String curPatFile = patients.get(curPat).getVcfFiles().get(newName);
@@ -119,9 +131,109 @@ public class AddReaplaceReadgroups {
 		
 	}
 
+	
+	
+	
+	
+	///////////////////
+	//////// mark Duplicates
+	
+	
+	public void markDuplicates() {
+		
+		// create out dir
+		String outDir = options.getOutDir();
+		String sep = File.separator;
+		String dupOutDir = outDir + sep + config.getDuplicates();
+		combined.mkdir(dupOutDir);
+
+		// prepare command
+		for (String curPat : patients.keySet()){
+			ArrayList<String> cmd = new ArrayList<>();
+			
+			// prepare our file names
+			String outFile = dupOutDir + "/" + curPat + ".dup.bam";
+			String metricOutFile = dupOutDir + "/" + curPat + "metrics.txt";
+			String logOut = dupOutDir + "/" + curPat + ".dup.log";
+			
+			cmd.add(config.getJava());
+			cmd.add(options.getXmx());
+			cmd.add("-jar " + config.getPicard());
+			cmd.add("MarkDuplicates");
+			cmd.add("INPUT=" + patients.get(curPat).getLastOutFile());
+			cmd.add("OUTPUT=" + outFile);
+			cmd.add("METRICS_FILE=" + metricOutFile);
+			cmd.add("VALIDATION_STRINGENCY=LENIENT");
+			cmd.add("2> " + logOut);
+			
+			
+			// add command to patient object
+			if (first <= 2 && last >= 2 ) {
+				patients.get(curPat).setAddOrReplaceReadgroups(cmd);
+			}
+			patients.get(curPat).setLastOutFile(outFile);
+		}
+		
+	}
+	
 
 
 	/////////////////////////////////
 	//////// getter / setter ////////
 	/////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -16,7 +16,7 @@ import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.ReadInputFile;
 import de.NextGP.initialize.options.GetOptions;
-import de.NextGP.steps.AddReaplaceReadgroups;
+import de.NextGP.steps.Picard;
 import de.NextGP.steps.Annotate;
 import de.NextGP.steps.BQSR;
 import de.NextGP.steps.BWA;
@@ -188,14 +188,29 @@ public class GeneralPipeline {
 		// sort sam and convert to bam using picard
 		new SamToBam(options, config, patients, combined);
 
-		//////// add read groups
-		AddReaplaceReadgroups readgroups = new AddReaplaceReadgroups(config, options, patients);
-		readgroups.addReadgroups(platform);
 
 	}
 
+	
+	//////////////////
+	//////// add read groups
+	public void addReplaceReadgroups(String platform, String outDir) {
+	
+		Picard picard = new Picard(config, options, patients);
+		picard.addReadgroups(platform, outDir);
 
-
+	}
+	
+	//////////////////////////
+	//////// run picard mark duplicates
+	public void markDuplicates() {
+		
+		Picard picard = new Picard(config, options, patients, combined);
+		picard.markDuplicates();
+	
+	}
+	
+	
 	/////////////
 	//////// run indel realignment
 
