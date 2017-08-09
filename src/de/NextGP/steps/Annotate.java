@@ -129,8 +129,11 @@ public class Annotate {
 		cmd.add("-o " + outVEP);
 		cmd.add("-fork " + options.getCpu());
 		cmd.add("--cache");
+		cmd.add("--merged");
+		cmd.add("--offline");
+		cmd.add("----plugin dbNSFP,/data/ngs/resources/dbNSFP/2.9.3/dbNSFP2.9.3_hg19.gz,SIFT_pred,Polyphen2_HDIV_pred,Polyphen2_HVAR_pred,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred,MetaSVM_pred,MetaLR_pred,PROVEAN_pred,M-CAP_pred,REVEL_score,clinvar_clnsig,clinvar_trait");
 		cmd.add("--species homo_sapiens");
-		cmd.add("--cache_version 77");
+		cmd.add("--cache_version 89");
 		cmd.add("--assembly GRCh37");
 		cmd.add("--force_overwrite");
 		cmd.add("--sift b");
@@ -143,7 +146,6 @@ public class Annotate {
 		cmd.add("--canonical");
 		cmd.add("--pubmed");
 		cmd.add("--vcf");
-		cmd.add("--offline");
 
 		// store command
 		if (first <= 7 && last >= 7 ) {
@@ -173,6 +175,7 @@ public class Annotate {
 		cmd.add("GRCh37.75");
 		cmd.add("-classic");
 		cmd.add("-formatEff");
+		cmd.add("-noStats");
 		cmd.add(outVEP);
 		cmd.add("> " + outSnpEff);
 		

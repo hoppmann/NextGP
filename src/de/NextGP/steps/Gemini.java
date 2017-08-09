@@ -93,7 +93,8 @@ public class Gemini {
 		// prepare command
 		cmd.add(config.getGemini());
 		cmd.add("load");
-		cmd.add("-t VEP");
+//		cmd.add("-t VEP"); use all annotation from VEP and snpEff
+		cmd.add("-t all");
 		cmd.add("--cores " + options.getCpu());
 		cmd.add("-v " + vcfFile);
 		cmd.add(outDB);
@@ -103,7 +104,6 @@ public class Gemini {
 		if (first <= 8 && last >= 7 ) {
 			combined.setGeminiLoad(cmd);
 		}
-//		return cmd;
 	}
 
 
