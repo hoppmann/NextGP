@@ -214,7 +214,7 @@ public class Patients {
 	
 	
 	
-	public ArrayList<String> C() {
+	public ArrayList<String> getRemoveDuplicates () {
 		return removeDuplicates;
 	}
 
