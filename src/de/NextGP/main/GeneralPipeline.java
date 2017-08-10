@@ -229,9 +229,9 @@ public class GeneralPipeline {
 	////////////
 	//////// run BQSR
 
-	public void bqsr() {
+	public void bqsr(boolean isSolid) {
 
-		BQSR bqsr = new BQSR(patients, config, options);
+		BQSR bqsr = new BQSR(patients, config, options, isSolid);
 
 		// for each patient run all four steps of BQSR
 

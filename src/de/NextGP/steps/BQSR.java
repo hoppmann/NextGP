@@ -27,13 +27,14 @@ public class BQSR {
 	private String outputPost;
 	private int first;
 	private int last;
+	private boolean isSolid;
 
 
 	/////////////////////////////
 	//////// constructor ////////
 	/////////////////////////////
 
-	public BQSR(Map<String, Patients> patients, LoadConfig config, GetOptions options) {
+	public BQSR(Map<String, Patients> patients, LoadConfig config, GetOptions options, boolean isSolid) {
 
 		// retrieve variables
 		this.patients = patients;
@@ -41,6 +42,7 @@ public class BQSR {
 		this.options = options;
 		this.first = options.getFirst();
 		this.last = options.getLast();
+		this.isSolid = isSolid;
 
 		// make log entry
 		Log.logger(logger, "Preparing BQSR");
@@ -83,6 +85,12 @@ public class BQSR {
 		cmd.add("-T BaseRecalibrator");
 		cmd.add("-nct " + options.getCpu());
 		cmd.add("-R " + config.getHg19Fasta());
+		
+		// add option specific to SOLiD data
+		if (isSolid){
+			cmd.add("-solid_nocall_strategy PURGE_READ -sMode SET_Q_ZERO_BASE_N");
+		}
+		
 		cmd.add("-knownSites " + config.getDbsnp());
 		cmd.add("-knownSites " + config.getIndelMills());
 		cmd.add("-knownSites " + config.getIndel1kgp());
@@ -90,6 +98,7 @@ public class BQSR {
 		cmd.add("-o " + outputPre);
 		cmd.add("-log " + logfile);
 
+		
 		// save command in patient object
 		if (first <= 4 && last >= 4 ) {
 			patients.get(curPat).setBaseRecalibration_pre(cmd);
@@ -127,6 +136,12 @@ public class BQSR {
 		cmd.add("-l INFO");
 		cmd.add("-nct " + options.getCpu());
 		cmd.add("-R " + config.getHg19Fasta());
+		
+		// add option specific to SOLiD data
+		if (isSolid){
+			cmd.add("-solid_nocall_strategy PURGE_READ -sMode SET_Q_ZERO_BASE_N");
+		}
+		
 		cmd.add("-knownSites " + config.getDbsnp());
 		cmd.add("-knownSites " + config.getIndelMills());
 		cmd.add("-knownSites " + config.getIndel1kgp());
@@ -222,15 +237,20 @@ public class BQSR {
 	}
 
 
+
+
+
+	
+/////////////////////////////////
+//////// getter / setter ////////
+/////////////////////////////////
+
+
 }
 
 
 
 
-
-/////////////////////////////////
-//////// getter / setter ////////
-/////////////////////////////////
 
 
 

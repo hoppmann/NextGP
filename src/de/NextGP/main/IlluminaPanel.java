@@ -55,7 +55,8 @@ public class IlluminaPanel {
 		pipeline.indelRealigner();
 
 		// 04 BQSR
-		pipeline.bqsr();
+		boolean isSolid = false;
+		pipeline.bqsr(isSolid);
 
 		// 05 create metrics
 		pipeline.metrices();

@@ -48,7 +48,8 @@ public class BamExon {
 		pipeline.indelRealigner();
 
 		// 04 BQSR
-		pipeline.bqsr();
+		boolean isSolid = true;
+		pipeline.bqsr(isSolid);
 
 		// 05 create metrics
 		pipeline.metrices();
