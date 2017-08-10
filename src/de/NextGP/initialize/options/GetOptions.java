@@ -34,6 +34,7 @@ public class GetOptions {
 	private int minConsCall = 2;
 	private String slurmPatition = "genepi";
 	private String intermediateDir = "/scratch/global/NextGP";
+	private boolean isSolid = false;
 	
 
 	// alignment variables
@@ -198,6 +199,10 @@ public class GetOptions {
 			ionPanel = true;
 		}
 		
+		if (cmd.hasOption("solid")){
+			isSolid = true;
+		}
+		
 		
 		
 		//////// pipeline parts
@@ -342,6 +347,10 @@ public class GetOptions {
 
 	public String getIntermediateDir() {
 		return intermediateDir;
+	}
+
+	public boolean isSolid() {
+		return isSolid;
 	}
 	
 	
