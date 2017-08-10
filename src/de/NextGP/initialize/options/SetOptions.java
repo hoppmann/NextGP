@@ -55,7 +55,7 @@ public class SetOptions {
 		opts.put(general, new OptionValue(options, "slurmDir", true, "Set directory slurm commands will be written to."));
 		opts.put(general, new OptionValue(options, "consensus", true, "Sets the threshold of how many caller need to call a variant before it's accepted. (default 2)"));
 		opts.put(general, new OptionValue(options, "slurmPatition", true, "Define the slurm patition to run on."));
-		
+		opts.put(general, new OptionValue(options, "intermediate", true, "folder to save intermediate steps which will not be kept in the end (defauld /scratch/global/NextGP/"));
 		
 		// alignment specific options
 		opts.put(alignment, new OptionValue(options, "fastqList", true, "List containing name of forward and backward read files."));

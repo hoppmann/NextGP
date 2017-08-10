@@ -33,6 +33,7 @@ public class GetOptions {
 	private String slurmDir = "pipeline";
 	private int minConsCall = 2;
 	private String slurmPatition = "genepi";
+	private String intermediateDir = "/scratch/global/NextGP/";
 	
 
 	// alignment variables
@@ -147,6 +148,12 @@ public class GetOptions {
 			slurmPatition = cmd.getOptionValue("slurmPatition");
 		}
 		
+		// get name of directory for intermediate files
+		if (cmd.hasOption("intermediate")){
+			intermediateDir = cmd.getOptionValue("intermediate");
+		}
+		
+		
 		
 		//////// get alignment specific options
 		if (cmd.hasOption("fastqList")) {
@@ -159,7 +166,7 @@ public class GetOptions {
 			first = 2; 
 		}
 
-		
+	
 		
 		
 		
@@ -331,6 +338,10 @@ public class GetOptions {
 
 	public boolean isBam() {
 		return bam;
+	}
+
+	public String getIntermediateDir() {
+		return intermediateDir;
 	}
 	
 	

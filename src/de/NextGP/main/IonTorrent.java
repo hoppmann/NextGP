@@ -61,7 +61,8 @@ public class IonTorrent {
 		pipeline.indelRealigner();
 
 		// step 04 prepare BQSR
-		pipeline.bqsr();
+		boolean isSolid = false;
+		pipeline.bqsr(isSolid);
 
 		// step 05 create metrics
 		pipeline.metrices();
@@ -109,7 +110,8 @@ public class IonTorrent {
 		pipeline.indelRealigner();
 
 		// 04 BQSR
-		pipeline.bqsr();
+		boolean isSolid = false;
+		pipeline.bqsr(isSolid);
 
 		// 05 create metrics
 		pipeline.metrices();
