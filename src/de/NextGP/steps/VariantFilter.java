@@ -99,7 +99,7 @@ public class VariantFilter {
 		cmd.add("-T VariantFiltration");
 		cmd.add("-R " + config.getHg19Fasta());
 		cmd.add("-V " + outFileSnpSet);
-		cmd.add("--filterExpression \"QD < 2\"");
+		cmd.add("--filterExpression \"QD < 2.0\"");
 		cmd.add("--filterName \"QDFilter\"");
 		cmd.add("--filterExpression \"FS > 200.0\"");
 		cmd.add("--filterName \"FSFilter\"");
@@ -163,7 +163,7 @@ public class VariantFilter {
 		cmd.add("-V " + outExtractIndelSet);
 //		cmd.add("--filterExpression \" QD < 2.0 \"");
 //		cmd.add("--filterName \"QDFilter\"");
-		cmd.add("--filterExpression \" FS > 200 \"");
+		cmd.add("--filterExpression \" FS > 200.0 \"");
 		cmd.add("--filterName \"FSFilter\"");
 		cmd.add("--filterExpression \" ReadPosRankSum < -20.0 \"");
 		cmd.add("--filterName \"ReadPosRankSumFilter\"");
