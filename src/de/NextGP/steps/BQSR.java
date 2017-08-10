@@ -28,6 +28,7 @@ public class BQSR {
 	private int first;
 	private int last;
 	private boolean isSolid;
+	private String interDir;
 
 
 	/////////////////////////////
@@ -48,8 +49,9 @@ public class BQSR {
 		Log.logger(logger, "Preparing BQSR");
 
 		// prepare general variables
+		interDir = options.getIntermediateDir();
 		sep = File.separator;
-		outDir = options.getOutDir() + sep + config.getBaseReacalibration();
+		outDir = interDir + sep + options.getOutDir() + sep + config.getBaseReacalibration();
 	}
 
 

@@ -33,7 +33,7 @@ public class GetOptions {
 	private String slurmDir = "pipeline";
 	private int minConsCall = 2;
 	private String slurmPatition = "genepi";
-	private String intermediateDir = "/scratch/global/NextGP/";
+	private String intermediateDir = "/scratch/global/NextGP";
 	
 
 	// alignment variables

@@ -74,13 +74,18 @@ public class Picard {
 		// prepare command for each patient
 		for (String curPat : patients.keySet()){
 
+			// get directory for intermediate files
+			String interDir = options.getIntermediateDir();
+			String sep = File.separator;
+			
+			
 			// prepare variables
 			String rgbl = curPat;
 			String rgpl = platform;
 			String rgpu = curPat;
 			String rgsm = curPat;
-			String outputFile = options.getOutDir() + File.separator + outDir + File.separator + curPat + ".bam"; 
-			String logOut = options.getOutDir() + File.separator + outDir + File.separator + curPat + ".log";
+			String outputFile = interDir + sep + options.getOutDir() + sep + outDir + sep + curPat + ".bam"; 
+			String logOut = interDir + sep + options.getOutDir() + sep + outDir + sep + curPat + ".log";
 
 
 			// retrive variables
@@ -112,11 +117,16 @@ public class Picard {
 	
 	// modify sample name
 	public ArrayList<String> replaceSampleName(String newName, String curPat){
-
+		
+			// get directory for intermediate files
+			String interDir = options.getIntermediateDir();
+			String sep = File.separator;
+			
+			
 			// init and prepare variables
 			ArrayList<String> cmd = new ArrayList<>();
 			String curPatFile = patients.get(curPat).getVcfFiles().get(newName);
-			String outFile = curPatFile.replace(".vcf", "-renamed.vcf");
+			String outFile = interDir + sep + curPatFile.replace(".vcf", "-renamed.vcf");
 			
 			// prepare command
 			cmd.add("cat " + curPatFile);
@@ -142,9 +152,10 @@ public class Picard {
 	public void markDuplicates() {
 		
 		// create out dir
+		String interDir = options.getIntermediateDir();
 		String outDir = options.getOutDir();
 		String sep = File.separator;
-		String dupOutDir = outDir + sep + config.getDuplicates();
+		String dupOutDir = interDir + sep + outDir + sep + config.getDuplicates();
 		combined.mkdir(dupOutDir);
 
 		// prepare command

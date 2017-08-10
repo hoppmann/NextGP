@@ -36,7 +36,7 @@ public class Realigner {
 		// retrieve variables
 		this.config = config;
 		this.options = options;
-		this.outDir = options.getOutDir();
+		this.outDir = options.getIntermediateDir() + File.separator + options.getOutDir();
 		this.patients = patients;
 		this.first = options.getFirst();
 		this.last = options.getLast();
@@ -47,7 +47,6 @@ public class Realigner {
 
 		// run realign target creator
 		Log.logger(logger, "Prparing indel realigner");
-		//		targetCreator(patients);
 
 	}
 
@@ -115,7 +114,6 @@ public class Realigner {
 			input = outDir + sep + config.getAlignment() + sep + curPat + ".bam";
 		}
 
-		String outDir = options.getOutDir();
 		String outFile  = outDir + sep + config.getRealignment() + sep + curPat +".bam";
 		String logfileRealign = outDir + sep + config.getRealignment() + sep + curPat + sep + curPat + ".realigner.log";
 		String outputCreator  = outDir + sep + config.getRealignment() + sep + curPat + sep + curPat +".list";

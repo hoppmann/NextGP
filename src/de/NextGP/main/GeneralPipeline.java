@@ -290,12 +290,6 @@ public class GeneralPipeline {
 		// extract individuals for later consensus calling
 		caller.extractInd();
 		
-//		// rename sample name to the caller name
-//		caller.renameSampleNames();
-//		
-//		// merge variants
-//		caller.mergeDifCallerVariants();
-		
 		// get consensus call
 		caller.runConsensus();
 		
