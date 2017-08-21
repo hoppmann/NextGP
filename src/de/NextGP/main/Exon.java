@@ -8,7 +8,7 @@ import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
-public class BamExon {
+public class Exon {
 
 	//////////////
 	//// Variables
@@ -16,12 +16,12 @@ public class BamExon {
 	LoadConfig config;
 	Combined combined;
 
-	private static Logger logger = LoggerFactory.getLogger(BamExon.class);
+	private static Logger logger = LoggerFactory.getLogger(Exon.class);
 
 
 	// run pipeline corresponding to an Illumina Panel
 
-	public BamExon(GetOptions options, LoadConfig config) {
+	public Exon(GetOptions options, LoadConfig config) {
 
 		//prepare and initialize variables
 		this.options = options;
@@ -34,9 +34,41 @@ public class BamExon {
 		// initialize pipeline class to start desired steps
 		GeneralPipeline pipeline = new GeneralPipeline(options, config);
 
-		// read input bam list
-		pipeline.readBamList(options.getBamList());
+		// check for pipeline type (solid or illumina)
+		String sequencer;
+		if (options.isSolid()) {
+			sequencer = "SOLiD";
+		} else {
+			sequencer = "Illumina";
+		}
+		
+		// if not bam option chosen start with fastq file
+		if (!options.isBam()) {
+			// read input file
+			pipeline.readFastqList();
 
+			// check if input is given
+			pipeline.checkPatMap();
+	
+			// prepare bed file
+			pipeline.prepareBedFile();
+
+			// 01 align reads
+			
+			pipeline.align(sequencer);
+
+			// 02 addReplaceReadgroups
+			pipeline.addReplaceReadgroups(sequencer, config.getAlignment());
+		
+		// start with import of bam list if bam option is chosen
+		} else if (options.isBam()) {
+
+			// read input bam list
+			pipeline.readBamList(options.getBamList());
+
+		}
+
+		
 		// prepare bed file
 		pipeline.prepareBedFile();
 		

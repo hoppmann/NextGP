@@ -33,7 +33,7 @@ public class Main {
 
 		// run Illumina Panel if chosen
 		if (options.isIlluminaPanel()){
-			new IlluminaPanel(options, config);
+			new Panel(options, config);
 		}
 		
 		
@@ -49,7 +49,7 @@ public class Main {
 
 		// run exonBam
 		if (options.isBamExon()){
-			new BamExon(options, config);
+			new Exon(options, config);
 		}
 
 		// run custom chosen pipeline
