@@ -180,7 +180,7 @@ public class GetOptions {
 			bwa = true;
 		}
 		
-		if (cmd.hasOption("illuminaPanel")) {
+		if (cmd.hasOption("panel")) {
 			illuminaPanel = true;
 		}
 		
@@ -188,14 +188,10 @@ public class GetOptions {
 			ionExon = true;
 		}
 		
-		if (cmd.hasOption("bamExon")) {
+		if (cmd.hasOption("exon")) {
 			bamExon = true;
 		}
 		
-		if (cmd.hasOption("customPipeline")) {
-			customPipeline = cmd.getOptionValue("customPipeline");
-			custom = true;
-		}
 		
 		if (cmd.hasOption("ionPanel")) {
 			ionPanel = true;
