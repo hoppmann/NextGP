@@ -33,7 +33,7 @@ public class GetOptions {
 	private String slurmDir = "pipeline";
 	private int minConsCall = 2;
 	private String slurmPatition = "genepi";
-	private String intermediateDir = "/tempdata/ge/temp/NextGP";
+	private String tempDir;
 	private boolean isSolid = false;
 	
 
@@ -150,8 +150,10 @@ public class GetOptions {
 		}
 		
 		// get name of directory for intermediate files
-		if (cmd.hasOption("intermediate")){
-			intermediateDir = cmd.getOptionValue("intermediate");
+		if (cmd.hasOption("tempDir")){
+			tempDir = cmd.getOptionValue("tempDir");
+		} else {
+			tempDir = config.getTempDir();
 		}
 		
 		
@@ -346,7 +348,7 @@ public class GetOptions {
 	}
 
 	public String getIntermediateDir() {
-		return intermediateDir;
+		return tempDir;
 	}
 
 	public boolean isSolid() {

@@ -3,6 +3,8 @@ package de.NextGP.initialize;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.print.DocFlavor.STRING;
+
 public class LoadConfig {
 
 	//	initializing variables
@@ -38,6 +40,7 @@ public class LoadConfig {
 	
 	// misc
 	private String java;
+	private String tempDir;
 
 	// folder for output
 	private String alignment;
@@ -98,6 +101,7 @@ public class LoadConfig {
 				
 				// misc
 				java = prop.getProperty("java");
+				tempDir = prop.getProperty("tempDir");
 				
 				alignment = prop.getProperty("alignment");
 				duplicates = prop.getProperty("duplicates");
@@ -265,6 +269,10 @@ public class LoadConfig {
 
 			public String getVepCache() {
 				return vepCache;
+			}
+
+			public String getTempDir() {
+				return tempDir;
 			}
 			
 			
