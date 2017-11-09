@@ -3,8 +3,6 @@ package de.NextGP.initialize;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.print.DocFlavor.STRING;
-
 public class LoadConfig {
 
 	//	initializing variables

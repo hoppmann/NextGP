@@ -66,7 +66,7 @@ public class SetOptions {
 		opts.put(pipeline, new OptionValue(options, "ionExon", false, "\tExecutes the Ion Torrent exone pipeline"));
 		opts.put(pipeline, new OptionValue(options, "ionPanel", false, "Prepares the ionTorrent panel version of the pipeline"));
 		opts.put(pipeline, new OptionValue(options, "exon", false, "\trun an exon starting with a bam file"));
-		opts.put(pipeline, new OptionValue(options, "solid", false, "\tUse this option if input bam files are SOLiD files. Only needed of \"bamExon\" is run"));
+		opts.put(pipeline, new OptionValue(options, "solid", false, "\tUse this option if input bam files are SOLiD files. Only needed if \"bamExon\" is run"));
 		
 		// pipeline parts
 		opts.put(parts, new OptionValue(options, "first", true, "Number of first pipeline step to start from. Default: 01. Possible steps: \n\t\t\t\t01: alignment; \n\t\t\t\t02: remove duplicates; \n\t\t\t\t03: indel realignment; \n\t\t\t\t04: base recalibration; \n\t\t\t\t05: metrices; \n\t\t\t\t06: variant calling; \n\t\t\t\t07: annotaion; \n\t\t\t\t08: database generation"));
