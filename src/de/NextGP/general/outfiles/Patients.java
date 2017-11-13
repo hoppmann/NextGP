@@ -17,13 +17,14 @@ public class Patients {
 	/////////////////////////
 	//////// Prior combined gatk calling
 	private String forward;
-	private String backward;
+	private String reverse;
 	private String lastOutFile;
 	private List<Method> primaryCommands = new LinkedList<>();
 	private String bam;
 	
 	
 	//////// commands
+	private ArrayList<String> afterQC;
 	private ArrayList<String> bwa;
 	private ArrayList<String> samToBam;
 	private ArrayList<String> realignmentTargetCreator;
@@ -103,11 +104,11 @@ public class Patients {
 	}
 	
 	
-	public String getBackward() {
-		return backward;
+	public String getReverse() {
+		return reverse;
 	}
-	public void setBackward(String backward) {
-		this.backward = backward;
+	public void setReverse(String reverse) {
+		this.reverse = reverse;
 	}
 	
 	public List<Method> getPrimaryCommands() {
@@ -153,6 +154,27 @@ public class Patients {
 	//////// Commands
 
 
+
+	public ArrayList<String> getAfterQC() {
+		return afterQC;
+	}
+
+	public void setAfterQC(ArrayList<String> afterQC) {
+		this.afterQC = afterQC;
+		try {
+			primaryCommands.add(Patients.class.getMethod("getAfterQC"));
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	public ArrayList<String> getBwa() {
 		return bwa;
 	}
@@ -663,11 +685,7 @@ public class Patients {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
+
 	
 	
 	

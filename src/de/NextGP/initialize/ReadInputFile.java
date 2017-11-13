@@ -61,7 +61,7 @@ public class ReadInputFile {
 
 			Patients pat = new Patients();
 			pat.setForward(forward);
-			pat.setBackward(backward);
+			pat.setReverse(backward);
 			patients.put(patID, pat);
 
 

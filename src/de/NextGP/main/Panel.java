@@ -47,12 +47,20 @@ public class Panel {
 			// prepare bed file
 			pipeline.prepareBedFile();
 
+
 			// 01 align reads 
+			pipeline.preprocess();
 			pipeline.align("Illumina");
 
 			// 02 addReplaceReadgroups
 			pipeline.addReplaceReadgroups("Illumina", config.getAlignment());
 		
+			
+			
+			
+			
+			
+			
 		// start with import of bam list if bam option is chosen
 		} else if (options.isBam()) {
 

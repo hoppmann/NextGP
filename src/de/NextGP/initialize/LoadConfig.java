@@ -25,6 +25,7 @@ public class LoadConfig {
 	private String vcfFilter;
 	private String consensus;
 	private String fastQC;
+	private String afterQC;
 	
 	// references
 	private String hg19Fasta;
@@ -86,6 +87,7 @@ public class LoadConfig {
 				vcfFilter = prop.getProperty("vcfFilter");
 				consensus = prop.getProperty("consensus");
 				fastQC = prop.getProperty("fastQC");
+				afterQC	= prop.getProperty("afterQC");
 				
 				// read in reference directory names
 				hg19Fasta = prop.getProperty("hg19Fasta");
@@ -271,6 +273,10 @@ public class LoadConfig {
 
 			public String getTempDir() {
 				return tempDir;
+			}
+
+			public String getAfterQC() {
+				return afterQC;
 			}
 			
 			

@@ -73,7 +73,7 @@ public class BWA {
 	
 	////////////////
 	//////// prepare mate pair command for execution
-	public void singelEndedCommand(String platform) {
+	public void singelEnd(String platform) {
 
 		for (String curPat : patients.keySet()){
 			
@@ -111,7 +111,7 @@ public class BWA {
 
 	////////////////
 	//////// prepare mate pair command for execution
-	public void matePairCommand(String platform) {
+	public void pairedEnd(String platform) {
 
 		for (String curPat : patients.keySet()){
 			
@@ -133,7 +133,7 @@ public class BWA {
 
 			// add patient forward and backward reads
 			cmd.add(patients.get(curPat).getForward());
-			cmd.add(patients.get(curPat).getBackward());
+			cmd.add(patients.get(curPat).getReverse());
 			cmd.add("> " + OutFile);
 
 			// save command in patient object

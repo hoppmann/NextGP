@@ -16,13 +16,14 @@ import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.ReadInputFile;
 import de.NextGP.initialize.options.GetOptions;
-import de.NextGP.steps.Picard;
 import de.NextGP.steps.Annotate;
 import de.NextGP.steps.BQSR;
 import de.NextGP.steps.BWA;
 import de.NextGP.steps.CreateMetrices;
 import de.NextGP.steps.Gemini;
+import de.NextGP.steps.Picard;
 import de.NextGP.steps.PrepareBedFile;
+import de.NextGP.steps.Preprocess;
 import de.NextGP.steps.Realigner;
 import de.NextGP.steps.SamToBam;
 import de.NextGP.steps.VariantCaller;
@@ -65,7 +66,7 @@ public class GeneralPipeline {
 	/////////////////////////
 
 	//////////////////
-	//////// check existance and corectness of patients map
+	//////// check existence and correctness of patients map
 
 	public void checkPatMap() {
 
@@ -168,18 +169,36 @@ public class GeneralPipeline {
 	}
 		
 	
+	
+	///////////////////
+	//////// run pre processing steps
+	public void preprocess() {
+
+		Map<String, Patients> fastqList = readFastqList();
+		Preprocess pre = new Preprocess(options, fastqList);
+		pre.afterQc();
+		
+		
+//		System.out.println(this.getClass());
+//		System.exit(0);
+		
+	}
+	
+	
+	
+	
+	
 	////////////////
 	//////// run alignment steps
-
 	public void align(String platform) {
 
 		////// BWA
 		// align sequences using BWA
 		BWA bwa = new BWA(config, patients, options, combined);
 		if (combined.isMatePair()){
-			bwa.matePairCommand(platform);
+			bwa.pairedEnd(platform);
 		} else {
-			bwa.singelEndedCommand(platform);
+			bwa.singelEnd(platform);
 
 		}
 
