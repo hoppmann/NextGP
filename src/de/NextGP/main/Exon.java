@@ -53,8 +53,10 @@ public class Exon {
 			// prepare bed file
 			pipeline.prepareBedFile();
 
-			// 01 align reads
+			// pre-processing with AfterQC
+			pipeline.preprocess();
 			
+			// 01 align reads
 			pipeline.align(sequencer);
 
 			// 02 addReplaceReadgroups

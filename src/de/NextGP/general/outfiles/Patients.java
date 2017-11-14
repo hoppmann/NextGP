@@ -52,6 +52,7 @@ public class Patients {
 	private ArrayList<String> filterPlatypus;
 	private ArrayList<String> freebayes;
 	private ArrayList<String> sortFreebayes;
+	private ArrayList<String> variantEval;
 	
 	
 	////////////////////////
@@ -684,6 +685,23 @@ public class Patients {
 			
 			e.printStackTrace();
 		}
+	}
+
+	
+	
+	public ArrayList<String> getVariantEval() {
+		return variantEval;
+	}
+
+	public void setVariantEval(ArrayList<String> variantEval) {
+		this.variantEval = variantEval;
+		
+		try {
+			secondaryCommands.add(Patients.class.getMethod("getVariantEval"));
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	

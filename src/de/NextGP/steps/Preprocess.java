@@ -19,7 +19,9 @@ public class Preprocess {
 	private static Logger logger = LoggerFactory.getLogger(Process.class);
 	GetOptions options;
 	Map<String, Patients> patients;
-	
+	private int first;
+	private int last;
+
 	
 	
 	
@@ -31,6 +33,8 @@ public class Preprocess {
 
 		this.options = options;
 		this.patients = patients;
+		this.first = options.getFirst();
+		this.last = options.getLast();
 		
 		// make log entry
 		Log.logger(logger, "Prepareing AfterQC commands.");
@@ -84,8 +88,9 @@ public class Preprocess {
 			
 			
 			// save command in patients object
-			patients.get(curPat).setAfterQC(cmd);
-		
+			if (first <= 1 && last >= 1 ) {
+				patients.get(curPat).setAfterQC(cmd);
+			}
 		}
 		
 		

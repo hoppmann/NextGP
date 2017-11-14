@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.NextGP.general.Log;
-import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -20,7 +19,6 @@ public class VariantEval {
 	private static Logger logger = LoggerFactory.getLogger(VariantCaller.class);
 	GetOptions options;
 	LoadConfig config;
-	Combined combined;
 	Map<String, Patients> patients;
 	
 	
@@ -28,13 +26,11 @@ public class VariantEval {
 	//////// constructor ////////
 	/////////////////////////////
 
-	public VariantEval(GetOptions options, LoadConfig config, 
-			Combined combined, Map<String, Patients> patients) {
+	public VariantEval(GetOptions options, LoadConfig config, Map<String, Patients> patients) {
 		
 		//	retrieve variables
 		this.options = options;
 		this.config = config;
-		this.combined = combined;
 		this.patients = patients;
 		
 		// make log entry
@@ -51,14 +47,20 @@ public class VariantEval {
 
 	private void varEval(){
 		
-		
+		for (String curPat : patients.keySet()) {
 		
 		// initialize and gather variables
 		ArrayList<String> cmd = new ArrayList<String>();
-		String inputVCF = combined.getLastOutFile();
+		String inputVCF = patients.get(curPat).getLastOutFile();
+		
+		
+				
+				
+				
+				
 		String sep = File.separator;
 		String outDir = options.getOutDir();
-		String output = outDir + sep + config.getVariantCalling() +sep + "gatk" + sep + "filtered" + sep + "eval.xls";
+		String output = outDir + sep + config.getMetrices() + sep + curPat + sep + curPat + ".eval.xls";
 		
 		
 		
@@ -80,13 +82,11 @@ public class VariantEval {
 		cmd.add("-o " + output);
 		
 		
-		
-		
 		// store command
-		combined.setVarEval(cmd);
+		patients.get(curPat).setVariantEval(cmd);
 		
 		
-		
+		}
 	}
 	
 	

@@ -27,6 +27,7 @@ import de.NextGP.steps.Preprocess;
 import de.NextGP.steps.Realigner;
 import de.NextGP.steps.SamToBam;
 import de.NextGP.steps.VariantCaller;
+import de.NextGP.steps.VariantEval;
 import de.NextGP.steps.VariantFilter;
 
 
@@ -272,7 +273,7 @@ public class GeneralPipeline {
 		metrics.gcbMetric();
 		metrics.isMetric();
 		metrics.coverage();
-
+		
 	}
 
 
@@ -311,6 +312,10 @@ public class GeneralPipeline {
 		// merge all samples
 		caller.mergeConsensusVariants();
 		
+
+		// run variantEval
+		new VariantEval(options, config, patients);
+
 		
 		
 	}
