@@ -85,12 +85,6 @@ public class Preprocess {
 			
 			// save command in patients object
 			patients.get(curPat).setAfterQC(cmd);
-			
-			
-			System.out.println(forward);
-			System.out.println(reverse);
-			
-			
 		
 		}
 		
