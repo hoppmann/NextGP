@@ -28,7 +28,7 @@ public class BQSR {
 	private int first;
 	private int last;
 	private boolean isSolid;
-	private String interDir;
+	private String tempDir;
 
 
 	/////////////////////////////
@@ -49,9 +49,9 @@ public class BQSR {
 		Log.logger(logger, "Preparing BQSR");
 
 		// prepare general variables
-		interDir = options.getIntermediateDir();
+		tempDir = options.getIntermediateDir();
 		sep = File.separator;
-		outDir = interDir + sep + options.getOutDir() + sep + config.getBaseReacalibration();
+		outDir = tempDir + sep + options.getOutDir() + sep + config.getBaseReacalibration();
 	}
 
 
@@ -203,8 +203,8 @@ public class BQSR {
 
 		// init and gather variables
 		ArrayList<String> cmd = new ArrayList<>();
-		String output = outDir + sep + curPat + ".bam";
-		String logfile = outDir + sep + curPat + ".log";
+		String output = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+		String logfile = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".log";
 		String bqsrIn = outputPre;
 		String input = patients.get(curPat).getLastOutFile();
 		if (input == null || input.isEmpty()) {

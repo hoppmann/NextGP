@@ -47,9 +47,10 @@ public class Panel {
 			// prepare bed file
 			pipeline.prepareBedFile();
 
-
-			// 01 align reads 
+			// pre-process reads
 			pipeline.preprocess();
+			
+			// 01 align reads 
 			pipeline.align("Illumina");
 
 			// 02 addReplaceReadgroups

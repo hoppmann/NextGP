@@ -75,8 +75,8 @@ public class Preprocess {
 			
 			
 			// modify forward and reverse name to match AfterQC output
-			forward = goodOut + sep + new File(forward).getName().replace(".fastq.gz", ".good.fastq.gz");
-			reverse = goodOut + sep + new File(reverse).getName().replace(".fastq.gz", ".good.fastq.gz");
+			forward = goodOut + sep + new File(forward).getName().replace(".fastq.gz", ".good.fq.gz");
+			reverse = goodOut + sep + new File(reverse).getName().replace(".fastq.gz", ".good.fq.gz");
 
 			// set fastq path to new path
 			patients.get(curPat).setForward(forward);

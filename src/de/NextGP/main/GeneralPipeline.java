@@ -178,10 +178,6 @@ public class GeneralPipeline {
 		Preprocess pre = new Preprocess(options, fastqList);
 		pre.afterQc();
 		
-		
-//		System.out.println(this.getClass());
-//		System.exit(0);
-		
 	}
 	
 	
