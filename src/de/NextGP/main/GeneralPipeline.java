@@ -116,7 +116,7 @@ public class GeneralPipeline {
 
 				// check for number of columns
 				String[] splitLine = curLine.split("\t");
-
+				
 				// run as single ended reads
 				if (splitLine.length == 2) {
 					Log.screen("Running single ended mode.");
@@ -175,8 +175,7 @@ public class GeneralPipeline {
 	//////// run pre processing steps
 	public void preprocess() {
 
-		Map<String, Patients> fastqList = readFastqList();
-		Preprocess pre = new Preprocess(options, fastqList);
+		Preprocess pre = new Preprocess(options, patients);
 		pre.afterQc();
 		
 	}
@@ -284,22 +283,27 @@ public class GeneralPipeline {
 		
 		////// run GATK Haplotype caller 
 		VariantCaller caller = new VariantCaller(options, config, patients, combined);
-		VariantFilter filter = new VariantFilter(options, config, combined);
+		VariantFilter filter = new VariantFilter(options, config, combined, "HaplotypeCaller");
 		
 		
 		// call variants using Haplotype caller
 		caller.runHaplotypeCaller();
 		caller.runGenotypeGVCF();
-		
+
 		// filter variants called by Haplotype caller
 		filter.hardFiltering();
 
+		
+		
+		
+		
+		
 		// call variants using samtools
 		caller.runMpileup();
-		
+
 		// call variants using platypus
 		caller.runPlatypus();
-		
+
 		// call variants using freebayes
 		caller.runFreebayes();
 		
@@ -370,9 +374,7 @@ public class GeneralPipeline {
 			vcfFile = outDir + sep + "combined_filtered.vcf";
 		}
 
-//		ArrayList<String> cmd = new ArrayList<>();
 		new Gemini(options, config, patients, combined).load(vcfFile);
-//		combined.setGeminiLoad(cmd);
 
 	}
 

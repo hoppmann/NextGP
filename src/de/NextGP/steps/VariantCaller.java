@@ -196,7 +196,7 @@ public class VariantCaller {
 	public void runPlatypus() {
 
 		// init object
-		VariantFilter filter = new VariantFilter(options, config, combined);
+		VariantFilter filter = new VariantFilter(options, config, combined, "platypus");
 
 		// general varialbes and mkdir
 		String caller = "platypus";

@@ -23,14 +23,13 @@ public class Exon {
 
 	public Exon(GetOptions options, LoadConfig config) {
 
+		Log.logger(logger, "Preparing exon based pipeline");
+		
 		//prepare and initialize variables
 		this.options = options;
 		this.config = config;
 		combined = new Combined();
 		
-		// make log entry for starting bam pipeline
-		Log.logger(logger, "Preparing bam based PE batch files.");
-
 		// initialize pipeline class to start desired steps
 		GeneralPipeline pipeline = new GeneralPipeline(options, config);
 
@@ -44,12 +43,13 @@ public class Exon {
 		
 		// if not bam option chosen start with fastq file
 		if (!options.isBam()) {
+			
 			// read input file
 			pipeline.readFastqList();
 
 			// check if input is given
 			pipeline.checkPatMap();
-	
+
 			// prepare bed file
 			pipeline.prepareBedFile();
 
@@ -59,31 +59,27 @@ public class Exon {
 			// 01 align reads
 			pipeline.align(sequencer);
 
-			// 02 addReplaceReadgroups
-			pipeline.addReplaceReadgroups(sequencer, config.getAlignment());
-		
+			
 		// start with import of bam list if bam option is chosen
 		} else if (options.isBam()) {
 
 			// read input bam list
 			pipeline.readBamList(options.getBamList());
+	
+			// prepare bed file
+			pipeline.prepareBedFile();
 
 		}
-
-		
-		// prepare bed file
-		pipeline.prepareBedFile();
 		
 		// 02 markDuplicates
 		pipeline.markDuplicates();
-		pipeline.addReplaceReadgroups("SOLiD", config.getDuplicates());
+		pipeline.addReplaceReadgroups(sequencer, config.getDuplicates());
 		
 		// 03 realign
 		pipeline.indelRealigner();
 
 		// 04 BQSR
-		boolean isSolid = options.isSolid();
-		pipeline.bqsr(isSolid);
+		pipeline.bqsr(options.isSolid());
 
 		// 05 create metrics
 		pipeline.metrices();

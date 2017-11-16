@@ -29,7 +29,7 @@ public class VariantFilter {
 	/////////////////////////////
 
 
-	public VariantFilter(GetOptions options, LoadConfig config, Combined combined) {
+	public VariantFilter(GetOptions options, LoadConfig config, Combined combined, String caller) {
 
 		// retrieve variables
 		this.options = options;
@@ -39,7 +39,7 @@ public class VariantFilter {
 		this.last = options.getLast();
 		
 		// make log entry
-		Log.logger(logger, "Preparing hard filtering ");
+		Log.logger(logger, "Preparing hard filtering for " + caller);
 
 	}
 

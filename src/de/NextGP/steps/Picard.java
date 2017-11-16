@@ -56,7 +56,7 @@ public class Picard {
 		this.combined = combined;
 		
 		// make log entry
-		Log.logger(logger, "Preparing AddOrReplaceReadgroups");
+		Log.logger(logger, "Preparing markDuplicates");
 	}
 
 
