@@ -26,7 +26,8 @@ public class SlurmWriter {
 	private String masterScript;
 	private Combined combined;
 	private String slurmPatition;
-	private int maxCPU; 
+	private int maxCPU;
+	private int maxMem;
 
 
 	/////////////////////////////
@@ -40,6 +41,7 @@ public class SlurmWriter {
 		this.slurmDir = options.getSlurmDir();
 		this.slurmPatition = options.getSlurmPatition();
 		this.maxCPU = Integer.valueOf(options.getCpu());
+		this.maxMem = Integer.valueOf(options.getMem());
 
 		// make log entry
 		logger.info("Writeing commands in batch files");
@@ -103,6 +105,7 @@ public class SlurmWriter {
 			// write first/general lines of batch file
 			batch.writeLine("#!/bin/bash");
 			batch.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
+			batch.writeLine("#SBATCH --mem=" + maxMem + "G");
 
 
 			//////// for each command created write in batch file

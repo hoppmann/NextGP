@@ -21,7 +21,6 @@ public class Gemini {
 	private static Logger logger = LoggerFactory.getLogger(Gemini.class);
 	private GetOptions options;
 	private LoadConfig config;
-//	private Map<String, Patients> patients;
 	private Combined combined;
 	private int first;
 	private int last;
@@ -34,7 +33,6 @@ public class Gemini {
 			Map<String, Patients> patients, Combined combined) {
 		this.options = options;
 		this.config = config;
-//		this.patients = patients;
 		this.combined = combined;
 		this.first = options.getFirst();
 		this.last = options.getLast();

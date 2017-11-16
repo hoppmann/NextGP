@@ -81,7 +81,6 @@ public class SamToBam {
 	private void prepareCmd() {
 		// get program path
 		String picard = config.getPicard();
-		String java = config.getJava();
 
 		
 		// prepare command for each patient separately, save in Map and execute all together
@@ -92,7 +91,8 @@ public class SamToBam {
 			
 			ArrayList<String> cmd = new ArrayList<>();
 			
-			cmd.add(java);
+			cmd.add(config.getJava());
+			cmd.add(config.getJavaTmpOption());
 			cmd.add("-jar " + picard);
 			cmd.add("SortSam");
 			cmd.add("SO=coordinate");

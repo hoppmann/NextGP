@@ -92,6 +92,7 @@ public class Picard {
 			ArrayList<String> cmd = new ArrayList<>();
 
 			cmd.add(config.getJava());
+			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("AddOrReplaceReadGroups");
@@ -168,6 +169,7 @@ public class Picard {
 			String logOut = dupOutDir + "/" + curPat + ".dup.log";
 			
 			cmd.add(config.getJava());
+			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("MarkDuplicates");

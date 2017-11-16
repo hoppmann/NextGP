@@ -22,9 +22,9 @@ public class Preprocess {
 	private int first;
 	private int last;
 
-	
-	
-	
+
+
+
 	/////////////////////////////
 	//////// constructor ////////
 	/////////////////////////////
@@ -35,24 +35,24 @@ public class Preprocess {
 		this.patients = patients;
 		this.first = options.getFirst();
 		this.last = options.getLast();
-		
+
 		// make log entry
 		Log.logger(logger, "Prepareing AfterQC commands.");
-		
+
 	}
-	
-	
-	
+
+
+
 	/////////////////////////
 	//////// methods ////////
 	/////////////////////////
 
 
 	public void afterQc() {
-		
+
 		for (String curPat : patients.keySet()) {
-			
-			
+
+
 			// prepare variables
 			String forward = patients.get(curPat).getForward();
 			String reverse = patients.get(curPat).getReverse();
@@ -63,43 +63,66 @@ public class Preprocess {
 			String badOut = outDir + sep + "bad";
 			String reportOut = options.getOutDir() + sep + options.getConfig().getMetrices();
 
-			
+
 			// prepare command
 			ArrayList<String> cmd = new ArrayList<>();
 			cmd.add ("python " + options.getConfig().getAfterQC());
 			// add forward and reverse reads
 			cmd.add("-1 " + forward);
 			cmd.add("-2 " + reverse);
-			
+
+			// make output zipped independent if input was zipped or not.
+			cmd.add("--gzip");
+
 			// add pathes for good/bad files in tempdir and for report in metric folder
 			cmd.add("-g " + goodOut);
 			cmd.add("-b " + badOut);
 			cmd.add("-r " + reportOut + sep + curPat + sep + "AfterQC");
-			
-			
-			
-			// modify forward and reverse name to match AfterQC output
-			forward = goodOut + sep + new File(forward).getName().replace(".fastq.gz", ".good.fq.gz");
-			reverse = goodOut + sep + new File(reverse).getName().replace(".fastq.gz", ".good.fq.gz");
+
+
+
+			/* 
+			 * modify forward and reverse name to match AfterQC output
+			 * that for check weather the file has the ending fastq of fq. And if is sipped or not. 
+			 */
+
+			if (forward.contains(".fastq.gz")) {
+				if(forward.contains(".gz")){
+					forward = goodOut + sep + new File(forward).getName().replace(".fastq.gz", ".good.fq.gz");
+					reverse = goodOut + sep + new File(reverse).getName().replace(".fastq.gz", ".good.fq.gz");
+				} else {
+					forward = goodOut + sep + new File(forward).getName().replace(".fastq", ".good.fq.gz");
+					reverse = goodOut + sep + new File(reverse).getName().replace(".fastq", ".good.fq.gz");
+				}
+
+			} else if (forward.contains(".fq.gz")) {
+				if (forward.contains(".gz")) {
+					forward = goodOut + sep + new File(forward).getName().replace(".fq.gz", ".good.fq.gz");
+					reverse = goodOut + sep + new File(reverse).getName().replace(".fq.gz", ".good.fq.gz");
+				} else {
+					forward = goodOut + sep + new File(forward).getName().replace(".fastq", ".good.fq.gz");
+					reverse = goodOut + sep + new File(reverse).getName().replace(".fastq", ".good.fq.gz");
+
+				}
+			}
 
 			// set fastq path to new path
 			patients.get(curPat).setForward(forward);
 			patients.get(curPat).setReverse(reverse);
-			
-			
+
 			// save command in patients object
 			if (first <= 1 && last >= 1 ) {
 				patients.get(curPat).setAfterQC(cmd);
 			}
 		}
-		
-		
-		
+
+
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/////////////////////////////////
 	//////// getter / setter ////////
 	/////////////////////////////////

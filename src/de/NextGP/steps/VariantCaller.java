@@ -76,6 +76,7 @@ public class VariantCaller {
 			// prepare command
 
 			cmd.add(config.getJava());
+			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T HaplotypeCaller");
@@ -85,8 +86,6 @@ public class VariantCaller {
 			cmd.add("-D " + config.getDbsnp());
 			cmd.add("-L " + options.getBedFile());
 			cmd.add("-ERC GVCF");
-			//			cmd.add("-variant_index_type LINEAR");
-			//			cmd.add("-variant_index_parameter 128000");
 			cmd.add("-I " + input);
 			cmd.add("-o " + output);
 			cmd.add("-log " + logfile);
@@ -116,6 +115,7 @@ public class VariantCaller {
 
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T GenotypeGVCFs");
@@ -123,8 +123,6 @@ public class VariantCaller {
 		cmd.add("-R " + config.getHg19Fasta());
 		cmd.add("-D " + config.getDbsnp());
 		cmd.add("-stand_call_conf 30 ");
-		// depracted since version 3.7
-		// cmd.add("-stand_emit_conf 30");
 
 		for (String curPat : patients.keySet()) {
 			cmd.add("-V " + patients.get(curPat).getLastOutFile());
@@ -186,16 +184,7 @@ public class VariantCaller {
 				patients.get(curPat).setMpileup(cmd);
 			}
 
-			//			// sort VCF file to get rid of contig order error
-			//			String fileIn = output;
-			//			String fileOut = outDir + sep + curPat + "-sorted.vcf";
-			//			String bamFile = patients.get(curPat).getBam();
-			//
-			//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
-
-
 			// save command
-			//			patients.get(curPat).setSortMpileup(sortCmd);
 			patients.get(curPat).setVcfFiles("samtools", fileOut);
 
 
@@ -356,18 +345,9 @@ public class VariantCaller {
 			cmd.add("--vcf " + combined.getCombinedVcfFile());
 			cmd.add("--out " + fileOut);
 
-			//
-			//			// sort VCF file to get rid of contig order error
-			//			String fileIn = outFile + ".recode.vcf";
-			//			String fileOut = outFile + "-sorted.vcf";
-			//			String bamFile = patients.get(curPat).getBam();
-			//
-			//			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
-
 			// store commands
 			if (first <= 6 && last >= 6 ) {
 				patients.get(curPat).setExtractInd(cmd);
-				//			patients.get(curPat).setSortHaploCaller(sortCmd);
 			}
 			patients.get(curPat).setVcfFiles(caller, fileOut + ".recode.vcf");
 
@@ -426,6 +406,8 @@ public class VariantCaller {
 
 			// prepare command
 			cmd.add(config.getJava());
+			cmd.add(config.getJavaTmpOption());
+			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T CombineVariants");
 			cmd.add("-R " + config.getHg19Fasta());
@@ -450,7 +432,7 @@ public class VariantCaller {
 	}
 
 
-	// prepare consesus call
+	// consensus call
 	public void runConsensus() {
 
 		// general variables
@@ -470,6 +452,8 @@ public class VariantCaller {
 			
 			// prepare command
 			cmd.add(config.getJava());
+			cmd.add(config.getJavaTmpOption());
+			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T CombineVariants");
 			cmd.add("-R " + config.getHg19Fasta());
@@ -479,7 +463,7 @@ public class VariantCaller {
 				cmd.add("--variant " + input);
 			}
 
-			cmd.add("--minimumN 2");
+			cmd.add("--minimumN " + options.getMinConsCall());
 			cmd.add("-genotypeMergeOptions Unsorted");
 			cmd.add("-o " + output);
 
@@ -490,36 +474,6 @@ public class VariantCaller {
 			patients.get(curPat).setLastOutFile(output);
 		}
 		
-//		// general variables
-//		String sep = File.separator;
-//		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "consensus";
-//		combined.mkdir(outDir);
-//
-//
-//		for (String curPat : patients.keySet()){
-//
-//			// init and gather variables
-//			ArrayList<String> cmd = new ArrayList<>();
-//			String output = outDir + sep + curPat + ".vcf";
-//			String input = patients.get(curPat).getLastOutFile();
-//
-//
-//
-//			// prepare command
-//
-//			cmd.add(config.getConsensus());
-//			cmd.add("-vcfIn " + input);
-//			cmd.add("-minHits " + options.getMinConsCall());
-//			cmd.add("-consensusName " + curPat);
-//			cmd.add("-out " + output);
-//
-//
-//			// store command
-//			if (first <= 6 && last >= 6 ) {
-//				patients.get(curPat).setConsensus(cmd);
-//			}
-//			patients.get(curPat).setLastOutFile(output);
-//		}
 	}
 
 
@@ -535,6 +489,8 @@ public class VariantCaller {
 
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
+		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T CombineVariants");
 		cmd.add("-R " + config.getHg19Fasta());
@@ -568,6 +524,8 @@ public class VariantCaller {
 
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
+		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getPicard());
 		cmd.add("SortVcf");
 		cmd.add("I=" + fileIn);

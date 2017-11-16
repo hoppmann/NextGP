@@ -40,6 +40,7 @@ public class LoadConfig {
 	// misc
 	private String java;
 	private String tempDir;
+	private String javaTmp;
 
 	// folder for output
 	private String alignment;
@@ -102,7 +103,9 @@ public class LoadConfig {
 				// misc
 				java = prop.getProperty("java");
 				tempDir = prop.getProperty("tempDir");
+				javaTmp = prop.getProperty("javaTmp");
 				
+				// out folders
 				alignment = prop.getProperty("alignment");
 				duplicates = prop.getProperty("duplicates");
 				realignment = prop.getProperty("realignment");
@@ -278,7 +281,15 @@ public class LoadConfig {
 			public String getAfterQC() {
 				return afterQC;
 			}
+
+			public String getJavaTmp() {
+				return javaTmp;
+			}
 			
+			public String getJavaTmpOption() {
+				String tempOption = "-Djava.io.tmpdir=" + javaTmp;
+				return tempOption;
+			}
 			
 			
 			

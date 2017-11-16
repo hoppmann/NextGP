@@ -70,6 +70,7 @@ public class VariantFilter {
 		//////// extract all SNPs
 
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T SelectVariants");
@@ -94,6 +95,7 @@ public class VariantFilter {
 
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T VariantFiltration");
@@ -128,6 +130,7 @@ public class VariantFilter {
 
 		// prepare command		
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T SelectVariants");
@@ -156,13 +159,12 @@ public class VariantFilter {
 
 		// prepare command		
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T VariantFiltration");
 		cmd.add("-R " + config.getHg19Fasta());
 		cmd.add("-V " + outExtractIndelSet);
-//		cmd.add("--filterExpression \" QD < 2.0 \"");
-//		cmd.add("--filterName \"QDFilter\"");
 		cmd.add("--filterExpression \" FS > 200.0 \"");
 		cmd.add("--filterName \"FSFilter\"");
 		cmd.add("--filterExpression \" ReadPosRankSum < -20.0 \"");
@@ -189,6 +191,7 @@ public class VariantFilter {
 		
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T CombineVariants");

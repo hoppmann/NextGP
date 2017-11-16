@@ -81,6 +81,7 @@ public class BQSR {
 
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-l INFO");
@@ -132,6 +133,7 @@ public class BQSR {
 
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T BaseRecalibrator");
@@ -176,6 +178,7 @@ public class BQSR {
 
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T AnalyzeCovariates");
@@ -214,6 +217,7 @@ public class BQSR {
 
 		// prepare command
 		cmd.add(config.getJava());
+		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T PrintReads");
