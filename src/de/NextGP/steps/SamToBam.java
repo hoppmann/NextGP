@@ -27,6 +27,7 @@ public class SamToBam {
 	private Combined combined;
 	private int first;
 	private int last;
+	private GetOptions options;
 	
 	
 	private static Logger logger = LoggerFactory.getLogger(SamToBam.class);
@@ -44,6 +45,7 @@ public class SamToBam {
 		this.combined = combined;
 		this.first = options.getFirst();
 		this.last = options.getLast();
+		this.options = options;
 		
 		// make log entry
 		Log.logger(logger, "Converting sam to bam");
@@ -93,6 +95,7 @@ public class SamToBam {
 			
 			cmd.add(config.getJava());
 			cmd.add(config.getJavaTmpOption());
+			cmd.add(options.getXmx());
 			cmd.add("-jar " + picard);
 			cmd.add("SortSam");
 			cmd.add("SO=coordinate");
