@@ -139,7 +139,6 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectAlignmentSummaryMetrics");
@@ -184,7 +183,6 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectGcBiasMetrics");
@@ -231,7 +229,6 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectInsertSizeMetrics");

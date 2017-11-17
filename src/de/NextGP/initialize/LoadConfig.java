@@ -286,10 +286,10 @@ public class LoadConfig {
 				return javaTmp;
 			}
 			
-			public String getJavaTmpOption() {
-				String tempOption = "-Djava.io.tmpdir=" + javaTmp;
-				return tempOption;
-			}
+//			public String getJavaTmpOption() {
+//				String tempOption = "-Djava.io.tmpdir=" + javaTmp;
+//				return tempOption;
+//			}
 			
 			
 			

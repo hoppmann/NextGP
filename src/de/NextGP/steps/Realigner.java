@@ -78,7 +78,6 @@ public class Realigner {
 		ArrayList<String> cmd = new ArrayList<>();
 
 		cmd.add(config.getJava());
-		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T RealignerTargetCreator" );
@@ -123,7 +122,6 @@ public class Realigner {
 		//prepare command
 		cmd = new ArrayList<>();
 		cmd.add(config.getJava());
-		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T IndelRealigner");

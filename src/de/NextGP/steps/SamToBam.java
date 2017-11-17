@@ -94,7 +94,6 @@ public class SamToBam {
 			ArrayList<String> cmd = new ArrayList<>();
 			
 			cmd.add(config.getJava());
-			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + picard);
 			cmd.add("SortSam");

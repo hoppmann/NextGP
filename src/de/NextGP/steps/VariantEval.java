@@ -66,7 +66,6 @@ public class VariantEval {
 		
 		// prepare command
 		cmd.add(config.getJava());
-		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T VariantEval");

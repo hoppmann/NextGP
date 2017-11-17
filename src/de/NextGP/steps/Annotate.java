@@ -171,7 +171,6 @@ public class Annotate {
 		
 		cmd.add(config.getJava());
 		cmd.add(options.getXmx());
-		cmd.add(config.getJavaTmpOption());
 		cmd.add("-jar " +  config.getSnpEff());
 		cmd.add("GRCh37.75");
 		cmd.add("-classic");

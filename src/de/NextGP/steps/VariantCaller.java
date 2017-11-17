@@ -76,7 +76,6 @@ public class VariantCaller {
 			// prepare command
 
 			cmd.add(config.getJava());
-			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T HaplotypeCaller");
@@ -115,7 +114,6 @@ public class VariantCaller {
 
 		// prepare command
 		cmd.add(config.getJava());
-		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T GenotypeGVCFs");
@@ -406,7 +404,6 @@ public class VariantCaller {
 
 			// prepare command
 			cmd.add(config.getJava());
-			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T CombineVariants");
@@ -452,7 +449,6 @@ public class VariantCaller {
 			
 			// prepare command
 			cmd.add(config.getJava());
-			cmd.add(config.getJavaTmpOption());
 			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T CombineVariants");
@@ -489,7 +485,6 @@ public class VariantCaller {
 
 		// prepare command
 		cmd.add(config.getJava());
-		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T CombineVariants");
@@ -524,7 +519,6 @@ public class VariantCaller {
 
 		// prepare command
 		cmd.add(config.getJava());
-		cmd.add(config.getJavaTmpOption());
 		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getPicard());
 		cmd.add("SortVcf");
