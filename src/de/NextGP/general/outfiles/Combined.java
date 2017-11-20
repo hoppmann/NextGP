@@ -11,7 +11,7 @@ public class Combined {
 
 	private String lastOutFile;
 	private boolean matePair;
-	private LinkedList<Method> commands = new LinkedList<>();
+	private LinkedList<Method> cmds05 = new LinkedList<>();
 
 
 	// commands
@@ -26,6 +26,7 @@ public class Combined {
 	private ArrayList<String> mkDirs = new ArrayList<>();
 	private ArrayList<String> tabix;
 	private ArrayList<String> bgzip;
+	private ArrayList<String> chmod;
 
 
 
@@ -90,11 +91,11 @@ public class Combined {
 	}
 
 	public LinkedList<Method> getCommands() {
-		return commands;
+		return cmds05;
 	}
 
 	public void setCommands(LinkedList<Method> commands) {
-		this.commands = commands;
+		this.cmds05 = commands;
 	}
 
 
@@ -127,7 +128,7 @@ public class Combined {
 	public void setCombineSampleVariants(ArrayList<String> combineSampleVariants) {
 		this.combineSampleVariants = combineSampleVariants;
 		try {
-			commands.add(Combined.class.getMethod("getCombineSampleVariants"));
+			cmds05.add(Combined.class.getMethod("getCombineSampleVariants"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
@@ -143,7 +144,7 @@ public class Combined {
 	public void setVariantRecalibration(ArrayList<String> variantRecalibration) {
 		this.variantRecalibration = variantRecalibration;
 		try {
-			commands.add(Combined.class.getMethod("getVariantRecalibration"));
+			cmds05.add(Combined.class.getMethod("getVariantRecalibration"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -159,7 +160,7 @@ public class Combined {
 	public void setApplyRecalibration(ArrayList<String> applyRecalibration) {
 		this.applyRecalibration = applyRecalibration;
 		try {
-			commands.add(Combined.class.getMethod("getApplyRecalibration"));
+			cmds05.add(Combined.class.getMethod("getApplyRecalibration"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -175,7 +176,7 @@ public class Combined {
 	public void setVepAnnotation(ArrayList<String> vepAnnotation) {
 		this.vepAnnotation = vepAnnotation;
 		try {
-			commands.add(Combined.class.getMethod("getVepAnnotation"));
+			cmds05.add(Combined.class.getMethod("getVepAnnotation"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -191,7 +192,7 @@ public class Combined {
 	public void setVtMaster(ArrayList<String> prepareVEP) {
 		this.vtMaster = prepareVEP;
 		try {
-			commands.add(Combined.class.getMethod("getVtMaster"));
+			cmds05.add(Combined.class.getMethod("getVtMaster"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -207,7 +208,7 @@ public class Combined {
 	public void setVarEval(ArrayList<String> varEval) {
 		this.varEval = varEval;
 		try {
-			commands.add(Combined.class.getMethod("getVarEval"));
+			cmds05.add(Combined.class.getMethod("getVarEval"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -223,7 +224,7 @@ public class Combined {
 	public void setGeminiLoad(ArrayList<String> geminiLoad) {
 		this.geminiLoad = geminiLoad;
 		try {
-			commands.add(Combined.class.getMethod("getGeminiLoad"));
+			cmds05.add(Combined.class.getMethod("getGeminiLoad"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -239,7 +240,7 @@ public class Combined {
 	public void setMkDirs(ArrayList<String> mkDirs) {
 		this.mkDirs = mkDirs;
 		try {
-			commands.add(Combined.class.getMethod("getMkDirs"));
+			cmds05.add(Combined.class.getMethod("getMkDirs"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -256,7 +257,7 @@ public class Combined {
 		this.snpEffAnnotation = snpEffAnnotation;
 
 		try {
-			commands.add(Combined.class.getMethod("getSnpEffAnnotation"));
+			cmds05.add(Combined.class.getMethod("getSnpEffAnnotation"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -273,7 +274,7 @@ public class Combined {
 	public void setTabix(ArrayList<String> tabix) {
 		this.tabix = tabix;
 		try {
-			commands.add(Combined.class.getMethod("getTabix"));
+			cmds05.add(Combined.class.getMethod("getTabix"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -289,7 +290,7 @@ public class Combined {
 	public void setBgzip(ArrayList<String> bgzip) {
 		this.bgzip = bgzip;
 		try {
-			commands.add(Combined.class.getMethod("getBgzip"));
+			cmds05.add(Combined.class.getMethod("getBgzip"));
 		} catch (NoSuchMethodException | SecurityException e) {
 			
 			e.printStackTrace();
@@ -298,6 +299,20 @@ public class Combined {
 
 
 
+	public ArrayList<String> getChmod() {
+		return chmod;
+	}
+
+	public void setChmod(ArrayList<String> chmod) {
+		this.chmod = chmod;
+		try {
+			cmds05.add(Combined.class.getMethod("getChmod"));
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	///////////////////////////
 	//////// combined genotyper
@@ -413,6 +428,8 @@ public class Combined {
 			e.printStackTrace();
 		}
 	}
+
+	
 
 
 

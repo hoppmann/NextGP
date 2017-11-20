@@ -102,8 +102,28 @@ public class Gemini {
 		if (first <= 8 && last >= 7 ) {
 			combined.setGeminiLoad(cmd);
 		}
+		
+		
+		// prepare command
+		ArrayList<String> cmdChmod = new ArrayList<>();
+
+		cmdChmod.add("chmod 755 " + outDB);
+		
+		if (first <= 8 && last >= 7) {
+			combined.setChmod(cmdChmod);
+		}
+		
+		
+		
+		
 	}
 
+	public void chmodDB(String outDB) {
+		
+		
+		
+		
+	}
 
 
 
