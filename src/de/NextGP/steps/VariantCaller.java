@@ -456,13 +456,15 @@ public class VariantCaller {
 
 			for (String callerName : patients.get(curPat).getVcfFiles().keySet()){
 				String input = patients.get(curPat).getVcfFiles().get(callerName);
-				cmd.add("--variant " + input);
+				cmd.add("--variant:" + callerName + " " + input);
 			}
-
+			cmd.add("--rod_priority_list gatk,freebayes,samtools,platypus");
 			cmd.add("--minimumN " + options.getMinConsCall());
-			cmd.add("-genotypeMergeOptions Unsorted");
+			cmd.add("-genotypeMergeOptions PRIORITIZE ");
+			cmd.add("--excludeNonVariants ");
 			cmd.add("-o " + output);
 
+			
 			// store command
 			if (first <= 6 && last >= 6 ) {
 				patients.get(curPat).setConsensus(cmd);
