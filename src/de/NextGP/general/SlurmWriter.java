@@ -28,6 +28,7 @@ public class SlurmWriter {
 	private String slurmPatition;
 	private int maxCPU;
 	private int maxMem;
+	private GetOptions options;
 
 
 	/////////////////////////////
@@ -42,6 +43,7 @@ public class SlurmWriter {
 		this.slurmPatition = options.getSlurmPatition();
 		this.maxCPU = Integer.valueOf(options.getCpu());
 		this.maxMem = Integer.valueOf(options.getMem());
+		this.options = options;
 
 		// make log entry
 		logger.info("Writeing commands in batch files");
@@ -103,9 +105,7 @@ public class SlurmWriter {
 
 
 			// write first/general lines of batch file
-			batch.writeLine("#!/bin/bash");
-			batch.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
-			batch.writeLine("#SBATCH --mem=" + maxMem + "G");
+			commonHeader(batch, false);			
 
 
 			//////// for each command created write in batch file
@@ -147,9 +147,8 @@ public class SlurmWriter {
 			secondary.openWriter(outFile);
 
 			// Write first/genral lines of batch file
-			secondary.writeLine("#!/bin/bash");
-			secondary.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
-
+			commonHeader(secondary, false);
+			
 			//////// foreach command created write in batch file
 			for (Method getCurCommand : curPatObject.getSecondaryCommands()){
 
@@ -190,10 +189,8 @@ public class SlurmWriter {
 
 
 		// add first line to file
-		combGeno.writeLine("#!/bin/bash");
-		combGeno.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
-
-
+		commonHeader(combGeno, false);
+		
 		// for each entered command save in combined file
 		for (Method getCmd : combined.getGenotypeCommands()) {
 
@@ -228,8 +225,8 @@ public class SlurmWriter {
 		comb.openWriter(combFileOut);
 
 		// add first line to combined commands
-		comb.writeLine("#!/bin/bash");
-
+		commonHeader(comb, true);
+		
 		// for each entered command save in combined file
 		for (Method getCmd : combined.getCommands()) {
 
@@ -244,6 +241,23 @@ public class SlurmWriter {
 	}
 
 
+	
+	private void commonHeader(Writer outFile, boolean finalFile) {
+		
+		outFile.writeLine("#!/bin/bash");
+		outFile.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
+		outFile.writeLine("#SBATCH --mem=" + maxMem + "G");
+		
+		if (finalFile && options.getEmail() != null && !"".equals(options.getEmail())) {
+			
+			outFile.writeLine("#--mail-user=" + options.getEmail() + " --mail-type=END");
+		} else if (options.getEmail() != null && !"".equals(options.getEmail())){
+			outFile.writeLine("#--mail-user=" + options.getEmail() + " --mail-type=FAIL");
+		}
+		
+	}
+	
+	
 	///////////////////
 	//////// prepare master script to start pipeline
 
