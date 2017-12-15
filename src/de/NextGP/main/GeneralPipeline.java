@@ -16,6 +16,7 @@ import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.ReadInputFile;
 import de.NextGP.initialize.options.GetOptions;
+import de.NextGP.steps.AlamutHgmd;
 import de.NextGP.steps.Annotate;
 import de.NextGP.steps.BQSR;
 import de.NextGP.steps.BWA;
@@ -341,7 +342,7 @@ public class GeneralPipeline {
 
 
 		// get vt master command
-		Annotate annotate = new Annotate(options, config, patients, combined);
+		Annotate annotate = new Annotate(options, config, combined);
 		annotate.vtMaster(vcfFile);
 
 		// get vep command
@@ -379,6 +380,17 @@ public class GeneralPipeline {
 	}
 
 
+	//////// annoate HGMD using Alamut
+	public void annotateHGMD() {
+		new AlamutHgmd(options, config, combined);
+		
+		
+		
+		
+		
+		
+	}
+	
 
 	////////////////
 	//////// save commands

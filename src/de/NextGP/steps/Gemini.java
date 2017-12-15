@@ -76,7 +76,7 @@ public class Gemini {
 	public void load(String vcfFile) {
 
 		// initialize and prepare command
-		ArrayList<String> cmd = new ArrayList<>();
+		ArrayList<String> geminiCmd = new ArrayList<>();
 		String sep = File.separator;
 		String outDir = options.getOutDir() + sep + config.getDatabase();
 
@@ -89,28 +89,30 @@ public class Gemini {
 
 
 		// prepare command
-		cmd.add(config.getGemini());
-		cmd.add("load");
-//		cmd.add("-t VEP"); use all annotation from VEP and snpEff
-		cmd.add("-t all");
-		cmd.add("--cores " + options.getCpu());
-		cmd.add("-v " + vcfFile);
-		cmd.add(outDB);
+		geminiCmd.add(config.getGemini());
+		geminiCmd.add("load");
+		geminiCmd.add("-t all");
+		geminiCmd.add("--cores " + options.getCpu());
+		geminiCmd.add("-v " + vcfFile);
+		geminiCmd.add(outDB);
 
 
+		// save dbName for later use when updating the database
+		combined.setDbName(outDB);
+		
 		// return command
 		if (first <= 8 && last >= 7 ) {
-			combined.setGeminiLoad(cmd);
+			combined.addCmd05(geminiCmd);
 		}
 		
 		
 		// prepare command
-		ArrayList<String> cmdChmod = new ArrayList<>();
+		ArrayList<String> chmodCmd = new ArrayList<>();
 
-		cmdChmod.add("chmod 755 " + outDB);
+		chmodCmd.add("chmod 755 " + outDB);
 		
 		if (first <= 8 && last >= 7) {
-			combined.setChmod(cmdChmod);
+			combined.addCmd05(chmodCmd);
 		}
 		
 		

@@ -56,7 +56,7 @@ public class VariantFilter {
 
 
 		// initialize and gather variables
-		ArrayList<String> cmd = new ArrayList<>();
+//		ArrayList<String> cmd = new ArrayList<>();
 		String sep = File.separator;
 		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "filtered";
 		String subDir = "SNPs";
@@ -68,79 +68,82 @@ public class VariantFilter {
 		}
 
 		//////// extract all SNPs
-
-		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
-		cmd.add("-jar " + config.getGatk());
-		cmd.add("-T SelectVariants");
-		cmd.add("-R " + config.getHg19Fasta());
-		cmd.add("-V " + input);
-		cmd.add("-selectType SNP");
-		cmd.add("-o " + outFileSnpSet);
-		cmd.add("-log " + logExtractSnpSet);
+		ArrayList<String> extractSnpSetCmd = new ArrayList<>();
+		extractSnpSetCmd.add(config.getJava());
+		extractSnpSetCmd.add(options.getXmx());
+		extractSnpSetCmd.add("-jar " + config.getGatk());
+		extractSnpSetCmd.add("-T SelectVariants");
+		extractSnpSetCmd.add("-R " + config.getHg19Fasta());
+		extractSnpSetCmd.add("-V " + input);
+		extractSnpSetCmd.add("-selectType SNP");
+		extractSnpSetCmd.add("-o " + outFileSnpSet);
+		extractSnpSetCmd.add("-log " + logExtractSnpSet);
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-			combined.setExtractSnpSet(cmd);
+//			combined.setExtractSnpSet(extractSnpSetCmd);
+			combined.addCmd03(extractSnpSetCmd);
 		}
 
 		//////// Apply filter to SNP call set
 
 		// initialize and gather variables
-		cmd = new ArrayList<>();
+		ArrayList<String> hardFilterCmd = new ArrayList<>();
 		String outFileFilterSnps = outDir + sep + subDir + sep +"filtered_snps.vcf";
 		String logFilterSnpSet = outDir + sep + subDir + sep + "filtered_snp.log";
 
 
 		// prepare command
-		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
-		cmd.add("-jar " + config.getGatk());
-		cmd.add("-T VariantFiltration");
-		cmd.add("-R " + config.getHg19Fasta());
-		cmd.add("-V " + outFileSnpSet);
-		cmd.add("--filterExpression \"QD < 2.0\"");
-		cmd.add("--filterName \"QDFilter\"");
-		cmd.add("--filterExpression \"FS > 200.0\"");
-		cmd.add("--filterName \"FSFilter\"");
-		cmd.add("--filterExpression \"MQRankSum < -12.5\"");
-		cmd.add("--filterName \"MQRankSumFilter\"");
-		cmd.add("--filterExpression \"ReadPosRankSum < -20.0\"");
-		cmd.add("--filterName \"ReadPosFilter\"");
-		cmd.add("-o " + outFileFilterSnps);
-		cmd.add("-log " + logFilterSnpSet);
+		hardFilterCmd.add(config.getJava());
+		hardFilterCmd.add(options.getXmx());
+		hardFilterCmd.add("-jar " + config.getGatk());
+		hardFilterCmd.add("-T VariantFiltration");
+		hardFilterCmd.add("-R " + config.getHg19Fasta());
+		hardFilterCmd.add("-V " + outFileSnpSet);
+		hardFilterCmd.add("--filterExpression \"QD < 2.0\"");
+		hardFilterCmd.add("--filterName \"QDFilter\"");
+		hardFilterCmd.add("--filterExpression \"FS > 200.0\"");
+		hardFilterCmd.add("--filterName \"FSFilter\"");
+		hardFilterCmd.add("--filterExpression \"MQRankSum < -12.5\"");
+		hardFilterCmd.add("--filterName \"MQRankSumFilter\"");
+		hardFilterCmd.add("--filterExpression \"ReadPosRankSum < -20.0\"");
+		hardFilterCmd.add("--filterName \"ReadPosFilter\"");
+		hardFilterCmd.add("-o " + outFileFilterSnps);
+		hardFilterCmd.add("-log " + logFilterSnpSet);
 
 
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-			combined.setHardFiterSnpSet(cmd);
+//			combined.setHardFiterSnpSet(hardFilterCmd);
+			combined.addCmd03(hardFilterCmd);
 		}
 
 
 		//////// extract all Indel
 
 		// initialize and gather variables
-		cmd = new ArrayList<>();
+		ArrayList<String> extractIndelCmd = new ArrayList<>();
 		subDir = "indels";
 		String outExtractIndelSet = outDir + sep + subDir + sep + "raw_indel.vcf";
 		String logExtractIndelSet = outDir + sep + subDir + sep + "raw_indel.log";
 
 		// prepare command		
-		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
-		cmd.add("-jar " + config.getGatk());
-		cmd.add("-T SelectVariants");
-		cmd.add("-R " + config.getHg19Fasta());
-		cmd.add("-V " + input);
-		cmd.add("-selectType INDEL");
-		cmd.add("-o " + outExtractIndelSet);
-		cmd.add("-log " + logExtractIndelSet);
+		extractIndelCmd.add(config.getJava());
+		extractIndelCmd.add(options.getXmx());
+		extractIndelCmd.add("-jar " + config.getGatk());
+		extractIndelCmd.add("-T SelectVariants");
+		extractIndelCmd.add("-R " + config.getHg19Fasta());
+		extractIndelCmd.add("-V " + input);
+		extractIndelCmd.add("-selectType INDEL");
+		extractIndelCmd.add("-o " + outExtractIndelSet);
+		extractIndelCmd.add("-log " + logExtractIndelSet);
 
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-			combined.setExtractIndelSet(cmd);
+//			combined.setExtractIndelSet(extractIndelCmd);
+			combined.addCmd03(extractIndelCmd);
 		}
 
 
@@ -149,29 +152,30 @@ public class VariantFilter {
 		//////// apply filter to indel call set
 
 		// initialize and gather variables
-		cmd = new ArrayList<>();
+		ArrayList<String> filterIndelCmd = new ArrayList<>();
 		subDir = "indels";
 		String outFilterIndel = outDir + sep + subDir + sep + "filtered_indel.vcf";
 		String logFilterIndel = outDir + sep + subDir + sep + "filtered_indel.log";
 
 		// prepare command		
-		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
-		cmd.add("-jar " + config.getGatk());
-		cmd.add("-T VariantFiltration");
-		cmd.add("-R " + config.getHg19Fasta());
-		cmd.add("-V " + outExtractIndelSet);
-		cmd.add("--filterExpression \" FS > 200.0 \"");
-		cmd.add("--filterName \"FSFilter\"");
-		cmd.add("--filterExpression \" ReadPosRankSum < -20.0 \"");
-		cmd.add("--filterName \"ReadPosRankSumFilter\"");
-		cmd.add("-o " + outFilterIndel);
-		cmd.add("-log " + logFilterIndel);
+		filterIndelCmd.add(config.getJava());
+		filterIndelCmd.add(options.getXmx());
+		filterIndelCmd.add("-jar " + config.getGatk());
+		filterIndelCmd.add("-T VariantFiltration");
+		filterIndelCmd.add("-R " + config.getHg19Fasta());
+		filterIndelCmd.add("-V " + outExtractIndelSet);
+		filterIndelCmd.add("--filterExpression \" FS > 200.0 \"");
+		filterIndelCmd.add("--filterName \"FSFilter\"");
+		filterIndelCmd.add("--filterExpression \" ReadPosRankSum < -20.0 \"");
+		filterIndelCmd.add("--filterName \"ReadPosRankSumFilter\"");
+		filterIndelCmd.add("-o " + outFilterIndel);
+		filterIndelCmd.add("-log " + logFilterIndel);
 
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-			combined.setHardFilterIndelSet(cmd);
+//			combined.setHardFilterIndelSet(filterIndelCmd);
+			combined.addCmd03(filterIndelCmd);
 		}
 
 		
@@ -181,37 +185,40 @@ public class VariantFilter {
 		
 		//////// combine variants
 		// initialize and gather variables
-		cmd = new ArrayList<>();
+		ArrayList<String> combineVariantsCmd = new ArrayList<>();
 		String outFileCombined = outDir + sep + "filter_marked.vcf";
 		String logCombined = outDir + sep + "combineVariants.log";
 		
 		// prepare command
-		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
-		cmd.add("-jar " + config.getGatk());
-		cmd.add("-T CombineVariants");
-		cmd.add("-R " + config.getHg19Fasta());
-		cmd.add("--variant " + outFileFilterSnps);
-		cmd.add("--variant " + outFilterIndel);
-		cmd.add("--genotypemergeoption UNSORTED");
-		cmd.add("-o " + outFileCombined);
-		cmd.add("-log " + logCombined);
+		combineVariantsCmd.add(config.getJava());
+		combineVariantsCmd.add(options.getXmx());
+		combineVariantsCmd.add("-jar " + config.getGatk());
+		combineVariantsCmd.add("-T CombineVariants");
+		combineVariantsCmd.add("-R " + config.getHg19Fasta());
+		combineVariantsCmd.add("--variant " + outFileFilterSnps);
+		combineVariantsCmd.add("--variant " + outFilterIndel);
+		combineVariantsCmd.add("--genotypemergeoption UNSORTED");
+		combineVariantsCmd.add("-o " + outFileCombined);
+		combineVariantsCmd.add("-log " + logCombined);
 		
 		
 		// store command
 		if (first <= 6 && last >= 6 ) {
-			combined.setCombineVariants(cmd);
+//			combined.setCombineVariants(combineVariantsCmd);
+			combined.addCmd03(combineVariantsCmd);
 		}		
 		
 		
 		//	remove filtered reads
 		String outFileFiltered = outDir + sep + "combined_filtered";
-		cmd = removeFiltered(outFileFiltered, input);
+		ArrayList<String> removeFilteredReadsCmd = new ArrayList<>();
+		removeFilteredReadsCmd = removeFiltered(outFileFiltered, input);
 		
 		// store command
 		if (first <= 6 && last >= 6 ) {
 			combined.setCombinedVcfFile(outFileFiltered + ".recode.vcf");
-					combined.setRemoveFilteredReads(cmd);
+//					combined.setRemoveFilteredReads(removeFilteredReadsCmd);
+					combined.addCmd03(removeFilteredReadsCmd);
 		}
 		
 	}

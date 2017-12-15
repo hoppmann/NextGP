@@ -89,6 +89,9 @@ public class Panel {
 		// 10  gemini
 		pipeline.loadInGemini();
 
+		// 11 annotate with hgmd and alamut
+		pipeline.annotateHGMD();
+		
 		// save commands
 		pipeline.saveCommands();
 

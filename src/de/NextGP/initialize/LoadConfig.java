@@ -26,6 +26,7 @@ public class LoadConfig {
 	private String consensus;
 	private String fastQC;
 	private String afterQC;
+	private String alamut;
 	
 	// references
 	private String hg19Fasta;
@@ -89,6 +90,7 @@ public class LoadConfig {
 				consensus = prop.getProperty("consensus");
 				fastQC = prop.getProperty("fastQC");
 				afterQC	= prop.getProperty("afterQC");
+				alamut = prop.getProperty("alamut");
 				
 				// read in reference directory names
 				hg19Fasta = prop.getProperty("hg19Fasta");
@@ -285,11 +287,11 @@ public class LoadConfig {
 			public String getJavaTmp() {
 				return javaTmp;
 			}
+
+			public String getAlamut() {
+				return alamut;
+			}
 			
-//			public String getJavaTmpOption() {
-//				String tempOption = "-Djava.io.tmpdir=" + javaTmp;
-//				return tempOption;
-//			}
 			
 			
 			

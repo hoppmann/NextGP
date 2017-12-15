@@ -106,34 +106,35 @@ public class VariantCaller {
 	public void runGenotypeGVCF() {
 
 		// init and gather variables
-		ArrayList<String> cmd = new ArrayList<>();
+		ArrayList<String> genotypeGvcfCmd = new ArrayList<>();
 		String sep = File.separator;
 		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
 		String outFile = outDir + sep + "combined.raw.vcf";
 		String logfile = outDir + sep + "GenotypeGVCF.log";
 
 		// prepare command
-		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
-		cmd.add("-jar " + config.getGatk());
-		cmd.add("-T GenotypeGVCFs");
-		cmd.add("-nt " + options.getCpu());
-		cmd.add("-R " + config.getHg19Fasta());
-		cmd.add("-D " + config.getDbsnp());
-		cmd.add("-stand_call_conf 30 ");
+		genotypeGvcfCmd.add(config.getJava());
+		genotypeGvcfCmd.add(options.getXmx());
+		genotypeGvcfCmd.add("-jar " + config.getGatk());
+		genotypeGvcfCmd.add("-T GenotypeGVCFs");
+		genotypeGvcfCmd.add("-nt " + options.getCpu());
+		genotypeGvcfCmd.add("-R " + config.getHg19Fasta());
+		genotypeGvcfCmd.add("-D " + config.getDbsnp());
+		genotypeGvcfCmd.add("-stand_call_conf 30 ");
 
 		for (String curPat : patients.keySet()) {
-			cmd.add("-V " + patients.get(curPat).getLastOutFile());
+			genotypeGvcfCmd.add("-V " + patients.get(curPat).getLastOutFile());
 		}
 
-		cmd.add("-o " + outFile);
-		cmd.add("-log " + logfile);
+		genotypeGvcfCmd.add("-o " + outFile);
+		genotypeGvcfCmd.add("-log " + logfile);
 
 
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-			combined.setGenotypeGVCF(cmd);
+//			combined.setGenotypeGVCF(genotypeGvcfCmd);
+			combined.addCmd03(genotypeGvcfCmd);
 		}
 		combined.setCombinedVcfFile(outFile);
 	}
@@ -479,33 +480,37 @@ public class VariantCaller {
 	public void mergeConsensusVariants() {
 
 		// init and gather variables
-		ArrayList<String> cmd = new ArrayList<>();
+		ArrayList<String> combindeCallinCmd = new ArrayList<>();
 		String sep = File.separator;
 		String outDir = options.getOutDir() + sep + config.getVariantCalling() ;
 		String output = outDir + sep + "consensus.vcf";
 
 
 		// prepare command
-		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
-		cmd.add("-jar " + config.getGatk());
-		cmd.add("-T CombineVariants");
-		cmd.add("-R " + config.getHg19Fasta());
+		combindeCallinCmd.add(config.getJava());
+		combindeCallinCmd.add(options.getXmx());
+		combindeCallinCmd.add("-jar " + config.getGatk());
+		combindeCallinCmd.add("-T CombineVariants");
+		combindeCallinCmd.add("-R " + config.getHg19Fasta());
 		for (String curPat : patients.keySet()){
 
 			String input = patients.get(curPat).getLastOutFile();
-			cmd.add("--variant " + input);
+			combindeCallinCmd.add("--variant " + input);
 		}
 
-		cmd.add("-genotypeMergeOptions Unsorted");
-		cmd.add("-o " + output);
+		combindeCallinCmd.add("-genotypeMergeOptions Unsorted");
+		combindeCallinCmd.add("-o " + output);
 
 
 		// store commands
 		if (first <= 6 && last >= 6 ) {
-			combined.setCombineSampleVariants(cmd);
+//			combined.setCombineSampleVariants(combindeCallinCmd);
+			combined.addCmd05(combindeCallinCmd);
 		}
 		combined.setLastOutFile(output);
+		
+		// save vcf-file for later annotation with alamut
+		combined.setVcfForAnnotation(output);
 
 
 

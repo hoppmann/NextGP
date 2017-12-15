@@ -180,8 +180,7 @@ public class SlurmWriter {
 
 	///////////////////////
 	//////// save command from combined genotyping 
-	@SuppressWarnings("unchecked")
-	public void savecombinedGenotyping() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void savecombinedGenotyping() {
 
 		// create File
 		Writer combGeno = new Writer();
@@ -192,12 +191,11 @@ public class SlurmWriter {
 		commonHeader(combGeno, false);
 		
 		// for each entered command save in combined file
-		for (Method getCmd : combined.getGenotypeCommands()) {
-
-
-			ArrayList<String> cmd = (ArrayList<String>) getCmd.invoke(combined);
-			combGeno.writeCmd(cmd);
-
+		for (ArrayList<String> curCmd : combined.getCmds03()) {
+			
+			combGeno.writeCmd(curCmd);
+			
+			
 		}
 
 		combGeno.close();
@@ -217,8 +215,7 @@ public class SlurmWriter {
 	//////////////////
 	//////// save commands to be run on combined file
 
-	@SuppressWarnings("unchecked")
-	public void saveCombinedCommands() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void saveCombinedCommands() {
 
 		// create file
 		Writer comb = new Writer();
@@ -228,34 +225,45 @@ public class SlurmWriter {
 		commonHeader(comb, true);
 		
 		// for each entered command save in combined file
-		for (Method getCmd : combined.getCommands()) {
-
-			ArrayList<String> cmd = (ArrayList<String>) getCmd.invoke(combined);
-			comb.writeCmd(cmd);
-
+		for (ArrayList<String> curCmd : combined.getCmds05()) {
+			
+			comb.writeCmd(curCmd);
+			
 		}
-
-
-
+		
 		comb.close();
 	}
 
 
 	
+	
+	//// prepare common header
 	private void commonHeader(Writer outFile, boolean finalFile) {
 		
 		outFile.writeLine("#!/bin/bash");
 		outFile.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
 		outFile.writeLine("#SBATCH --mem=" + maxMem + "G");
 		
-		if (finalFile && options.getEmail() != null && !"".equals(options.getEmail())) {
+		if (finalFile && options.isEmail()) {
+			outFile.writeLine("#--mail-type=FAIL");
+			outFile.writeLine("#--mail-type=END");
+		} else if (options.isEmail()){
+			outFile.writeLine("#--mail-type=FAIL");
 			
-			outFile.writeLine("#--mail-user=" + options.getEmail() + " --mail-type=END");
-		} else if (options.getEmail() != null && !"".equals(options.getEmail())){
-			outFile.writeLine("#--mail-user=" + options.getEmail() + " --mail-type=FAIL");
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	///////////////////

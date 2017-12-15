@@ -69,9 +69,9 @@ public class SetOptions {
 		opts.put(pipeline, new OptionValue(options, "solid", false, "\tUse this option if input bam files are SOLiD files. Only needed if \"exon\" is run"));
 		
 		// pipeline parts
-		opts.put(misc, new OptionValue(options, "first", true, "Number of first pipeline step to start from. Default: 01. Possible steps: \n\t\t\t\t01: alignment; \n\t\t\t\t02: remove duplicates; \n\t\t\t\t03: indel realignment; \n\t\t\t\t04: base recalibration; \n\t\t\t\t05: metrices; \n\t\t\t\t06: variant calling; \n\t\t\t\t07: annotaion; \n\t\t\t\t08: database generation"));
-		opts.put(misc, new OptionValue(options, "last", true, "Last step of Pipeline to run. Default 08."));
-		opts.put(misc, new OptionValue(options, "email", true, "If set, a pipeline update will be send to the corresponding e-mail adress."));
+		opts.put(misc, new OptionValue(options, "first", true, "Number of first pipeline step to start from. Default: 01. Possible steps: \n\t\t\t\t01: alignment; \n\t\t\t\t02: remove duplicates; \n\t\t\t\t03: indel realignment; \n\t\t\t\t04: base recalibration; \n\t\t\t\t05: metrices; \n\t\t\t\t06: variant calling; \n\t\t\t\t07: annotaion; \n\t\t\t\t08: database generation\n\t\t\t\t09: annotate Alamut and HGMD"));
+		opts.put(misc, new OptionValue(options, "last", true, "Last step of Pipeline to run. Default 09."));
+		opts.put(misc, new OptionValue(options, "email", false, "If set, a notice of failing or finishing will be send to the corresponding e-mail adress."));
 	}
 
 	

@@ -1,6 +1,5 @@
 package de.NextGP.general.outfiles;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -8,44 +7,17 @@ public class Combined {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
-
-	private String lastOutFile;
-	private boolean matePair;
-	private LinkedList<Method> cmds05 = new LinkedList<>();
-
-
-	// commands
-	private ArrayList<String> combineSampleVariants;
-	private ArrayList<String> variantRecalibration;
-	private ArrayList<String> applyRecalibration;
-	private ArrayList<String> vepAnnotation;
-	private ArrayList<String> vtMaster;
-	private ArrayList<String> snpEffAnnotation;
-	private ArrayList<String> varEval;
-	private ArrayList<String> geminiLoad;
-	private ArrayList<String> mkDirs = new ArrayList<>();
-	private ArrayList<String> tabix;
-	private ArrayList<String> bgzip;
-	private ArrayList<String> chmod;
-
-
-
-	////////////////////////
-	//////// combined gentyping
-
-
-	private ArrayList<String> genotypeGVCF;
-	private LinkedList<Method> genotypeCommands = new LinkedList<>();
 	private String combinedVcfFile;
+	private String lastOutFile;
+	private String vcfForAnnotation;
+	private boolean matePair;
+	private String dbName;
 
 
-	// commands
-	private ArrayList<String> extractSnpSet;
-	private ArrayList<String> hardFiterSnpSet;
-	private ArrayList<String> extractIndelSet;
-	private ArrayList<String> hardFilterIndelSet;
-	private ArrayList<String> combineVariants;
-	private ArrayList<String> removeFilteredReads;
+	// command collections
+	private ArrayList<String> mkDirs = new ArrayList<>();
+	private LinkedList<ArrayList<String>> cmds03 = new LinkedList<>(); 
+	private LinkedList<ArrayList<String>> cmds05 = new LinkedList<>();
 
 
 
@@ -65,11 +37,46 @@ public class Combined {
 		mkDirs.add(mkdirCmd);
 	}
 
+	
+	public void addCmd05 (ArrayList<String> cmd) {
+		
+		cmds05.add(cmd);
+		
+	}
+	
+	public void addCmd03 (ArrayList<String> cmd) {
+		
+		cmds03.add(cmd);
+		
+	}
+	
+	
+	
 	/////////////////////////////////
 	//////// getter / setter ////////
 	/////////////////////////////////
+	
+	public ArrayList<String> getMkDirs() {
+		return mkDirs;
+	}
+	
+	public LinkedList<ArrayList<String>> getCmds03() {
+		return cmds03;
+	}
 
 
+	public LinkedList<ArrayList<String>> getCmds05() {
+		return cmds05;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/////////////
 	//////// general stuff
@@ -82,6 +89,15 @@ public class Combined {
 		this.lastOutFile = lastOutFile;
 	}
 
+	public String getVcfForAnnotation() {
+		return vcfForAnnotation;
+	}
+
+	public void setVcfForAnnotation(String vcfForAnnotation) {
+		this.vcfForAnnotation = vcfForAnnotation;
+	}
+	
+	
 	public boolean isMatePair() {
 		return matePair;
 	}
@@ -90,22 +106,7 @@ public class Combined {
 		this.matePair = matePair;
 	}
 
-	public LinkedList<Method> getCommands() {
-		return cmds05;
-	}
 
-	public void setCommands(LinkedList<Method> commands) {
-		this.cmds05 = commands;
-	}
-
-
-	public LinkedList<Method> getGenotypeCommands() {
-		return genotypeCommands;
-	}
-
-	public void setGenotypeCommands(LinkedList<Method> genotypeCommands) {
-		this.genotypeCommands = genotypeCommands;
-	}
 
 	public String getCombinedVcfFile() {
 		return combinedVcfFile;
@@ -116,319 +117,25 @@ public class Combined {
 	}
 
 
-
-
-	///////////////
-	//////// method getter
-
-	public ArrayList<String> getCombineSampleVariants() {
-		return combineSampleVariants;
-	}
-
-	public void setCombineSampleVariants(ArrayList<String> combineSampleVariants) {
-		this.combineSampleVariants = combineSampleVariants;
-		try {
-			cmds05.add(Combined.class.getMethod("getCombineSampleVariants"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
-	}
-
-	
-
-	public ArrayList<String> getVariantRecalibration() {
-		return variantRecalibration;
+	public String getDbName() {
+		return dbName;
 	}
 
 
-	public void setVariantRecalibration(ArrayList<String> variantRecalibration) {
-		this.variantRecalibration = variantRecalibration;
-		try {
-			cmds05.add(Combined.class.getMethod("getVariantRecalibration"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getApplyRecalibration() {
-		return applyRecalibration;
-	}
-
-	public void setApplyRecalibration(ArrayList<String> applyRecalibration) {
-		this.applyRecalibration = applyRecalibration;
-		try {
-			cmds05.add(Combined.class.getMethod("getApplyRecalibration"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-	
-
-	public ArrayList<String> getVepAnnotation() {
-		return vepAnnotation;
-	}
-
-	public void setVepAnnotation(ArrayList<String> vepAnnotation) {
-		this.vepAnnotation = vepAnnotation;
-		try {
-			cmds05.add(Combined.class.getMethod("getVepAnnotation"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getVtMaster() {
-		return vtMaster;
-	}
-
-	public void setVtMaster(ArrayList<String> prepareVEP) {
-		this.vtMaster = prepareVEP;
-		try {
-			cmds05.add(Combined.class.getMethod("getVtMaster"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getVarEval() {
-		return varEval;
-	}
-
-	public void setVarEval(ArrayList<String> varEval) {
-		this.varEval = varEval;
-		try {
-			cmds05.add(Combined.class.getMethod("getVarEval"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getGeminiLoad() {
-		return geminiLoad;
-	}
-
-	public void setGeminiLoad(ArrayList<String> geminiLoad) {
-		this.geminiLoad = geminiLoad;
-		try {
-			cmds05.add(Combined.class.getMethod("getGeminiLoad"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getMkDirs() {
-		return mkDirs;
-	}
-
-	public void setMkDirs(ArrayList<String> mkDirs) {
-		this.mkDirs = mkDirs;
-		try {
-			cmds05.add(Combined.class.getMethod("getMkDirs"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getSnpEffAnnotation() {
-		return snpEffAnnotation;
-	}
-
-	public void setSnpEffAnnotation(ArrayList<String> snpEffAnnotation) {
-		this.snpEffAnnotation = snpEffAnnotation;
-
-		try {
-			cmds05.add(Combined.class.getMethod("getSnpEffAnnotation"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-
-	}
-
-
-
-	public ArrayList<String> getTabix() {
-		return tabix;
-	}
-
-	public void setTabix(ArrayList<String> tabix) {
-		this.tabix = tabix;
-		try {
-			cmds05.add(Combined.class.getMethod("getTabix"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getBgzip() {
-		return bgzip;
-	}
-
-	public void setBgzip(ArrayList<String> bgzip) {
-		this.bgzip = bgzip;
-		try {
-			cmds05.add(Combined.class.getMethod("getBgzip"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getChmod() {
-		return chmod;
-	}
-
-	public void setChmod(ArrayList<String> chmod) {
-		this.chmod = chmod;
-		try {
-			cmds05.add(Combined.class.getMethod("getChmod"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-
-	///////////////////////////
-	//////// combined genotyper
-
-
-	public ArrayList<String> getGenotypeGVCF() {
-		return genotypeGVCF;
-	}
-
-	public void setGenotypeGVCF(ArrayList<String> genotypeGVCF) {
-		this.genotypeGVCF = genotypeGVCF;
-		try {
-			genotypeCommands.add(Combined.class.getMethod("getGenotypeGVCF"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
+	public void setDbName(String dbName) {
+		this.dbName = dbName;
 	}
 
 
 	
-	public ArrayList<String> getExtractSnpSet() {
-		return extractSnpSet;
-	}
-
-	public void setExtractSnpSet(ArrayList<String> extractSnpSet) {
-		this.extractSnpSet = extractSnpSet;
-		
-		try {
-			genotypeCommands.add(Combined.class.getMethod("getExtractSnpSet"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
 
 
 
-	public ArrayList<String> getHardFiterSnpSet() {
-		return hardFiterSnpSet;
-	}
-
-	public void setHardFiterSnpSet(ArrayList<String> hardFiterSnpSet) {
-		this.hardFiterSnpSet = hardFiterSnpSet;
-		try {
-			genotypeCommands.add(Combined.class.getMethod("getHardFiterSnpSet"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
 
 
 
-	public ArrayList<String> getExtractIndelSet() {
-		return extractIndelSet;
-	}
 
-	public void setExtractIndelSet(ArrayList<String> extractIndelSet) {
-		this.extractIndelSet = extractIndelSet;
-		try {
-			genotypeCommands.add(Combined.class.getMethod("getExtractIndelSet"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getHardFilterIndelSet() {
-		return hardFilterIndelSet;
-	}
-
-	public void setHardFilterIndelSet(ArrayList<String> hardFilterIndelSet) {
-		this.hardFilterIndelSet = hardFilterIndelSet;
-		try {
-			genotypeCommands.add(Combined.class.getMethod("getHardFilterIndelSet"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getCombineVariants() {
-		return combineVariants;
-	}
-
-	public void setCombineVariants(ArrayList<String> combineVariants) {
-		this.combineVariants = combineVariants;
-		try {
-			genotypeCommands.add(Combined.class.getMethod("getCombineVariants"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
-
-
-	public ArrayList<String> getRemoveFilteredReads() {
-		return removeFilteredReads;
-	}
-
-	public void setRemoveFilteredReads(ArrayList<String> removeFilteredReads) {
-		this.removeFilteredReads = removeFilteredReads;
-		try {
-			genotypeCommands.add(Combined.class.getMethod("getRemoveFilteredReads"));
-		} catch (NoSuchMethodException | SecurityException e) {
-			
-			e.printStackTrace();
-		}
-	}
-
+	
 	
 
 
