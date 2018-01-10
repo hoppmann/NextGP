@@ -83,8 +83,9 @@ public class VariantEval {
 		
 		
 		// store command
-		patients.get(curPat).addCmd04(cmd);
-		
+		if (options.getFirst() <= 6 && options.getLast() >= 6 ) {
+			patients.get(curPat).addCmd04(cmd);
+		}
 		
 		}
 	}
