@@ -117,7 +117,11 @@ public class VariantCaller {
 		genotypeGvcfCmd.add(options.getXmx());
 		genotypeGvcfCmd.add("-jar " + config.getGatk());
 		genotypeGvcfCmd.add("-T GenotypeGVCFs");
-		genotypeGvcfCmd.add("-nt " + options.getCpu());
+		
+		/* --nt excluded for producing an error of to many open file handles
+		 * runs rather quick anyways
+		 */
+		// genotypeGvcfCmd.add("-nt " + options.getCpu());
 		genotypeGvcfCmd.add("-R " + config.getHg19Fasta());
 		genotypeGvcfCmd.add("-D " + config.getDbsnp());
 		genotypeGvcfCmd.add("-stand_call_conf 30 ");
