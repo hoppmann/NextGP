@@ -102,7 +102,7 @@ public class BWA {
 
 			// save command in patient object
 			if (first <= 1 && last >= 1 ) {
-				patients.get(curPat).setBwa(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 			patients.get(curPat).setLastOutFile(OutFile);
 		}
@@ -138,7 +138,7 @@ public class BWA {
 
 			// save command in patient object
 			if (first <= 1 && last >= 1 ) {
-				patients.get(curPat).setBwa(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}			
 			patients.get(curPat).setLastOutFile(OutFile);
 

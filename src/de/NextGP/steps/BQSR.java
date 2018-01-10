@@ -103,7 +103,7 @@ public class BQSR {
 		
 		// save command in patient object
 		if (first <= 4 && last >= 4 ) {
-			patients.get(curPat).setBaseRecalibration_pre(cmd);
+			patients.get(curPat).addCmd02(cmd);
 		}
 	}
 
@@ -154,7 +154,7 @@ public class BQSR {
 
 		// save command in patients object
 		if (first <= 4 && last >= 4 ) {
-			patients.get(curPat).setBaseRecalibration_post(cmd);
+			patients.get(curPat).addCmd02(cmd);
 		}
 
 	}
@@ -188,7 +188,7 @@ public class BQSR {
 
 		// save command
 		if (first <= 4 && last >= 4 ) {
-			patients.get(curPat).setAnalyzeCovariates(cmd);
+			patients.get(curPat).addCmd02(cmd);
 		}
 
 
@@ -227,7 +227,7 @@ public class BQSR {
 
 		// save command
 		if (first <= 4 && last >= 4 ) {
-			patients.get(curPat).setPrintReads(cmd);
+			patients.get(curPat).addCmd02(cmd);
 		}
 		patients.get(curPat).setLastOutFile(output);
 		patients.get(curPat).setBam(output);

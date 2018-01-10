@@ -96,7 +96,7 @@ public class Realigner {
 
 		// add command in Patient object
 		if (first <= 3 && last >= 3 ) {
-			patients.get(curPat).setRealignmentTargetCreator(cmd);
+			patients.get(curPat).addCmd02(cmd);
 		}
 	}
 
@@ -137,7 +137,7 @@ public class Realigner {
 
 		// save cmd in patient object
 		if (first <= 3 && last >= 3 ) {
-			patients.get(curPat).setIndelRealigner(cmd);
+			patients.get(curPat).addCmd02(cmd);
 		}
 		patients.get(curPat).setLastOutFile(outFile);
 

@@ -56,7 +56,6 @@ public class VariantFilter {
 
 
 		// initialize and gather variables
-//		ArrayList<String> cmd = new ArrayList<>();
 		String sep = File.separator;
 		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "filtered";
 		String subDir = "SNPs";
@@ -81,7 +80,6 @@ public class VariantFilter {
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-//			combined.setExtractSnpSet(extractSnpSetCmd);
 			combined.addCmd03(extractSnpSetCmd);
 		}
 
@@ -115,7 +113,6 @@ public class VariantFilter {
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-//			combined.setHardFiterSnpSet(hardFilterCmd);
 			combined.addCmd03(hardFilterCmd);
 		}
 
@@ -142,7 +139,6 @@ public class VariantFilter {
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-//			combined.setExtractIndelSet(extractIndelCmd);
 			combined.addCmd03(extractIndelCmd);
 		}
 
@@ -174,7 +170,6 @@ public class VariantFilter {
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-//			combined.setHardFilterIndelSet(filterIndelCmd);
 			combined.addCmd03(filterIndelCmd);
 		}
 
@@ -204,7 +199,6 @@ public class VariantFilter {
 		
 		// store command
 		if (first <= 6 && last >= 6 ) {
-//			combined.setCombineVariants(combineVariantsCmd);
 			combined.addCmd03(combineVariantsCmd);
 		}		
 		
@@ -217,7 +211,6 @@ public class VariantFilter {
 		// store command
 		if (first <= 6 && last >= 6 ) {
 			combined.setCombinedVcfFile(outFileFiltered + ".recode.vcf");
-//					combined.setRemoveFilteredReads(removeFilteredReadsCmd);
 					combined.addCmd03(removeFilteredReadsCmd);
 		}
 		

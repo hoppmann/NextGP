@@ -105,7 +105,7 @@ public class CreateMetrices {
 
 			// save command
 			if (first <= 5 && last >= 5 ) {
-				patients.get(curPat).setStatsMeanDepth(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 
 		}
@@ -151,7 +151,7 @@ public class CreateMetrices {
 
 			// save command
 			if (first <= 5 && last >= 5 ) {
-				patients.get(curPat).setStatsAsMetric(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 		}
 	}
@@ -197,7 +197,7 @@ public class CreateMetrices {
 
 			// save command
 			if (first <= 5 && last >= 5 ) {
-				patients.get(curPat).setStatsGCBMetric(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 		}
 
@@ -241,7 +241,7 @@ public class CreateMetrices {
 
 			// save command
 			if (first <= 5 && last >= 5 ) {
-				patients.get(curPat).setStatsISMetric(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 		}
 	}
@@ -282,7 +282,7 @@ public class CreateMetrices {
 
 			// save command
 			if (first <= 5 && last >= 5 ) {
-				patients.get(curPat).setStatsCoverage(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 
 		}
@@ -316,10 +316,8 @@ public class CreateMetrices {
 			
 			// save command
 			if (first <= 5 && last >= 5 ) {
-				patients.get(curPat).setFastQC(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
-//			System.out.println(cmd);
-//			System.exit(3);
 
 			
 		}

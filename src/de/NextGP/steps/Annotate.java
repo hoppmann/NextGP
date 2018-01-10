@@ -96,7 +96,6 @@ public class Annotate {
 		
 		// store command
 		if (first <= 7 && last >= 7 ) {
-//			combined.setVtMaster(vtCmd);
 			combined.addCmd05(vtCmd);
 			
 		}		
@@ -149,7 +148,6 @@ public class Annotate {
 
 		// store command
 		if (first <= 7 && last >= 7 ) {
-//			combined.setVepAnnotation(vepCmd);
 			combined.addCmd05(vepCmd);
 		}
 		combined.setLastOutFile(outVEP);
@@ -182,7 +180,6 @@ public class Annotate {
 		
 		// store command
 		if (first <= 7 && last >= 7 ) {
-//			combined.setSnpEffAnnotation(snpEffCmd);
 			combined.addCmd05(snpEffCmd);
 			
 		}
@@ -204,7 +201,6 @@ public class Annotate {
 		
 		// store command
 		if (first <= 7 && last >= 7 ) {
-//			combined.setBgzip(bgZipCmd);
 			combined.addCmd05(bgZipCmd);
 		}
 		
@@ -222,7 +218,6 @@ public class Annotate {
 		
 		// store command
 		if (first <= 7 && last >= 7 ) {
-//			combined.setTabix(tabixCmd);
 			combined.addCmd05(tabixCmd);
 		}
 		

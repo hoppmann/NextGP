@@ -93,7 +93,7 @@ public class VariantCaller {
 
 			// save command
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setHaplotypeCaller(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 			patients.get(curPat).setVcfFiles("gatk", output);
 			patients.get(curPat).setLastOutFile(output);
@@ -137,7 +137,6 @@ public class VariantCaller {
 
 		// save command
 		if (first <= 6 && last >= 6 ) {
-//			combined.setGenotypeGVCF(genotypeGvcfCmd);
 			combined.addCmd03(genotypeGvcfCmd);
 		}
 		combined.setCombinedVcfFile(outFile);
@@ -184,7 +183,7 @@ public class VariantCaller {
 
 			// save command 
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setMpileup(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 
 			// save command
@@ -238,7 +237,7 @@ public class VariantCaller {
 
 			// save command
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setPlatypus(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 
 
@@ -253,7 +252,7 @@ public class VariantCaller {
 
 			// save command
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setFilterPlatypus(filterCmd);
+				patients.get(curPat).addCmd02(filterCmd);
 			}
 
 			// sort VCF file to get rid of contig order error
@@ -265,7 +264,7 @@ public class VariantCaller {
 
 			// save command
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setSortPlatypus(sortCmd);
+				patients.get(curPat).addCmd02(sortCmd);
 			}
 			patients.get(curPat).setVcfFiles(caller, fileOut);
 
@@ -318,8 +317,8 @@ public class VariantCaller {
 
 			// save commands
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setFreebayes(cmd);
-				patients.get(curPat).setSortFreebayes(sortCmd);
+				patients.get(curPat).addCmd02(cmd);
+				patients.get(curPat).addCmd02(sortCmd);
 			}
 			patients.get(curPat).setVcfFiles(caller, fileOut);
 
@@ -328,7 +327,10 @@ public class VariantCaller {
 	}
 
 
-	// extract individuals
+	/* extract individuals
+	 * GATK perfomes combined calles. For consensus calling individual vcf-files are needed.
+	 * Thus extract a vcf-file for each patient
+	 */
 	public void extractInd() {
 
 		String caller = "gatk";
@@ -350,7 +352,7 @@ public class VariantCaller {
 
 			// store commands
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setExtractInd(cmd);
+				patients.get(curPat).addCmd04(cmd);
 			}
 			patients.get(curPat).setVcfFiles(caller, fileOut + ".recode.vcf");
 
@@ -376,13 +378,13 @@ public class VariantCaller {
 				if (first <= 6 && last >= 6 ) {
 					// for each patient save commands of current caller
 					if (callerName.equals("gatk")) {
-						patients.get(curPat).setSampleNameModGATK(cmd);
+						patients.get(curPat).addCmd04(cmd);
 					} else if (callerName.equals("platypus")) {
-						patients.get(curPat).setSampleNameModPlatypus(cmd);
+						patients.get(curPat).addCmd04(cmd);
 					} else if (callerName.equals("freebayes")) {
-						patients.get(curPat).setSampleNameModFreebayes(cmd);
+						patients.get(curPat).addCmd04(cmd);
 					} else if (callerName.equals("samtools")) {
-						patients.get(curPat).setSampleNameModSamtools(cmd);
+						patients.get(curPat).addCmd04(cmd);
 					}
 				}
 			}
@@ -422,12 +424,11 @@ public class VariantCaller {
 
 			cmd.add("-genotypeMergeOptions Unsorted");
 			cmd.add("-o " + output);
-			//			cmd.add("-U ALLOW_SEQ_DICT_INCOMPATIBILITY");
 
 
 			// store commands
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setCombineVariants(cmd);
+				patients.get(curPat).addCmd04(cmd);
 			}
 			patients.get(curPat).setLastOutFile(output);
 		}
@@ -472,7 +473,7 @@ public class VariantCaller {
 			
 			// store command
 			if (first <= 6 && last >= 6 ) {
-				patients.get(curPat).setConsensus(cmd);
+				patients.get(curPat).addCmd04(cmd);
 			}
 			patients.get(curPat).setLastOutFile(output);
 		}
@@ -508,7 +509,6 @@ public class VariantCaller {
 
 		// store commands
 		if (first <= 6 && last >= 6 ) {
-//			combined.setCombineSampleVariants(combindeCallinCmd);
 			combined.addCmd05(combindeCallinCmd);
 		}
 		combined.setLastOutFile(output);

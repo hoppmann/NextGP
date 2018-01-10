@@ -83,7 +83,7 @@ public class VariantEval {
 		
 		
 		// store command
-		patients.get(curPat).setVariantEval(cmd);
+		patients.get(curPat).addCmd04(cmd);
 		
 		
 		}

@@ -112,7 +112,7 @@ public class Preprocess {
 
 			// save command in patients object
 			if (first <= 1 && last >= 1 ) {
-				patients.get(curPat).setAfterQC(cmd);
+				patients.get(curPat).addCmd02(cmd);
 			}
 		}
 

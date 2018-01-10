@@ -2,7 +2,6 @@ package de.NextGP.general;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -89,7 +88,6 @@ public class SlurmWriter {
 
 	///////////////////////
 	//////// for each patient save prepared pre-GATK calling commands in slurm file
-	@SuppressWarnings("unchecked")
 	public void saveSinglePatCommands() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
 
@@ -100,30 +98,26 @@ public class SlurmWriter {
 			// Create batch file to write commands in.
 			// prepare writer			
 			String outFile = slurmDir + sep + "02-" + curPat + ".sh";
-			Writer batch = new Writer();
-			batch.openWriter(outFile);
+			Writer primaryCmds = new Writer();
+			primaryCmds.openWriter(outFile);
 
 
 			// write first/general lines of batch file
-			commonHeader(batch, false);			
+			commonHeader(primaryCmds, false);			
 
 
 			//////// for each command created write in batch file
-			for (Method getCurCmd : curPatObject.getPrimaryCommands()) {
-
-				// retrieve command
-				Object returnValue = getCurCmd.invoke(curPatObject);
-				ArrayList<String> cmd = (ArrayList<String>) returnValue;
-
+			
+			for (ArrayList<String> cmd : curPatObject.getCmds02()) {
+				
 				// write in file
-				batch.writeCmd(cmd);
-
+				primaryCmds.writeCmd(cmd);
+				
 			}
-
-
+			
 
 			// close Writer
-			batch.close();
+			primaryCmds.close();
 		}
 
 	}
@@ -133,7 +127,6 @@ public class SlurmWriter {
 	///////////////////
 	//////// prepare patient file post gatk calling
 
-	@SuppressWarnings("unchecked")
 	public void saveSecondaryCommands() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
 		for (String curPat : patients.keySet()) {
@@ -150,16 +143,13 @@ public class SlurmWriter {
 			commonHeader(secondary, false);
 			
 			//////// foreach command created write in batch file
-			for (Method getCurCommand : curPatObject.getSecondaryCommands()){
-
-				// retrieve command
-				Object returnValue = getCurCommand.invoke(curPatObject);
-				ArrayList<String> cmd = (ArrayList<String>) returnValue;
-
+			for (ArrayList<String> cmd : curPatObject.getCmds04()) {
+				
 				// write in file
 				secondary.writeCmd(cmd);
-
+				
 			}
+			
 
 			// close writer
 			secondary.close();
@@ -245,10 +235,10 @@ public class SlurmWriter {
 		outFile.writeLine("#SBATCH --mem=" + maxMem + "G");
 		
 		if (finalFile && options.isEmail()) {
-			outFile.writeLine("#--mail-type=FAIL");
-			outFile.writeLine("#--mail-type=END");
+			outFile.writeLine("#SBATCH --mail-type=FAIL");
+			outFile.writeLine("#SBATCH --mail-type=END");
 		} else if (options.isEmail()){
-			outFile.writeLine("#--mail-type=FAIL");
+			outFile.writeLine("#SBATCH --mail-type=FAIL");
 			
 		}
 		

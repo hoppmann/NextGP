@@ -20,7 +20,6 @@ public class SamToBam {
 	//////// variables ////////
 	///////////////////////////
 
-//	private GetOptions opts; 
 	private LoadConfig config;
 	private Map<String, Patients> patients;
 	private String outDir;
@@ -103,7 +102,7 @@ public class SamToBam {
 			
 			// save cmd in patient object
 			if (first <= 1 && last >= 1 ) {
-				patients.get(curPat).setSamToBam(cmd);
+				patients.get(curPat).addCmd02(cmd);;
 			}
 			// save name of bam files
 			patients.get(curPat).setLastOutFile(outBam);
