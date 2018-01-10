@@ -80,7 +80,7 @@ public class AlamutHgmd {
 		alamutCmd.add(config.getAlamut());
 		alamutCmd.add("--outputannonly");
 		alamutCmd.add("--in " + combined.getVcfForAnnotation());
-		alamutCmd.add("--hgmdUser hoppman");
+		alamutCmd.add("--hgmdUser hoppmann");
 		alamutCmd.add("--hgmdPasswd KiKli2016");
 		alamutCmd.add("--ann " + alamutOut);
 		alamutCmd.add("--unann "  + alamutLog);
