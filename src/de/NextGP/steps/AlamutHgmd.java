@@ -164,7 +164,7 @@ public class AlamutHgmd {
 				"done"
 				+ "\n"
 				+ "\n"
-				+ "ALAMUT_COLS=$(zcat $bedFile | head -n 1 | cut -f $start-999 | tr \"\\t\" \",\")"
+				+ "ALAMUT_COLS=$(zcat " + bedFile + " | head -n 1 | cut -f $start-999 | tr \"\\t\" \",\")"
 				+ "");
 
 
