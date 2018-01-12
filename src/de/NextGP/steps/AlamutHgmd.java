@@ -22,6 +22,7 @@ public class AlamutHgmd {
 	Combined combined;
 	String alamutOut;
 	String bedFile;
+	String bedFileZip;
 
 	/////////////////////////////
 	//////// constructor ////////
@@ -98,7 +99,9 @@ public class AlamutHgmd {
 
 		// prepare bed file name
 		bedFile = alamutOut.replace("alamut", "bed");
-
+		bedFile = bedFile + ".gz";
+		
+		
 		// preparing command
 		ArrayList<String> formBedCmd = new ArrayList<>();
 

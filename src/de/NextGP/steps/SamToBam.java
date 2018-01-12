@@ -47,7 +47,7 @@ public class SamToBam {
 		this.options = options;
 		
 		// make log entry
-		Log.logger(logger, "Converting sam to bam");
+		Log.logger(logger, "Preparing sam to bam convertion.");
 
 		// create directory
 		mkdir();
