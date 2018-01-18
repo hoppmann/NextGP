@@ -65,7 +65,7 @@ public class VariantCaller {
 			// init and gather variables
 			ArrayList<String> cmd = new ArrayList<>();
 			String sep = File.separator;
-			String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
+			String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
 			String output = outDir + sep + curPat + sep + curPat + ".raw.g.vcf";
 			String logfile = outDir + sep + curPat + sep + curPat + ".log";
 			String input = patients.get(curPat).getBam();
@@ -108,7 +108,7 @@ public class VariantCaller {
 		// init and gather variables
 		ArrayList<String> genotypeGvcfCmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
+		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
 		String outFile = outDir + sep + "combined.raw.vcf";
 		String logfile = outDir + sep + "GenotypeGVCF.log";
 
@@ -139,9 +139,23 @@ public class VariantCaller {
 		if (first <= 6 && last >= 6 ) {
 			combined.addCmd03(genotypeGvcfCmd);
 		}
+		
 		combined.setCombinedVcfFile(outFile);
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// run samtools mpileup
 	public void runMpileup() {
@@ -150,7 +164,7 @@ public class VariantCaller {
 		// general varialbes and mkdir
 		String caller = "samtools";
 		String sep = File.separator;
-		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + caller;
+		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + caller;
 
 		// save mkdir command
 		combined.mkdir(outDir );
@@ -186,14 +200,37 @@ public class VariantCaller {
 				patients.get(curPat).addCmd02(cmd);
 			}
 
-			// save command
-			patients.get(curPat).setVcfFiles("samtools", fileOut);
+			
+			
+			//////// normalize using vt
+			input = fileOut;
+			fileOut = options.getOutDir() + sep + config.getVariantCalling() + sep + caller + sep + curPat + ".vcf";
 
+			
+			ArrayList<String> vtCmd = normalize(input, fileOut);
+			
+			
+			// save command 
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).addCmd02(vtCmd);
+			}
+
+			// store vcf name for later use
+			patients.get(curPat).setVcfFiles("samtools", fileOut);
 
 		}
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// run platypus
 	public void runPlatypus() {
 
@@ -203,11 +240,12 @@ public class VariantCaller {
 		// general varialbes and mkdir
 		String caller = "platypus";
 		String sep = File.separator;
-		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + caller + sep;
-
+		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + caller;
+		String outDirUnfilt = outDir + sep + "unfiltered";
+		
 		// save mkdir command
 		combined.mkdir(outDir);
-		combined.mkdir(outDir + "unfiltered");
+		combined.mkdir(outDirUnfilt);
 
 
 		// run for each patient
@@ -216,9 +254,8 @@ public class VariantCaller {
 
 			// init and gather variables
 			ArrayList<String> cmd = new ArrayList<>();
-			outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + caller + sep + "unfiltered";
-			String output = outDir + sep + curPat + ".vcf";
-			String logfile = outDir + sep + curPat + ".log";
+			String output = outDirUnfilt + sep + curPat + ".vcf";
+			String logfile = outDirUnfilt + sep + curPat + ".log";
 			String input = patients.get(curPat).getBam();
 
 
@@ -241,11 +278,11 @@ public class VariantCaller {
 			}
 
 
+			///////////////////
+			//////// filter variants ////////
 
-			// filter variants
 			input = output;
-			outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + caller ;
-			output = outDir + sep + curPat + ".vcf";
+			output = outDir + sep + curPat;
 
 			// prepare command
 			ArrayList<String> filterCmd =  filter.removeFiltered(output, input);
@@ -266,19 +303,49 @@ public class VariantCaller {
 			if (first <= 6 && last >= 6 ) {
 				patients.get(curPat).addCmd02(sortCmd);
 			}
-			patients.get(curPat).setVcfFiles(caller, fileOut);
 
+			
+			
+			
+			
+			//////// normalize variants with vt
+			
+			input = fileOut;
+			output = options.getOutDir() + sep + config.getVariantCalling() + sep + caller + sep + curPat + ".vcf";
+			
+			ArrayList<String> vtCmd = normalize(input, output);
+			
+			//save command
+			if (first <= 6 && last >= 6 ) {
+				patients.get(curPat).addCmd02(vtCmd);
+			}
+			
+			// store vcf name for later use
+			patients.get(curPat).setVcfFiles(caller, output);
+
+			
+			
 		}
 	}
 
-
-	// run freebayes
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/////////////////////
+	//////// run freebayes
 	public void runFreebayes() {
 
 		// general varialbes and mkdir
 		String caller = "freebayes";
 		String sep = File.separator;
-		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + caller;
+		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + caller;
 
 		// save mkdir
 		combined.mkdir(outDir );
@@ -300,7 +367,7 @@ public class VariantCaller {
 			cmd.add("--genotype-qualities");
 			cmd.add(input);
 			cmd.add("| " + config.getVcfFilter());
-			cmd.add("-f \"QUAL > 20\"");
+			cmd.add("-f \"QUAL > 10\"");
 			cmd.add("> " + fileOut);
 
 
@@ -313,12 +380,19 @@ public class VariantCaller {
 
 
 
+			// normalize variants for later consensus vcf
+			fileIn = fileOut;
+			fileOut = options.getOutDir() + sep + config.getVariantCalling() + sep + caller + sep + curPat + ".vcf";
+			ArrayList<String> normCmd = normalize(fileIn, fileOut);
+			
+			
 
 
 			// save commands
 			if (first <= 6 && last >= 6 ) {
 				patients.get(curPat).addCmd02(cmd);
 				patients.get(curPat).addCmd02(sortCmd);
+				patients.get(curPat).addCmd02(normCmd);
 			}
 			patients.get(curPat).setVcfFiles(caller, fileOut);
 
@@ -327,8 +401,9 @@ public class VariantCaller {
 	}
 
 
-	/* extract individuals
-	 * GATK perfomes combined calles. For consensus calling individual vcf-files are needed.
+	/* 
+	 * extract individuals
+	 * GATK performs combined calls. For consensus calling individual vcf-files are needed.
 	 * Thus extract a vcf-file for each patient
 	 */
 	public void extractInd() {
@@ -339,7 +414,7 @@ public class VariantCaller {
 			// gather and initialize variables
 			ArrayList<String> cmd = new ArrayList<>();
 			String sep = File.separator;
-			String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + caller;
+			String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + caller;
 			String fileOut = outDir + sep + curPat;
 
 			// prepare command
@@ -350,11 +425,22 @@ public class VariantCaller {
 			cmd.add("--vcf " + combined.getCombinedVcfFile());
 			cmd.add("--out " + fileOut);
 
+			
+			
+			
+			//////// normalize variants
+			String fileIn = fileOut + "recode.vcf";
+			fileOut = options.getOutDir() + sep + config.getVariantCalling() + sep + caller + sep + curPat + ".vcf";
+			ArrayList<String> normCmd = normalize(fileIn, fileOut);
+			
+			
 			// store commands
 			if (first <= 6 && last >= 6 ) {
 				patients.get(curPat).addCmd04(cmd);
+				patients.get(curPat).addCmd04(normCmd);
+				
 			}
-			patients.get(curPat).setVcfFiles(caller, fileOut + ".recode.vcf");
+			patients.get(curPat).setVcfFiles(caller, fileOut);
 
 
 		}
@@ -397,7 +483,7 @@ public class VariantCaller {
 
 		// general varialbes
 		String sep = File.separator;
-		String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + "preConsensus";
+		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + "preConsensus";
 		combined.mkdir(outDir);
 
 
@@ -521,7 +607,8 @@ public class VariantCaller {
 	}
 
 
-	// sort vcf-file
+	//////////////////
+	//////// sort vcf-file
 	public ArrayList<String> sortVcf(String curPat, String fileIn, String fileOut, String bamFile) {
 
 		// gater and initialize variables
@@ -544,6 +631,32 @@ public class VariantCaller {
 	}
 
 
+	
+	//////////////////////////
+	//////// normalize variants using VT
+	
+	public ArrayList<String> normalize(String fileIn, String fileOut) {
+		
+		// init and gathe variable
+		ArrayList<String> cmd = new ArrayList<>();
+		String vt = config.getVtMaster();
+		String refFasta = config.getHg19Fasta();
+		
+		// prepare command
+		cmd.add("sed 's/ID=GQ,Number=1,Type=Integer/ID=GQ,Number=1,Type=Float/' " + fileIn + " |");
+		cmd.add(vt + " decompose -s - |");
+		cmd.add(vt + " normalize - -q");
+		cmd.add("-r " + refFasta);
+		cmd.add("-o " + fileOut);
+		
+		
+		// return ready command
+		return cmd;
+		
+		
+	}
+	
+	
 
 
 

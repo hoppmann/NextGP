@@ -121,7 +121,7 @@ public class GetOptions {
 		if (cmd.hasOption("mem")) {
 			mem = (cmd.getOptionValue("mem"));
 		} else {
-			mem = "10";
+			mem = "40";
 		}
 		
 		// set bed file as reference

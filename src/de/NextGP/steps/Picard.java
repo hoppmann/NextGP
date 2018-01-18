@@ -164,11 +164,11 @@ public class Picard {
 			
 			// prepare our file names
 			String outFile = dupOutDir + "/" + curPat + ".dup.bam";
-			String metricOutFile = dupOutDir + "/" + curPat + "metrics.txt";
+			String metricOutFile = dupOutDir + "/" + curPat + ".metrics.txt";
 			String logOut = dupOutDir + "/" + curPat + ".dup.log";
 			
 			cmd.add(config.getJava());
-			cmd.add(options.getXmx());
+//			cmd.add(options.getXmx()); // produces an error with the new datasets
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("MarkDuplicates");
 			cmd.add("INPUT=" + patients.get(curPat).getLastOutFile());

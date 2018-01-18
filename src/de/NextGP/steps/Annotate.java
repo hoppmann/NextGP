@@ -55,7 +55,7 @@ public class Annotate {
 	// create folder
 	private void mkDir(){
 		
-		String outDir = options.getOutDir();
+		String outDir = options.getTempDir();
 		String sep = File.separator;
 		String cmd = outDir + sep + config.getAnnotation();
 		combined.mkdir(cmd);
@@ -75,7 +75,7 @@ public class Annotate {
 		// initialize and gather variants
 		ArrayList<String> vtCmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getOutDir();
+		String outDir = options.getTempDir();
 
 		
 		// get name for out file
@@ -112,7 +112,7 @@ public class Annotate {
 		// initialize and gather variables
 		ArrayList<String> vepCmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getOutDir() + sep + config.getAnnotation();
+		String outDir = options.getTempDir() + sep + config.getAnnotation();
 		
 		// get name for outfile
 		String[] splitFile = vcfFile.split(File.separator);
