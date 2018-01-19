@@ -106,7 +106,7 @@ public class Writer {
 		}
 		
 		writer.println("\n");
-		writer.println("echo \"\\n\\n\\n\"");
+		writer.println("echo -e \"\\n\\n\\n\"");
 		writer.println("");
 	}
 
