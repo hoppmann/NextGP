@@ -122,7 +122,7 @@ public class Realigner {
 		//prepare command
 		cmd = new ArrayList<>();
 		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
+//		cmd.add(options.getXmx()); // produces an error with new NextSeq Data
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T IndelRealigner");
 		cmd.add("-l INFO");

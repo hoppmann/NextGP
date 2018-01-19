@@ -168,7 +168,7 @@ public class Picard {
 			String logOut = dupOutDir + "/" + curPat + ".dup.log";
 			
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx()); // produces an error with the new datasets
+//			cmd.add(options.getXmx()); // produces an error with the new NextSeq datasets
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("MarkDuplicates");
 			cmd.add("INPUT=" + patients.get(curPat).getLastOutFile());

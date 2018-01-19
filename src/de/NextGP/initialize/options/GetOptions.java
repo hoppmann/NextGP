@@ -54,7 +54,7 @@ public class GetOptions {
 	// pipeline parts
 	private int first = 1;
 	private int last = 9;
-	private boolean email;
+	private boolean mail;
 	
 
 	////////////////
@@ -213,8 +213,8 @@ public class GetOptions {
 			last = Integer.valueOf(cmd.getOptionValue("last"));
 		}
 		
-		if (cmd.hasOption("email")) {
-			email = cmd.hasOption("email");
+		if (cmd.hasOption("mail")) {
+			mail = cmd.hasOption("mail");
 		}
 		
 		
@@ -360,8 +360,8 @@ public class GetOptions {
 		return tempDir;
 	}
 
-	public boolean isEmail() {
-		return email;
+	public boolean isMail() {
+		return mail;
 	}
 
 	

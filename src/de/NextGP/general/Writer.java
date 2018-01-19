@@ -59,6 +59,12 @@ public class Writer {
 		return lines;
 	}
 
+	
+	
+	
+	
+	
+	
 	//////// open new file
 	public void openWriter(String file) {
 		// open new printwriter
@@ -70,11 +76,19 @@ public class Writer {
 		}
 	}
 
+	
+	
+	
+	
 	/////// write in file
 	public void writeLine (String line) {
 		writer.println(line);
 	}
 
+	
+	
+	
+	
 	//////// write command
 	public void writeCmd(ArrayList<String> cmd){
 
@@ -91,9 +105,14 @@ public class Writer {
 			}
 		}
 		
-		writer.print("");
+		writer.println("\n");
+		writer.println("echo \"\\n\\n\\n\"");
+		writer.println("");
 	}
 
+	
+	
+	
 
 	//////// close writer
 	public void close() {

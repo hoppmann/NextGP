@@ -234,10 +234,10 @@ public class SlurmWriter {
 		outFile.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
 		outFile.writeLine("#SBATCH --mem=" + maxMem + "G");
 		
-		if (finalFile && options.isEmail()) {
+		if (finalFile && options.isMail()) {
 			outFile.writeLine("#SBATCH --mail-type=FAIL");
 			outFile.writeLine("#SBATCH --mail-type=END");
-		} else if (options.isEmail()){
+		} else if (options.isMail()){
 			outFile.writeLine("#SBATCH --mail-type=FAIL");
 			
 		}
