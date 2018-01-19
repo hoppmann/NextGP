@@ -47,6 +47,9 @@ public class VariantCaller {
 		// make log entry
 		Log.logger(logger, "Preparing variant calling");
 
+		// prepar out directories
+		makeDirs();
+		
 	}
 
 
@@ -58,7 +61,7 @@ public class VariantCaller {
 
 	
 	
-	public void makeDir() {
+	public void makeDirs() {
 		
 		for (String curCaller : caller) {
 			String sep = File.separator;
