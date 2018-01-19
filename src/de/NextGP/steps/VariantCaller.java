@@ -24,6 +24,7 @@ public class VariantCaller {
 	private Combined combined; 
 	private int first;
 	private int last;
+	private String[] caller = {"gatk", "freebayes", "platypus", "samtools"};
 
 
 
@@ -55,6 +56,20 @@ public class VariantCaller {
 	//////// methods ////////
 	/////////////////////////
 
+	
+	
+	public void makeDir() {
+		
+		for (String curCaller : caller) {
+			String sep = File.separator;
+			String outDir = options.getOutDir() + sep + config.getVariantCalling() + sep + curCaller;
+			combined.mkdir(outDir);
+		}
+		
+		
+	}
+	
+	
 	// run haplotype caller
 	public void runHaplotypeCaller() {
 
@@ -73,6 +88,10 @@ public class VariantCaller {
 				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
 			}
 
+			
+			
+			
+			
 			// prepare command
 
 			cmd.add(config.getJava());
