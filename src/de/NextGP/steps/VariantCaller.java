@@ -451,7 +451,7 @@ public class VariantCaller {
 			
 			
 			//////// normalize variants
-			String fileIn = fileOut + "recode.vcf";
+			String fileIn = fileOut + ".recode.vcf";
 			fileOut = options.getOutDir() + sep + config.getVariantCalling() + sep + caller + sep + curPat + ".vcf";
 			ArrayList<String> normCmd = normalize(fileIn, fileOut);
 			
