@@ -28,7 +28,7 @@ public class GetOptions {
 	private String outDir = "out";
 	private String cpu;
 	private String mem;
-	private String xmx;
+//	private String xmx;
 	private String bedFile;
 	private String slurmDir = "pipeline";
 	private int minConsCall = 2;
@@ -117,12 +117,13 @@ public class GetOptions {
 			cpu = "4";
 		}
 		
-		// set amount of available mem per thread
-		if (cmd.hasOption("mem")) {
-			mem = (cmd.getOptionValue("mem"));
-		} else {
-			mem = "40";
-		}
+		// has to be removed do to an java bug
+//		// set amount of available mem per thread
+//		if (cmd.hasOption("mem")) {
+//			mem = (cmd.getOptionValue("mem"));
+//		} else {
+//			mem = "40";
+//		}
 		
 		// set bed file as reference
 		if (cmd.hasOption("bedFile")) {
@@ -271,11 +272,11 @@ public class GetOptions {
 	public String getMem() {
 		return mem;
 	}
-
-	public String getXmx() {
-		xmx = "-Xmx" + mem + "g";
-		return xmx;
-	}
+//
+//	public String getXmx() {
+//		xmx = "-Xmx" + mem + "g";
+//		return xmx;
+//	}
 
 	public String getBamList() {
 		return bamList;

@@ -139,7 +139,7 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-			cmd.add(options.getXmx());
+//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectAlignmentSummaryMetrics");
 			cmd.add("REFERENCE_SEQUENCE=" + config.getHg19Fasta());
@@ -183,7 +183,7 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-			cmd.add(options.getXmx());
+//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectGcBiasMetrics");
 			cmd.add("REFERENCE_SEQUENCE=" + config.getHg19Fasta());
@@ -229,7 +229,7 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-			cmd.add(options.getXmx());
+//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectInsertSizeMetrics");
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");

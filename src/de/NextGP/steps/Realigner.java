@@ -78,7 +78,7 @@ public class Realigner {
 		ArrayList<String> cmd = new ArrayList<>();
 
 		cmd.add(config.getJava());
-		cmd.add(options.getXmx());
+//		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T RealignerTargetCreator" );
 		cmd.add("-l INFO");

@@ -92,7 +92,7 @@ public class Picard {
 			ArrayList<String> cmd = new ArrayList<>();
 
 			cmd.add(config.getJava());
-			cmd.add(options.getXmx());
+//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("AddOrReplaceReadGroups");
 			cmd.add("INPUT=" + patients.get(curPat).getLastOutFile());

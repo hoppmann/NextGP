@@ -168,7 +168,7 @@ public class Annotate {
 		
 		
 		snpEffCmd.add(config.getJava());
-		snpEffCmd.add(options.getXmx());
+//		snpEffCmd.add(options.getXmx());
 		snpEffCmd.add("-jar " +  config.getSnpEff());
 		snpEffCmd.add("GRCh37.75");
 		snpEffCmd.add("-classic");
