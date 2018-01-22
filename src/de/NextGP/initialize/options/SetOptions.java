@@ -50,7 +50,7 @@ public class SetOptions {
 		opts.put(general, new OptionValue(options, "help", false, "\tCalls this help."));
 		opts.put(general, new OptionValue(options, "outDir", true, "\tName of directory for output. (default = out)"));
 		opts.put(general, new OptionValue(options, "CPU", true, "\tNumber of CPU per thread (default:4)"));
-//		opts.put(general, new OptionValue(options, "mem", true, "\tAmount of memory allowed per thread in Gb (default 40Gb)"));
+		opts.put(general, new OptionValue(options, "mem", true, "\tAmount of memory allowed per thread in Gb (default 40Gb)"));
 		opts.put(general, new OptionValue(options, "bedFile", true, "\tPath to bed file containing covered regions"));
 		opts.put(general, new OptionValue(options, "slurmDir", true, "Set directory slurm commands will be written to."));
 		opts.put(general, new OptionValue(options, "consensus", true, "Sets the threshold of how many caller need to call a variant before it's accepted. (default 2)"));
