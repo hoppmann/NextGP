@@ -1,9 +1,8 @@
 #!/bin/bash
-
 #look for current path of program, even if symlinked
 SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; 
-do 
+while [ -h "$SOURCE" ];
+do
 	# resolve $SOURCE until the file is no longer a symlink
 	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 	SOURCE="$(readlink "$SOURCE")"
@@ -27,5 +26,3 @@ java \
 -Xmx30g \
 -classpath $CP \
 de.NextGP.main.Main $@
-
-

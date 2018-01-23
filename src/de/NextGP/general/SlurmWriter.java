@@ -3,10 +3,7 @@ package de.NextGP.general;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
-
-import javax.print.DocFlavor.STRING;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -248,15 +245,16 @@ public class SlurmWriter {
 		outFile.writeOption("--mem=" + maxMem + "G");
 		outFile.writeOption("--output " + options.getSlurmLog() + sep + "slurm-%A.log");
 		
-
+		
+		
 		// exclude nodes if set
-		if (options.getExclude() != null) {
-			outFile.writeOption("--exclude=" + String.join(",", options.getExclude()));
+		if (options.getExclude() != null ) {
+			outFile.writeOption("--exclude=" + concatString(options.getExclude()));
 		}
 		
 		// specify specific nodes to use
-		if (options.getRestrict() != null) {
-			outFile.writeOption("--nodelist=" + String.join(",", options.getRestrict()));
+		if (options.getRestrict() != null ) {
+			outFile.writeOption("--nodelist=" + concatString(options.getRestrict()));
 		}
 		
 		// add mail option if set
@@ -269,7 +267,18 @@ public class SlurmWriter {
 		
 	}
 	
-	
+	//////// concatenate string to fit in exclude and nodelist option
+	private String concatString(String[] string) {
+		
+		StringBuilder sb = new StringBuilder();
+		for (String str : string) {
+			sb.append(str.toString()).append(",");
+		}
+
+		// return concatenated String
+		return sb.substring(0, sb.length() -1 );
+		
+	}
 	
 	
 	
