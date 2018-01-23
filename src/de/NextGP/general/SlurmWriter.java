@@ -116,6 +116,7 @@ public class SlurmWriter {
 			}
 			
 
+			primaryCmds.writeLine("echo \"script finished\"");
 			// close Writer
 			primaryCmds.close();
 		}
@@ -151,6 +152,9 @@ public class SlurmWriter {
 			}
 			
 
+			// make comment to see if script finished
+			secondary.writeLine("echo \"script finished\"");
+			
 			// close writer
 			secondary.close();
 
@@ -188,6 +192,9 @@ public class SlurmWriter {
 			
 		}
 
+		// make comment to see if script finished
+		combGeno.writeLine("echo \"script finished\"");
+
 		combGeno.close();
 
 	}
@@ -221,6 +228,9 @@ public class SlurmWriter {
 			
 		}
 		
+		// make comment to see if script finished
+		comb.writeLine("echo \"script finished\"");
+
 		comb.close();
 	}
 
@@ -233,6 +243,7 @@ public class SlurmWriter {
 		outFile.writeLine("#!/bin/bash");
 		outFile.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
 		outFile.writeLine("#SBATCH --mem=" + maxMem + "G");
+		outFile.writeLine("#SBATCH --output " + options.getSlurmLog() + sep + "slurm-%A.log");
 		
 		if (finalFile && options.isMail()) {
 			outFile.writeLine("#SBATCH --mail-type=FAIL");
@@ -276,6 +287,9 @@ public class SlurmWriter {
 
 
 		// enter command to create folder
+		// create folder for slurm logs
+		master.writeLine("mkdir -p " + options.getSlurmLog());
+		
 		for (String mkdirCmd : combined.getMkDirs()){
 			master.writeLine("mkdir -p " + mkdirCmd);
 		}
@@ -285,7 +299,7 @@ public class SlurmWriter {
 
 		// prepare wait command for execution of combined steps after
 		// single steps are done
-		String waitCombinedGenotypePrep ="";
+		String waitCombinedGenotypePrep = "";
 
 		
 		// single patient files

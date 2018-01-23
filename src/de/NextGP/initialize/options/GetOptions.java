@@ -28,13 +28,13 @@ public class GetOptions {
 	private String outDir = "out";
 	private String cpu;
 	private String mem;
-	private String xmx;
 	private String bedFile;
 	private String slurmDir = "pipeline";
 	private int minConsCall = 2;
 	private String slurmPatition = "genepi";
 	private String tempDir;
 	private boolean isSolid = false;
+	private String slurmLog = "slurmLog";
 	
 
 	// alignment variables
@@ -156,6 +156,12 @@ public class GetOptions {
 		} else {
 			tempDir = config.getTempDir();
 		}
+		
+		// get folder for slurm log files
+		if (cmd.hasOption("slurmLogDir")) {
+			slurmLog = cmd.getOptionValue("slurmLogDir");
+		}
+		
 		
 		
 		
@@ -362,6 +368,10 @@ public class GetOptions {
 
 	public boolean isMail() {
 		return mail;
+	}
+
+	public String getSlurmLog() {
+		return slurmLog;
 	}
 
 	
