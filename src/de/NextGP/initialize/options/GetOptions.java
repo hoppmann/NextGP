@@ -36,6 +36,10 @@ public class GetOptions {
 	private boolean isSolid = false;
 	private String slurmLog = "slurmLog";
 	
+	
+	// slurm based
+	private String[] exclude = null;
+	private String[] restrict = null;
 
 	// alignment variables
 	private String fastqList;
@@ -157,11 +161,25 @@ public class GetOptions {
 			tempDir = config.getTempDir();
 		}
 		
+		
+		
+		//////// slurm based options
+		
+		
 		// get folder for slurm log files
 		if (cmd.hasOption("slurmLogDir")) {
 			slurmLog = cmd.getOptionValue("slurmLog");
 		}
 		
+		// exclude nodes from the partition
+		if (cmd.hasOption("exclude")) {
+			exclude = cmd.getOptionValues("exclude");
+		}
+		
+		// restrict nodes that should be used
+		if (cmd.hasOption("restrict")) {
+			restrict = cmd.getOptionValues("restrict");
+		}
 		
 		
 		
@@ -372,6 +390,14 @@ public class GetOptions {
 
 	public String getSlurmLog() {
 		return slurmLog;
+	}
+
+	public String[] getExclude() {
+		return exclude;
+	}
+
+	public String[] getRestrict() {
+		return restrict;
 	}
 
 	

@@ -3,7 +3,10 @@ package de.NextGP.general;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
+
+import javax.print.DocFlavor.STRING;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -241,16 +244,27 @@ public class SlurmWriter {
 	private void commonHeader(Writer outFile, boolean finalFile) {
 		
 		outFile.writeLine("#!/bin/bash");
-		outFile.writeLine("#SBATCH --cpus-per-task=" + maxCPU);
-		outFile.writeLine("#SBATCH --mem=" + maxMem + "G");
-		outFile.writeLine("#SBATCH --output " + options.getSlurmLog() + sep + "slurm-%A.log");
+		outFile.writeOption("--cpus-per-task=" + maxCPU);
+		outFile.writeOption("--mem=" + maxMem + "G");
+		outFile.writeOption("--output " + options.getSlurmLog() + sep + "slurm-%A.log");
 		
+
+		// exclude nodes if set
+		if (options.getExclude() != null) {
+			outFile.writeOption("--exclude=" + String.join(",", options.getExclude()));
+		}
+		
+		// specify specific nodes to use
+		if (options.getRestrict() != null) {
+			outFile.writeOption("--nodelist=" + String.join(",", options.getRestrict()));
+		}
+		
+		// add mail option if set
 		if (finalFile && options.isMail()) {
-			outFile.writeLine("#SBATCH --mail-type=FAIL");
-			outFile.writeLine("#SBATCH --mail-type=END");
+			outFile.writeOption("--mail-type=FAIL");
+			outFile.writeOption("--mail-type=END");
 		} else if (options.isMail()){
-			outFile.writeLine("#SBATCH --mail-type=FAIL");
-			
+			outFile.writeOption("--mail-type=FAIL");
 		}
 		
 	}

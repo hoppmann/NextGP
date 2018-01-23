@@ -86,6 +86,11 @@ public class Writer {
 	}
 
 	
+	// write slurm option
+	public void writeOption (String line) {
+		writer.println("#SBATCH " + line);
+	}
+	
 	
 	
 	

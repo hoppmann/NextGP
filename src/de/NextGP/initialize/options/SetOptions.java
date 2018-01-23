@@ -20,6 +20,7 @@ public class SetOptions {
 	String pipeline = "pipeline";
 	String alignment = "alignment";
 	String misc = "misc";
+	String slurm = "slurmOptions";
 
 
 	////////////////////
@@ -56,8 +57,13 @@ public class SetOptions {
 		opts.put(general, new OptionValue(options, "consensus", true, "Sets the threshold of how many caller need to call a variant before it's accepted. (default 2)"));
 		opts.put(general, new OptionValue(options, "slurmPatition", true, "Define the slurm patition to run on."));
 		opts.put(general, new OptionValue(options, "tempDir", true, "\tFolder to save intermediate steps which will not be kept in the end (defauld /tempdata/ge/NextGP/)"));
-		opts.put(general, new OptionValue(options, "slurmLog", true, "Sets the folder where to save the slurm logs."));
 
+		// slurm options
+		opts.put(slurm, new OptionValue(options, "slurmLog", true, "Sets the folder where to save the slurm logs."));
+		opts.put(slurm, new OptionValue(options, "exclude", true, "Set the nodes to be excluded. To exclude multiple nodes call \"exclude\" multiple times."));
+		opts.put(slurm, new OptionValue(options, "restrict", true, "Sets specific nodes to be used for analysis. To set multiple nodes call \"restrict\" multiple times"));
+		
+		
 		// alignment specific options
 		opts.put(alignment, new OptionValue(options, "fastqList", true, "List containing name of forward and backward read files."));
 		opts.put(alignment, new OptionValue(options, "bamList", true, "\tList containing bamfiles. (needed if alignment not done in pipeline)"));
