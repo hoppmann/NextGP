@@ -159,7 +159,7 @@ public class GetOptions {
 		
 		// get folder for slurm log files
 		if (cmd.hasOption("slurmLogDir")) {
-			slurmLog = cmd.getOptionValue("slurmLogDir");
+			slurmLog = cmd.getOptionValue("slurmLog");
 		}
 		
 		

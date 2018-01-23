@@ -56,7 +56,7 @@ public class SetOptions {
 		opts.put(general, new OptionValue(options, "consensus", true, "Sets the threshold of how many caller need to call a variant before it's accepted. (default 2)"));
 		opts.put(general, new OptionValue(options, "slurmPatition", true, "Define the slurm patition to run on."));
 		opts.put(general, new OptionValue(options, "tempDir", true, "\tFolder to save intermediate steps which will not be kept in the end (defauld /tempdata/ge/NextGP/)"));
-		opts.put(general, new OptionValue(options, "slurmLogDir", true, "Sets the folder where to save the slurm logs."));
+		opts.put(general, new OptionValue(options, "slurmLog", true, "Sets the folder where to save the slurm logs."));
 
 		// alignment specific options
 		opts.put(alignment, new OptionValue(options, "fastqList", true, "List containing name of forward and backward read files."));
