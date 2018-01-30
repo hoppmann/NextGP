@@ -103,7 +103,6 @@ public class VariantCaller {
 			// prepare command
 
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T HaplotypeCaller");
 			cmd.add("-nct " + options.getCpu());
@@ -151,7 +150,6 @@ public class VariantCaller {
 
 		// prepare command
 		genotypeGvcfCmd.add(config.getJava());
-//		genotypeGvcfCmd.add(options.getXmx());
 		genotypeGvcfCmd.add("-jar " + config.getGatk());
 		genotypeGvcfCmd.add("-T GenotypeGVCFs");
 		
@@ -495,12 +493,6 @@ public class VariantCaller {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 
 	// rename sampleNames
 	public void renameSampleNames() {
@@ -531,18 +523,11 @@ public class VariantCaller {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	
+	
+	
+	
 	// merge variants
 	public void mergeDifCallerVariants() {
 
@@ -562,7 +547,6 @@ public class VariantCaller {
 
 			// prepare command
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T CombineVariants");
 			cmd.add("-R " + config.getHg19Fasta());
@@ -585,26 +569,12 @@ public class VariantCaller {
 		}
 	}
 
+	
+	
+	
+	
+	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// consensus call
 	public void runConsensus() {
 
@@ -625,7 +595,6 @@ public class VariantCaller {
 			
 			// prepare command
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getGatk());
 			cmd.add("-T CombineVariants");
 			cmd.add("-R " + config.getHg19Fasta());
@@ -651,29 +620,6 @@ public class VariantCaller {
 	}
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// merge variants from different patients after consensus calling
 	public void mergeConsensusVariants() {
 
@@ -686,7 +632,6 @@ public class VariantCaller {
 
 		// prepare command
 		combindeCallinCmd.add(config.getJava());
-//		combindeCallinCmd.add(options.getXmx());
 		combindeCallinCmd.add("-jar " + config.getGatk());
 		combindeCallinCmd.add("-T CombineVariants");
 		combindeCallinCmd.add("-R " + config.getHg19Fasta());
@@ -724,7 +669,6 @@ public class VariantCaller {
 
 		// prepare command
 		cmd.add(config.getJava());
-//		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getPicard());
 		cmd.add("SortVcf");
 		cmd.add("I=" + fileIn);
@@ -738,20 +682,6 @@ public class VariantCaller {
 	}
 
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//////////////////////////
 	//////// normalize variants using VT
