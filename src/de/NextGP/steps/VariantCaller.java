@@ -73,6 +73,11 @@ public class VariantCaller {
 	}
 	
 	
+	
+	
+	
+	
+	
 	// run haplotype caller
 	public void runHaplotypeCaller() {
 
@@ -123,6 +128,16 @@ public class VariantCaller {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// run Genotype GVCF
 	public void runGenotypeGVCF() {
@@ -385,7 +400,7 @@ public class VariantCaller {
 			// prepare command
 			cmd.add(config.getFreebayes());
 			cmd.add("-f " + config.getHg19Fasta());
-			cmd.add("-C " + options.getCpu());
+			cmd.add("-t " + options.getBedFile());
 			cmd.add("--genotype-qualities");
 			cmd.add(input);
 			cmd.add("| " + config.getVcfFilter());
@@ -422,6 +437,12 @@ public class VariantCaller {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
 
 	/* 
 	 * extract individuals
@@ -469,6 +490,17 @@ public class VariantCaller {
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// rename sampleNames
 	public void renameSampleNames() {
@@ -499,6 +531,17 @@ public class VariantCaller {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// merge variants
 	public void mergeDifCallerVariants() {
@@ -543,6 +586,25 @@ public class VariantCaller {
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// consensus call
 	public void runConsensus() {
 
@@ -589,6 +651,29 @@ public class VariantCaller {
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// merge variants from different patients after consensus calling
 	public void mergeConsensusVariants() {
 
@@ -653,6 +738,20 @@ public class VariantCaller {
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//////////////////////////
 	//////// normalize variants using VT
