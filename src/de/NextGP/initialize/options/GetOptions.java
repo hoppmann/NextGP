@@ -149,7 +149,7 @@ public class GetOptions {
 			minConsCall = Integer.parseInt(cmd.getOptionValue("consensus"));
 		}
 		
-		// get name of slurm patition
+		// get name of slurm partition
 		if (cmd.hasOption("slurmPatition")){
 			slurmPatition = cmd.getOptionValue("slurmPatition");
 		}

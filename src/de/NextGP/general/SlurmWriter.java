@@ -111,7 +111,11 @@ public class SlurmWriter {
 			for (ArrayList<String> cmd : curPatObject.getCmds02()) {
 				
 				// write in file
+				ArrayList<String> date = new ArrayList<>();
+				date.add("date");
+				primaryCmds.writeCmd(date);
 				primaryCmds.writeCmd(cmd);
+				primaryCmds.writeCmd(date);
 				
 			}
 			
@@ -148,6 +152,9 @@ public class SlurmWriter {
 				
 				// write in file
 				secondary.writeCmd(cmd);
+				ArrayList<String> date = new ArrayList<>();
+				date.add("date");
+				secondary.writeCmd(date);
 				
 			}
 			
@@ -188,7 +195,9 @@ public class SlurmWriter {
 		for (ArrayList<String> curCmd : combined.getCmds03()) {
 			
 			combGeno.writeCmd(curCmd);
-			
+			ArrayList<String> date = new ArrayList<>();
+			date.add("date");
+			combGeno.writeCmd(date);
 			
 		}
 
@@ -225,7 +234,9 @@ public class SlurmWriter {
 		for (ArrayList<String> curCmd : combined.getCmds05()) {
 			
 			comb.writeCmd(curCmd);
-			
+			ArrayList<String> date = new ArrayList<>();
+			date.add("date");
+			comb.writeCmd(date);
 		}
 		
 		// make comment to see if script finished
@@ -261,8 +272,6 @@ public class SlurmWriter {
 		if (finalFile && options.isMail()) {
 			outFile.writeOption("--mail-type=FAIL");
 			outFile.writeOption("--mail-type=END");
-		} else if (options.isMail()){
-			outFile.writeOption("--mail-type=FAIL");
 		}
 		
 	}
