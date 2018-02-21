@@ -158,10 +158,6 @@ public class Picard {
 		String dupOutDir = interDir + sep + outDir + sep + config.getDuplicates();
 		combined.mkdir(dupOutDir);
 		
-		String tempDir = config.getTempDir();
-		System.out.println(tempDir);
-		
-		System.exit(0);
 		// prepare command
 		for (String curPat : patients.keySet()){
 			ArrayList<String> cmd = new ArrayList<>();
