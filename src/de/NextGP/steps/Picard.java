@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.jfree.ui.StandardGradientPaintTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,7 +93,6 @@ public class Picard {
 			ArrayList<String> cmd = new ArrayList<>();
 
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("AddOrReplaceReadGroups");
 			cmd.add("INPUT=" + patients.get(curPat).getLastOutFile());
@@ -157,7 +157,11 @@ public class Picard {
 		String sep = File.separator;
 		String dupOutDir = interDir + sep + outDir + sep + config.getDuplicates();
 		combined.mkdir(dupOutDir);
-
+		
+		String tempDir = config.getTempDir();
+		System.out.println(tempDir);
+		
+		System.exit(0);
 		// prepare command
 		for (String curPat : patients.keySet()){
 			ArrayList<String> cmd = new ArrayList<>();
@@ -168,13 +172,13 @@ public class Picard {
 			String logOut = dupOutDir + "/" + curPat + ".dup.log";
 			
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx()); // produces an error with the new NextSeq datasets
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("MarkDuplicates");
 			cmd.add("INPUT=" + patients.get(curPat).getLastOutFile());
 			cmd.add("OUTPUT=" + outFile);
 			cmd.add("METRICS_FILE=" + metricOutFile);
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
+			cmd.add("TMP_DIR=/scratch/local/tmp/" );
 			cmd.add("2> " + logOut);
 			
 			
