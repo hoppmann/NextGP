@@ -588,7 +588,7 @@ public class VariantCaller {
 
 			// init cmd array and general variabels
 			ArrayList<String> cmd = new ArrayList<>();
-			String output = outDir + sep + curPat + ".vcf";
+			String output = outDir + sep + curPat + "-consensus.vcf";
 
 			
 			
@@ -610,10 +610,38 @@ public class VariantCaller {
 			cmd.add("-o " + output);
 
 			
+			
+			
+			
+			
+			/*
+			 * exclude variants with to few calls
+			 * these can happen here due to a bug in GATK
+			 * 
+			 */
+			String fileIn = output;
+			output = outDir + sep + curPat + ".vcf";
+			
+			ArrayList<String> addSetCmd = new ArrayList<>();
+			addSetCmd.add(config.getJava() + " -jar");
+			addSetCmd.add(config.getAddSetInfo());
+			addSetCmd.add(fileIn);
+			addSetCmd.add(output);
+			addSetCmd.add(Integer.toString(caller.length));
+			addSetCmd.add(Integer.toString(options.getMinConsCall()));
+			
+			
+			
+			
+			
+			
+			
 			// store command
 			if (first <= 6 && last >= 6 ) {
 				patients.get(curPat).addCmd04(cmd);
+				patients.get(curPat).addCmd04(addSetCmd);
 			}
+			
 			patients.get(curPat).setLastOutFile(output);
 		}
 		

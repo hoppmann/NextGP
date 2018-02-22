@@ -27,6 +27,7 @@ public class LoadConfig {
 	private String fastQC;
 	private String afterQC;
 	private String alamut;
+	private String addSetInfo;
 	
 	// references
 	private String hg19Fasta;
@@ -91,6 +92,7 @@ public class LoadConfig {
 				fastQC = prop.getProperty("fastQC");
 				afterQC	= prop.getProperty("afterQC");
 				alamut = prop.getProperty("alamut");
+				addSetInfo = prop.getProperty("addSetInfo");
 				
 				// read in reference directory names
 				hg19Fasta = prop.getProperty("hg19Fasta");
@@ -290,6 +292,10 @@ public class LoadConfig {
 
 			public String getAlamut() {
 				return alamut;
+			}
+
+			public String getAddSetInfo() {
+				return addSetInfo;
 			}
 			
 			
