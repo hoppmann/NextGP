@@ -91,10 +91,10 @@ public class SamToBam {
 			ArrayList<String> cmd = new ArrayList<>();
 			
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx());
 			cmd.add("-jar " + picard);
 			cmd.add("SortSam");
 			cmd.add("SO=coordinate");
+			cmd.add("TMP_DIR=/scratch/local/tmp/" );
 			cmd.add("INPUT=" + outDir + File.separator + "sam" + File.separator + curPat + ".sam");
 			cmd.add("OUTPUT=" + outBam);
 			
