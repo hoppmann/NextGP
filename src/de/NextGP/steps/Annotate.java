@@ -75,7 +75,7 @@ public class Annotate {
 		// initialize and gather variants
 		ArrayList<String> vtCmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getTempDir();
+		String outDir = options.getTempDir() + sep + options.getOutDir();
 
 		
 		// get name for out file
@@ -114,7 +114,7 @@ public class Annotate {
 		// initialize and gather variables
 		ArrayList<String> vepCmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + config.getAnnotation();
+		String outDir = options.getTempDir() + sep + options.getOutDir() + sep + config.getAnnotation();
 		
 		// get name for outfile
 		String[] splitFile = vcfFile.split(File.separator);
@@ -237,13 +237,6 @@ public class Annotate {
 	/////////////////////////////////
 	//////// getter / setter ////////
 	/////////////////////////////////
-
-
-	public String getOutVEP() {
-		return outVEP;
-	}
-
-
 
 
 

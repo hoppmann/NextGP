@@ -36,7 +36,7 @@ public class Realigner {
 		// retrieve variables
 		this.config = config;
 		this.options = options;
-		this.outDir = options.getIntermediateDir() + File.separator + options.getOutDir();
+		this.outDir = options.getTempDir() + File.separator + options.getOutDir();
 		this.patients = patients;
 		this.first = options.getFirst();
 		this.last = options.getLast();

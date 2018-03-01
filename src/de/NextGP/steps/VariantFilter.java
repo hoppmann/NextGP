@@ -57,7 +57,7 @@ public class VariantFilter {
 
 		// initialize and gather variables
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "filtered";
+		String outDir = options.getTempDir() + sep + options.getOutDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "filtered";
 		String subDir = "SNPs";
 		String outFileSnpSet = outDir + sep + subDir + sep + "raw_snps.vcf";
 		String logExtractSnpSet = outDir + sep + subDir + sep + "raw_snps.log";

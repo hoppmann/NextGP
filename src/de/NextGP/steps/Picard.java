@@ -75,7 +75,7 @@ public class Picard {
 		for (String curPat : patients.keySet()){
 
 			// get directory for intermediate files
-			String interDir = options.getIntermediateDir();
+			String interDir = options.getTempDir();
 			String sep = File.separator;
 			
 			
@@ -122,8 +122,8 @@ public class Picard {
 	public ArrayList<String> replaceSampleName(String newName, String curPat){
 		
 			// get directory for intermediate files
-			String interDir = options.getIntermediateDir();
 			String sep = File.separator;
+			String interDir = options.getTempDir() + sep + options.getOutDir();
 			
 			
 			// init and prepare variables
@@ -155,9 +155,9 @@ public class Picard {
 	public void markDuplicates() {
 		
 		// create out dir
-		String interDir = options.getIntermediateDir();
-		String outDir = options.getOutDir();
 		String sep = File.separator;
+		String interDir = options.getTempDir() + sep + options.getOutDir();
+		String outDir = options.getOutDir();
 		String dupOutDir = interDir + sep + outDir + sep + config.getDuplicates();
 		combined.mkdir(dupOutDir);
 		

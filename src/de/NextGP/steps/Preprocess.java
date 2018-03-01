@@ -57,7 +57,7 @@ public class Preprocess {
 			String forward = patients.get(curPat).getForward();
 			String reverse = patients.get(curPat).getReverse();
 			String sep = File.separator;
-			String outDir = options.getIntermediateDir() + sep + options.getOutDir() + sep +
+			String outDir = options.getTempDir() + sep + options.getOutDir() + sep +
 					options.getConfig().getAlignment() + sep + "AfterQC";
 			String goodOut= outDir + sep + "good";
 			String badOut = outDir + sep + "bad";

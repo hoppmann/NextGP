@@ -63,7 +63,7 @@ public class AlamutHgmd {
 
 		//// prepare out file name
 		String sep = File.separator;
-		String outDir = config.getTempDir() + sep + config.getAnnotation() + sep + "Alamut";
+		String outDir = config.getTempDir() + sep + options.getOutDir() + sep + config.getAnnotation() + sep + "Alamut";
 		combined.mkdir(outDir);
 
 		String vcfFile = combined.getVcfForAnnotation();
@@ -71,7 +71,6 @@ public class AlamutHgmd {
 		String name = splitFile[splitFile.length - 1].split("\\.")[0];
 		alamutOut = outDir + sep + name + ".alamut";
 		String alamutLog = outDir + sep + name + ".log";
-
 
 
 		//////// prepare command
@@ -180,7 +179,9 @@ public class AlamutHgmd {
 
 
 		// save in combined object
-		if (options.getFirst() <= 9 && options.getLast() >= 9 ) {
+		Integer step = options.getSteps().get("alamut");
+
+		if (options.getFirst() <= step && options.getLast() >= step ) {
 			combined.addCmd05(prepColCmd);
 		}
 	}

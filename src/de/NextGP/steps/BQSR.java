@@ -49,7 +49,7 @@ public class BQSR {
 		Log.logger(logger, "Preparing BQSR");
 
 		// prepare general variables
-		tempDir = options.getIntermediateDir();
+		tempDir = options.getTempDir();
 		sep = File.separator;
 		outDir = tempDir + sep + options.getOutDir() + sep + config.getBaseReacalibration();
 	}

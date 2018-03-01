@@ -40,7 +40,7 @@ public class SamToBam {
 		// accept variables
 		this.config = config;
 		this.patients = patients;
-		this.outDir = options.getIntermediateDir() + File.separator + options.getOutDir() + File.separator + config.getAlignment();
+		this.outDir = options.getTempDir() + File.separator + options.getOutDir() + File.separator + config.getAlignment();
 		this.combined = combined;
 		this.first = options.getFirst();
 		this.last = options.getLast();

@@ -369,10 +369,6 @@ public class GetOptions {
 		return bam;
 	}
 
-	public String getIntermediateDir() {
-		return tempDir;
-	}
-
 	public boolean isSolid() {
 		return isSolid;
 	}

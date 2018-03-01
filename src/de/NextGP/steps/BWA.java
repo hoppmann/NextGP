@@ -44,7 +44,7 @@ public class BWA {
 		
 		// Retrieve values
 		this.config = config;
-		this.outDir = opts.getIntermediateDir() + File.separator + opts.getOutDir() + File.separator + config.getAlignment();
+		this.outDir = opts.getTempDir() + File.separator + opts.getOutDir() + File.separator + config.getAlignment();
 		this.patients = patients;
 		this.cpus = opts.getCpu();
 		this.combined = combined;

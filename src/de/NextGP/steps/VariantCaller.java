@@ -25,6 +25,7 @@ public class VariantCaller {
 	private int first;
 	private int last;
 	private String[] caller = {"gatk", "freebayes", "platypus", "samtools"};
+	private String tmpDir;
 
 
 
@@ -43,6 +44,7 @@ public class VariantCaller {
 		this.combined = combined;
 		this.first = options.getFirst();
 		this.last = options.getLast();
+		this.tmpDir = options.getTempDir() + File.separator + options.getOutDir();
 
 		// make log entry
 		Log.logger(logger, "Preparing variant calling");
@@ -88,7 +90,7 @@ public class VariantCaller {
 			// init and gather variables
 			ArrayList<String> cmd = new ArrayList<>();
 			String sep = File.separator;
-			String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
+			String outDir = tmpDir + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
 			String output = outDir + sep + curPat + sep + curPat + ".raw.g.vcf";
 			String logfile = outDir + sep + curPat + sep + curPat + ".log";
 			String input = patients.get(curPat).getBam();
@@ -146,7 +148,7 @@ public class VariantCaller {
 		// init and gather variables
 		ArrayList<String> genotypeGvcfCmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
+		String outDir = tmpDir + sep + config.getVariantCalling() + sep + "gatk" + sep + "unfiltered";
 		String outFile = outDir + sep + "combined.raw.vcf";
 		String logfile = outDir + sep + "GenotypeGVCF.log";
 
@@ -203,7 +205,7 @@ public class VariantCaller {
 		// general varialbes and mkdir
 		String caller = "samtools";
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + caller;
+		String outDir = tmpDir + sep + config.getVariantCalling() + sep + caller;
 
 		// save mkdir command
 		combined.mkdir(outDir );
@@ -281,7 +283,7 @@ public class VariantCaller {
 		// general varialbes and mkdir
 		String caller = "platypus";
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + caller;
+		String outDir = tmpDir + sep + config.getVariantCalling() + sep + caller;
 		String outDirUnfilt = outDir + sep + "unfiltered";
 		
 		// save mkdir command
@@ -388,7 +390,7 @@ public class VariantCaller {
 		// general varialbes and mkdir
 		String caller = "freebayes";
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + caller;
+		String outDir = tmpDir + sep + config.getVariantCalling() + sep + caller;
 
 		// save mkdir
 		combined.mkdir(outDir );
@@ -465,7 +467,7 @@ public class VariantCaller {
 			// gather and initialize variables
 			ArrayList<String> cmd = new ArrayList<>();
 			String sep = File.separator;
-			String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + caller;
+			String outDir = tmpDir + sep + config.getVariantCalling() + sep + caller;
 			String fileOut = outDir + sep + curPat;
 
 			// prepare command
@@ -547,7 +549,7 @@ public class VariantCaller {
 
 		// general varialbes
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + config.getVariantCalling() + sep + "preConsensus";
+		String outDir = tmpDir + sep + config.getVariantCalling() + sep + "preConsensus";
 		combined.mkdir(outDir);
 
 
