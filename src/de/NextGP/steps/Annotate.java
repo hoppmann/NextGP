@@ -24,6 +24,7 @@ public class Annotate {
 	private String outSnpEff;
 	private int first;
 	private int last;
+	private String tmpDir;
 
 
 	/////////////////////////////
@@ -38,6 +39,7 @@ public class Annotate {
 		this.first = options.getFirst();
 		this.last = options.getLast();
 
+		this.tmpDir = options.getTempDir() + File.separator + options.getOutDir();
 		Log.logger(logger, "preparing anotations");
 
 		// make directory
@@ -55,9 +57,8 @@ public class Annotate {
 	// create folder
 	private void mkDir(){
 		
-		String outDir = options.getTempDir();
 		String sep = File.separator;
-		String cmd = outDir + sep + config.getAnnotation();
+		String cmd = tmpDir + sep + config.getAnnotation();
 		combined.mkdir(cmd);
 		
 	}
@@ -75,13 +76,11 @@ public class Annotate {
 		// initialize and gather variants
 		ArrayList<String> vtCmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + options.getOutDir();
-
 		
 		// get name for out file
 		String[] splitFile = vcfFile.split(File.separator);
 		String name = splitFile[splitFile.length - 1].split("\\.")[0];
-		String outVtMaster = outDir + sep + config.getAnnotation() + sep + name + "-sed-norm-decomp.vcf";
+		String outVtMaster = tmpDir + sep + config.getAnnotation() + sep + name + "-sed-norm-decomp.vcf";
 		
 		// prepare command
 		vtCmd.add("zless " + vcfFile);
@@ -114,7 +113,7 @@ public class Annotate {
 		// initialize and gather variables
 		ArrayList<String> vepCmd = new ArrayList<>();
 		String sep = File.separator;
-		String outDir = options.getTempDir() + sep + options.getOutDir() + sep + config.getAnnotation();
+		String outDir = tmpDir + sep + config.getAnnotation();
 		
 		// get name for outfile
 		String[] splitFile = vcfFile.split(File.separator);

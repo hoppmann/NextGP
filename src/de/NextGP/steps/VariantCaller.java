@@ -49,7 +49,7 @@ public class VariantCaller {
 		// make log entry
 		Log.logger(logger, "Preparing variant calling");
 
-		// prepar out directories
+		// prepare out directories
 		makeDirs();
 		
 	}
