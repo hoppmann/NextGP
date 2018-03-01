@@ -23,6 +23,7 @@ public class AlamutHgmd {
 	String alamutOut;
 	String bedFile;
 	String bedFileZip;
+	
 
 	/////////////////////////////
 	//////// constructor ////////
@@ -86,7 +87,10 @@ public class AlamutHgmd {
 		alamutCmd.add("--ann " + alamutOut);
 		alamutCmd.add("--unann "  + alamutLog);
 
-		if ( options.getFirst() <= 9 && options.getLast() >= 9 ) {
+		// save in combined object
+		Integer step = options.getSteps().get("alamut");
+
+		if ( options.getFirst() <= step && options.getLast() >= step ) {
 			combined.addCmd05(alamutCmd);
 		}
 
@@ -115,7 +119,9 @@ public class AlamutHgmd {
 				"}' | cut -f 1-4,9-999 | sed 's/#id/rsId/' | bgzip > " + bedFile);
 
 		// save in combined object
-		if (options.getFirst() <= 9 && options.getLast() >= 9 ) {
+		Integer step = options.getSteps().get("alamut");
+
+		if (options.getFirst() <= step && options.getLast() >= step ) {
 			combined.addCmd05(formBedCmd);
 		}
 	}
@@ -132,7 +138,9 @@ public class AlamutHgmd {
 		tabixCmd.add("tabix -p bed " + bedFile);
 
 		// save in combined object
-		if (options.getFirst() <= 9 && options.getLast() >= 9 ) {
+		Integer step = options.getSteps().get("alamut");
+
+		if (options.getFirst() <= step && options.getLast() >= step ) {
 			combined.addCmd05(tabixCmd);
 		}
 	}
@@ -191,7 +199,9 @@ public class AlamutHgmd {
 
 
 		// save in combined object
-		if (options.getFirst() <= 9 && options.getLast() >= 9 ) {
+		Integer step = options.getSteps().get("alamut");
+
+		if (options.getFirst() <= step && options.getLast() >= step ) {
 			combined.addCmd05(updateGeminiCmd);
 		}
 

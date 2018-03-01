@@ -42,7 +42,7 @@ public class LoadConfig {
 	// misc
 	private String java;
 	private String tempDir;
-	private String javaTmp;
+	private String localTmp;
 
 	// folder for output
 	private String alignment;
@@ -107,7 +107,7 @@ public class LoadConfig {
 				// misc
 				java = prop.getProperty("java");
 				tempDir = prop.getProperty("tempDir");
-				javaTmp = prop.getProperty("javaTmp");
+				localTmp = prop.getProperty("localTmp");
 				
 				// out folders
 				alignment = prop.getProperty("alignment");
@@ -286,8 +286,8 @@ public class LoadConfig {
 				return afterQC;
 			}
 
-			public String getJavaTmp() {
-				return javaTmp;
+			public String getLocalTmp() {
+				return localTmp;
 			}
 
 			public String getAlamut() {

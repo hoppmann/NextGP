@@ -66,7 +66,6 @@ public class VariantEval {
 		
 		// prepare command
 		cmd.add(config.getJava());
-//		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T VariantEval");
 		cmd.add("-nt " + options.getCpu());
@@ -83,7 +82,9 @@ public class VariantEval {
 		
 		
 		// store command
-		if (options.getFirst() <= 6 && options.getLast() >= 6 ) {
+		Integer step = options.getSteps().get("calling");
+		
+		if (options.getFirst() <= step && options.getLast() >= step ) {
 			patients.get(curPat).addCmd04(cmd);
 		}
 		

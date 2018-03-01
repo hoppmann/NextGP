@@ -1,5 +1,8 @@
 package de.NextGP.initialize.options;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.cli.Options;
 
 import com.google.common.collect.LinkedListMultimap;
@@ -22,11 +25,41 @@ public class SetOptions {
 	String misc = "misc";
 	String slurm = "slurmOptions";
 
+	
+	// numbering of steps (to avoid to long list in declaration
+	Map<String, Integer> steps = new HashMap<>();
+	
+	String numbering = "01. Possible steps: \\n"
+			+ "\\\\t\\\\t\\\\t\\\\t01: Preprocess"
+			+ "\\t\\t\\t\\t02: alignment; "
+			+ "\\n\\t\\t\\t\\t03: remove duplicates; "
+			+ "\\n\\t\\t\\t\\t04: indel realignment; "
+			+ "\\n\\t\\t\\t\\t05: base recalibration; "
+			+ "\\n\\t\\t\\t\\t06: metrices; "
+			+ "\\n\\t\\t\\t\\t07: variant calling; "
+			+ "\\n\\t\\t\\t\\t08: annotaion; "
+			+ "\\n\\t\\t\\t\\t09: database generation"
+			+ "\\n\\t\\t\\t\\t10: annotate Alamut and HGMD";
 
 	////////////////////
 	//////// constructor
 
 	public SetOptions() {
+		
+		
+		// prepare Hash of steps
+		steps.put("preprocess", 1);
+		steps.put("alignment", 2);
+		steps.put("duplicates", 3);
+		steps.put("realignment", 4);
+		steps.put("recalibration", 5);
+		steps.put("metrices", 6);
+		steps.put("calling", 7);
+		steps.put("annotate", 8);
+		steps.put("gemini", 9);
+		steps.put("alamut", 10);
+		
+		
 		
 		// create options
 		makeOptions();
@@ -77,7 +110,7 @@ public class SetOptions {
 		
 		
 		// pipeline parts
-		opts.put(misc, new OptionValue(options, "first", true, "Number of first pipeline step to start from. Default: 01. Possible steps: \n\t\t\t\t01: alignment; \n\t\t\t\t02: remove duplicates; \n\t\t\t\t03: indel realignment; \n\t\t\t\t04: base recalibration; \n\t\t\t\t05: metrices; \n\t\t\t\t06: variant calling; \n\t\t\t\t07: annotaion; \n\t\t\t\t08: database generation\n\t\t\t\t09: annotate Alamut and HGMD"));
+		opts.put(misc, new OptionValue(options, "first", true, "Number of first pipeline step to start from. Default: " + numbering));
 		opts.put(misc, new OptionValue(options, "last", true, "Last step of Pipeline to run. Default 09."));
 		opts.put(misc, new OptionValue(options, "mail", false, "If set, a notice of failing or finishing will be send to the corresponding e-mail adress deposed in slurm."));
 	}
@@ -113,6 +146,13 @@ public class SetOptions {
 
 	public Options getOptions() {
 		return options;
+	}
+
+
+
+
+	public Map<String, Integer> getSteps() {
+		return steps;
 	}
 
 

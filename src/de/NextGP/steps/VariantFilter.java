@@ -69,7 +69,6 @@ public class VariantFilter {
 		//////// extract all SNPs
 		ArrayList<String> extractSnpSetCmd = new ArrayList<>();
 		extractSnpSetCmd.add(config.getJava());
-//		extractSnpSetCmd.add(options.getXmx());
 		extractSnpSetCmd.add("-jar " + config.getGatk());
 		extractSnpSetCmd.add("-T SelectVariants");
 		extractSnpSetCmd.add("-R " + config.getHg19Fasta());
@@ -79,7 +78,9 @@ public class VariantFilter {
 		extractSnpSetCmd.add("-log " + logExtractSnpSet);
 
 		// save command
-		if (first <= 6 && last >= 6 ) {
+		Integer step = options.getSteps().get("calling");
+		
+		if (first <= step && last >= step ) {
 			combined.addCmd03(extractSnpSetCmd);
 		}
 
@@ -93,7 +94,6 @@ public class VariantFilter {
 
 		// prepare command
 		hardFilterCmd.add(config.getJava());
-//		hardFilterCmd.add(options.getXmx());
 		hardFilterCmd.add("-jar " + config.getGatk());
 		hardFilterCmd.add("-T VariantFiltration");
 		hardFilterCmd.add("-R " + config.getHg19Fasta());
@@ -112,7 +112,7 @@ public class VariantFilter {
 
 
 		// save command
-		if (first <= 6 && last >= 6 ) {
+		if (first <= step && last >= step ) {
 			combined.addCmd03(hardFilterCmd);
 		}
 
@@ -127,7 +127,6 @@ public class VariantFilter {
 
 		// prepare command		
 		extractIndelCmd.add(config.getJava());
-//		extractIndelCmd.add(options.getXmx());
 		extractIndelCmd.add("-jar " + config.getGatk());
 		extractIndelCmd.add("-T SelectVariants");
 		extractIndelCmd.add("-R " + config.getHg19Fasta());
@@ -138,7 +137,7 @@ public class VariantFilter {
 
 
 		// save command
-		if (first <= 6 && last >= 6 ) {
+		if (first <= step && last >= step ) {
 			combined.addCmd03(extractIndelCmd);
 		}
 
@@ -155,7 +154,6 @@ public class VariantFilter {
 
 		// prepare command		
 		filterIndelCmd.add(config.getJava());
-//		filterIndelCmd.add(options.getXmx());
 		filterIndelCmd.add("-jar " + config.getGatk());
 		filterIndelCmd.add("-T VariantFiltration");
 		filterIndelCmd.add("-R " + config.getHg19Fasta());
@@ -169,7 +167,7 @@ public class VariantFilter {
 
 
 		// save command
-		if (first <= 6 && last >= 6 ) {
+		if (first <= step && last >= step ) {
 			combined.addCmd03(filterIndelCmd);
 		}
 
@@ -186,7 +184,6 @@ public class VariantFilter {
 		
 		// prepare command
 		combineVariantsCmd.add(config.getJava());
-//		combineVariantsCmd.add(options.getXmx());
 		combineVariantsCmd.add("-jar " + config.getGatk());
 		combineVariantsCmd.add("-T CombineVariants");
 		combineVariantsCmd.add("-R " + config.getHg19Fasta());
@@ -198,7 +195,7 @@ public class VariantFilter {
 		
 		
 		// store command
-		if (first <= 6 && last >= 6 ) {
+		if (first <= step && last >= step ) {
 			combined.addCmd03(combineVariantsCmd);
 		}		
 		
@@ -209,7 +206,7 @@ public class VariantFilter {
 		removeFilteredReadsCmd = removeFiltered(outFileFiltered, input);
 		
 		// store command
-		if (first <= 6 && last >= 6 ) {
+		if (first <= step && last >= step ) {
 			combined.setCombinedVcfFile(outFileFiltered + ".recode.vcf");
 					combined.addCmd03(removeFilteredReadsCmd);
 		}

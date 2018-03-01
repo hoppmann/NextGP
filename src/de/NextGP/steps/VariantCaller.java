@@ -118,7 +118,9 @@ public class VariantCaller {
 
 
 			// save command
-			if (first <= 6 && last >= 6 ) {
+			Integer step = options.getSteps().get("calling");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 			patients.get(curPat).setVcfFiles("gatk", output);
@@ -171,7 +173,9 @@ public class VariantCaller {
 
 
 		// save command
-		if (first <= 6 && last >= 6 ) {
+		Integer step = options.getSteps().get("calling");
+		
+		if (first <= step && last >= step ) {
 			combined.addCmd03(genotypeGvcfCmd);
 		}
 		
@@ -231,7 +235,9 @@ public class VariantCaller {
 			cmd.add("> " + logfile);
 
 			// save command 
-			if (first <= 6 && last >= 6 ) {
+			Integer step = options.getSteps().get("calling");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 
@@ -246,7 +252,7 @@ public class VariantCaller {
 			
 			
 			// save command 
-			if (first <= 6 && last >= 6 ) {
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(vtCmd);
 			}
 
@@ -308,7 +314,9 @@ public class VariantCaller {
 
 
 			// save command
-			if (first <= 6 && last >= 6 ) {
+			Integer step = options.getSteps().get("calling");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 
@@ -335,7 +343,7 @@ public class VariantCaller {
 			ArrayList<String> sortCmd = sortVcf(curPat, fileIn, fileOut, bamFile);
 
 			// save command
-			if (first <= 6 && last >= 6 ) {
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(sortCmd);
 			}
 
@@ -351,7 +359,7 @@ public class VariantCaller {
 			ArrayList<String> vtCmd = normalize(input, output);
 			
 			//save command
-			if (first <= 6 && last >= 6 ) {
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(vtCmd);
 			}
 			
@@ -424,7 +432,9 @@ public class VariantCaller {
 
 
 			// save commands
-			if (first <= 6 && last >= 6 ) {
+			Integer step = options.getSteps().get("calling");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 				patients.get(curPat).addCmd02(sortCmd);
 				patients.get(curPat).addCmd02(normCmd);
@@ -476,7 +486,9 @@ public class VariantCaller {
 			
 			
 			// store commands
-			if (first <= 6 && last >= 6 ) {
+			Integer step = options.getSteps().get("calling");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd04(cmd);
 				patients.get(curPat).addCmd04(normCmd);
 				
@@ -507,7 +519,9 @@ public class VariantCaller {
 				// run replacement of sample name with caller name
 				ArrayList<String> cmd = readgroups.replaceSampleName(callerName, curPat);
 
-				if (first <= 6 && last >= 6 ) {
+				Integer step = options.getSteps().get("calling");
+				
+				if (first <= step && last >= step ) {
 					// for each patient save commands of current caller
 					if (callerName.equals("gatk")) {
 						patients.get(curPat).addCmd04(cmd);
@@ -562,7 +576,9 @@ public class VariantCaller {
 
 
 			// store commands
-			if (first <= 6 && last >= 6 ) {
+			Integer step = options.getSteps().get("calling");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd04(cmd);
 			}
 			patients.get(curPat).setLastOutFile(output);
@@ -637,7 +653,9 @@ public class VariantCaller {
 			
 			
 			// store command
-			if (first <= 6 && last >= 6 ) {
+			Integer step = options.getSteps().get("calling");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd04(cmd);
 				patients.get(curPat).addCmd04(addSetCmd);
 			}
@@ -674,7 +692,9 @@ public class VariantCaller {
 
 
 		// store commands
-		if (first <= 6 && last >= 6 ) {
+		Integer step = options.getSteps().get("calling");
+		
+		if (first <= step && last >= step ) {
 			combined.addCmd05(combindeCallinCmd);
 		}
 		combined.setLastOutFile(output);
@@ -701,6 +721,7 @@ public class VariantCaller {
 		cmd.add("SortVcf");
 		cmd.add("I=" + fileIn);
 		cmd.add("O=" + fileOut);
+		cmd.add("TMP_DIR=" + config.getLocalTmp() );
 		cmd.add("SEQUENCE_DICTIONARY=" + bamFile);
 
 

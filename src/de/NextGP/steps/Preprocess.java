@@ -111,7 +111,9 @@ public class Preprocess {
 			patients.get(curPat).setReverse(reverse);
 
 			// save command in patients object
-			if (first <= 1 && last >= 1 ) {
+			Integer step = options.getSteps().get("preprocess");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 		}

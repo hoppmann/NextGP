@@ -78,7 +78,6 @@ public class Realigner {
 		ArrayList<String> cmd = new ArrayList<>();
 
 		cmd.add(config.getJava());
-//		cmd.add(options.getXmx());
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T RealignerTargetCreator" );
 		cmd.add("-l INFO");
@@ -95,7 +94,9 @@ public class Realigner {
 
 
 		// add command in Patient object
-		if (first <= 3 && last >= 3 ) {
+		Integer step = options.getSteps().get("realignment");
+		
+		if (first <= step && last >= step ) {
 			patients.get(curPat).addCmd02(cmd);
 		}
 	}
@@ -122,7 +123,6 @@ public class Realigner {
 		//prepare command
 		cmd = new ArrayList<>();
 		cmd.add(config.getJava());
-//		cmd.add(options.getXmx()); // produces an error with new NextSeq Data
 		cmd.add("-jar " + config.getGatk());
 		cmd.add("-T IndelRealigner");
 		cmd.add("-l INFO");
@@ -136,7 +136,9 @@ public class Realigner {
 		cmd.add("-log " + logfileRealign);
 
 		// save cmd in patient object
-		if (first <= 3 && last >= 3 ) {
+		Integer step = options.getSteps().get("realignment");
+		
+		if (first <= step && last >= step ) {
 			patients.get(curPat).addCmd02(cmd);
 		}
 		patients.get(curPat).setLastOutFile(outFile);

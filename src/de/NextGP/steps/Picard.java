@@ -96,6 +96,7 @@ public class Picard {
 			cmd.add("AddOrReplaceReadGroups");
 			cmd.add("INPUT=" + patients.get(curPat).getLastOutFile());
 			cmd.add("OUTPUT=" + outputFile);
+			cmd.add("TMP_DIR=" + config.getLocalTmp() );
 			cmd.add("RGLB=" + rgbl);
 			cmd.add("RGPL=" + rgpl);
 			cmd.add("RGPU=" + rgpu);
@@ -106,7 +107,10 @@ public class Picard {
 
 
 			// add command to patient object
-			if ((first <= 1 && last >= 1) ||(first <= 2 && last >= 2)  ) {
+			Integer step = options.getSteps().get("alignment");
+			Integer step2 = options.getSteps().get("duplicates");
+
+			if ((first <= step && last >= step) ||(first <= step2 && last >= step2)  ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 			patients.get(curPat).setLastOutFile(outputFile);
@@ -173,12 +177,14 @@ public class Picard {
 			cmd.add("OUTPUT=" + outFile);
 			cmd.add("METRICS_FILE=" + metricOutFile);
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
-			cmd.add("TMP_DIR=/scratch/local/tmp/" );
+			cmd.add("TMP_DIR=" + config.getLocalTmp() );
 			cmd.add("2> " + logOut);
 			
 			
 			// add command to patient object
-			if (first <= 2 && last >= 2 ) {
+			Integer step = options.getSteps().get("duplicates");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 			patients.get(curPat).setLastOutFile(outFile);

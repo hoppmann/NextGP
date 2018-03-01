@@ -101,7 +101,9 @@ public class Gemini {
 		combined.setDbName(outDB);
 		
 		// return command
-		if (first <= 8 && last >= 7 ) {
+		Integer step = options.getSteps().get("gemini");
+
+		if (first <= step && last >= step ) {
 			combined.addCmd05(geminiCmd);
 		}
 		

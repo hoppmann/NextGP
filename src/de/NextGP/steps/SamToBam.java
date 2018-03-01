@@ -26,6 +26,7 @@ public class SamToBam {
 	private Combined combined;
 	private int first;
 	private int last;
+	private GetOptions options;
 	
 	
 	private static Logger logger = LoggerFactory.getLogger(SamToBam.class);
@@ -43,6 +44,8 @@ public class SamToBam {
 		this.combined = combined;
 		this.first = options.getFirst();
 		this.last = options.getLast();
+		this.options = options;
+		
 		
 		// make log entry
 		Log.logger(logger, "Preparing sam to bam convertion.");
@@ -94,12 +97,14 @@ public class SamToBam {
 			cmd.add("-jar " + picard);
 			cmd.add("SortSam");
 			cmd.add("SO=coordinate");
-			cmd.add("TMP_DIR=/scratch/local/tmp/" );
+			cmd.add("TMP_DIR=" + config.getLocalTmp() );
 			cmd.add("INPUT=" + outDir + File.separator + "sam" + File.separator + curPat + ".sam");
 			cmd.add("OUTPUT=" + outBam);
 			
 			// save cmd in patient object
-			if (first <= 1 && last >= 1 ) {
+			Integer step = options.getSteps().get("alignment");
+			
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);;
 			}
 			// save name of bam files

@@ -26,6 +26,7 @@ public class BWA {
 	private static Logger logger = LoggerFactory.getLogger(BWA.class);
 	private int first;
 	private int last;
+	private GetOptions options;
 	
 	
 	// command defaults
@@ -49,6 +50,7 @@ public class BWA {
 		this.combined = combined;
 		this.first = opts.getFirst();
 		this.last = opts.getLast();
+		this.options = opts;
 		
 		// write log message
 		Log.logger(logger, "Preparing BWA");
@@ -101,7 +103,9 @@ public class BWA {
 			cmd.add("> " + OutFile);
 
 			// save command in patient object
-			if (first <= 1 && last >= 1 ) {
+			Integer step = options.getSteps().get("alignment");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 			patients.get(curPat).setLastOutFile(OutFile);
@@ -137,7 +141,9 @@ public class BWA {
 			cmd.add("> " + OutFile);
 
 			// save command in patient object
-			if (first <= 1 && last >= 1 ) {
+			Integer step = options.getSteps().get("alignment");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}			
 			patients.get(curPat).setLastOutFile(OutFile);

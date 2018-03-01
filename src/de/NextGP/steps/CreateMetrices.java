@@ -104,7 +104,9 @@ public class CreateMetrices {
 
 
 			// save command
-			if (first <= 5 && last >= 5 ) {
+			Integer step = options.getSteps().get("metrices");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 
@@ -139,18 +141,20 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectAlignmentSummaryMetrics");
 			cmd.add("REFERENCE_SEQUENCE=" + config.getHg19Fasta());
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
 			cmd.add("INPUT=" + input);
 			cmd.add("OUTPUT=" + asOut);
+			cmd.add("TMP_DIR=" + config.getLocalTmp() );
 			cmd.add("2> " + asLog);
 
 
 			// save command
-			if (first <= 5 && last >= 5 ) {
+			Integer step = options.getSteps().get("metrices");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 		}
@@ -183,20 +187,22 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectGcBiasMetrics");
 			cmd.add("REFERENCE_SEQUENCE=" + config.getHg19Fasta());
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
 			cmd.add("INPUT=" + input);
 			cmd.add("OUTPUT=" + output);
+			cmd.add("TMP_DIR=" + config.getLocalTmp() );
 			cmd.add("CHART_OUTPUT=" + gcMetricChartOut);
 			cmd.add("SUMMARY_OUTPUT=" + gcMetricSummaryOut);
 			cmd.add("2>" + gcMetricLog);
 
 
 			// save command
-			if (first <= 5 && last >= 5 ) {
+			Integer step = options.getSteps().get("metrices");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 		}
@@ -229,18 +235,20 @@ public class CreateMetrices {
 
 			// prepare command
 			cmd.add(config.getJava());
-//			cmd.add(options.getXmx());
 			cmd.add("-jar " + config.getPicard());
 			cmd.add("CollectInsertSizeMetrics");
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
 			cmd.add("INPUT=" + input);
 			cmd.add("OUTPUT= " + isOut);
+			cmd.add("TMP_DIR=" + config.getLocalTmp() );
 			cmd.add("HISTOGRAM_FILE=" + isHistOut);
 			cmd.add("2> " + isLog);
 
 
 			// save command
-			if (first <= 5 && last >= 5 ) {
+			Integer step = options.getSteps().get("metrices");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 		}
@@ -281,7 +289,9 @@ public class CreateMetrices {
 
 
 			// save command
-			if (first <= 5 && last >= 5 ) {
+			Integer step = options.getSteps().get("metrices");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 
@@ -315,7 +325,9 @@ public class CreateMetrices {
 
 			
 			// save command
-			if (first <= 5 && last >= 5 ) {
+			Integer step = options.getSteps().get("metrices");
+
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
 

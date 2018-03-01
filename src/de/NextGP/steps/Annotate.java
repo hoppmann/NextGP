@@ -95,7 +95,9 @@ public class Annotate {
 		
 		
 		// store command
-		if (first <= 7 && last >= 7 ) {
+		Integer step = options.getSteps().get("annotate");
+
+		if (first <= step && last >= step ) {
 			combined.addCmd05(vtCmd);
 			
 		}		
@@ -147,7 +149,9 @@ public class Annotate {
 		vepCmd.add("--vcf");
 
 		// store command
-		if (first <= 7 && last >= 7 ) {
+		Integer step = options.getSteps().get("annotate");
+
+		if (first <= step && last >= step ) {
 			combined.addCmd05(vepCmd);
 		}
 		combined.setLastOutFile(outVEP);
@@ -168,7 +172,6 @@ public class Annotate {
 		
 		
 		snpEffCmd.add(config.getJava());
-//		snpEffCmd.add(options.getXmx());
 		snpEffCmd.add("-jar " +  config.getSnpEff());
 		snpEffCmd.add("GRCh37.75");
 		snpEffCmd.add("-classic");
@@ -179,7 +182,9 @@ public class Annotate {
 		
 		
 		// store command
-		if (first <= 7 && last >= 7 ) {
+		Integer step = options.getSteps().get("annotate");
+
+		if (first <= step && last >= step ) {
 			combined.addCmd05(snpEffCmd);
 			
 		}
@@ -200,7 +205,9 @@ public class Annotate {
 		bgZipCmd.add("> " + outSnpEff + ".gz");
 		
 		// store command
-		if (first <= 7 && last >= 7 ) {
+		Integer step = options.getSteps().get("annotate");
+
+		if (first <= step && last >= step ) {
 			combined.addCmd05(bgZipCmd);
 		}
 		
@@ -217,7 +224,9 @@ public class Annotate {
 		tabixCmd.add(outSnpEff + ".gz");
 		
 		// store command
-		if (first <= 7 && last >= 7 ) {
+		Integer step = options.getSteps().get("annotate");
+
+		if (first <= step && last >= step ) {
 			combined.addCmd05(tabixCmd);
 		}
 		

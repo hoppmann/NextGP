@@ -101,7 +101,9 @@ public class BQSR {
 
 		
 		// save command in patient object
-		if (first <= 4 && last >= 4 ) {
+		Integer step = options.getSteps().get("recalibration");
+
+		if (first <= step && last >= step ) {
 			patients.get(curPat).addCmd02(cmd);
 		}
 	}
@@ -151,7 +153,9 @@ public class BQSR {
 		cmd.add("-log " + logfile);
 
 		// save command in patients object
-		if (first <= 4 && last >= 4 ) {
+		Integer step = options.getSteps().get("recalibration");
+
+		if (first <= step && last >= step ) {
 			patients.get(curPat).addCmd02(cmd);
 		}
 
@@ -184,7 +188,9 @@ public class BQSR {
 		cmd.add("-log " + logfile);
 
 		// save command
-		if (first <= 4 && last >= 4 ) {
+		Integer step = options.getSteps().get("recalibration");
+
+		if (first <= step && last >= step ) {
 			patients.get(curPat).addCmd02(cmd);
 		}
 
@@ -222,7 +228,9 @@ public class BQSR {
 		cmd.add("-log " + logfile);
 
 		// save command
-		if (first <= 4 && last >= 4 ) {
+		Integer step = options.getSteps().get("recalibration");
+
+		if (first <= step && last >= step ) {
 			patients.get(curPat).addCmd02(cmd);
 		}
 		patients.get(curPat).setLastOutFile(output);

@@ -1,5 +1,7 @@
 package de.NextGP.initialize.options;
 
+import java.util.Map;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
@@ -295,11 +297,6 @@ public class GetOptions {
 	public String getMem() {
 		return mem;
 	}
-//
-//	public String getXmx() {
-//		xmx = "-Xmx" + mem + "g";
-//		return xmx;
-//	}
 
 	public String getBamList() {
 		return bamList;
@@ -400,7 +397,10 @@ public class GetOptions {
 		return restrict;
 	}
 
-	
+	public Map<String, Integer> getSteps() {
+		
+		return setOptions.getSteps();
+	}
 	
 	
 	
