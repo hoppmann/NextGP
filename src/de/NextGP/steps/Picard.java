@@ -75,8 +75,8 @@ public class Picard {
 		for (String curPat : patients.keySet()){
 
 			// get directory for intermediate files
-			String interDir = options.getTempDir();
 			String sep = File.separator;
+			String tempDir = options.getTempDir() + sep + options.getOutDir();
 			
 			
 			// prepare variables
@@ -84,8 +84,9 @@ public class Picard {
 			String rgpl = platform;
 			String rgpu = curPat;
 			String rgsm = curPat;
-			String outputFile = interDir + sep + options.getOutDir() + sep + outDir + sep + curPat + ".bam"; 
-			String logOut = interDir + sep + options.getOutDir() + sep + outDir + sep + curPat + ".log";
+			String outputFile = tempDir + sep + outDir + sep + curPat + ".bam"; 
+//			String logOut = tempDir + sep + outDir + sep + curPat + ".log";
+
 
 
 			// retrive variables
@@ -103,7 +104,7 @@ public class Picard {
 			cmd.add("RGSM=" + rgsm);
 			cmd.add("CREATE_INDEX=true");
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
-			cmd.add("2> " + logOut);
+//			cmd.add("2> " + logOut);
 
 
 			// add command to patient object
@@ -167,7 +168,7 @@ public class Picard {
 			// prepare our file names
 			String outFile = dupOutDir + "/" + curPat + ".dup.bam";
 			String metricOutFile = dupOutDir + "/" + curPat + ".metrics.txt";
-			String logOut = dupOutDir + "/" + curPat + ".dup.log";
+//			String logOut = dupOutDir + "/" + curPat + ".dup.log";
 			
 			cmd.add(config.getJava());
 			cmd.add("-jar " + config.getPicard());
@@ -177,7 +178,7 @@ public class Picard {
 			cmd.add("METRICS_FILE=" + metricOutFile);
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
 			cmd.add("TMP_DIR=" + config.getLocalTmp() );
-			cmd.add("2> " + logOut);
+//			cmd.add("2> " + logOut);
 			
 			
 			// add command to patient object
