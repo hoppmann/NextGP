@@ -156,9 +156,8 @@ public class Picard {
 		
 		// create out dir
 		String sep = File.separator;
-		String interDir = options.getTempDir() + sep + options.getOutDir();
-		String outDir = options.getOutDir();
-		String dupOutDir = interDir + sep + outDir + sep + config.getDuplicates();
+		String tempDir = options.getTempDir() + sep + options.getOutDir();
+		String dupOutDir = tempDir + sep + config.getDuplicates();
 		combined.mkdir(dupOutDir);
 		
 		// prepare command
