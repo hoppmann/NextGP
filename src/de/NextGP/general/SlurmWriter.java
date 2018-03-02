@@ -251,6 +251,10 @@ public class SlurmWriter {
 	//// prepare common header
 	private void commonHeader(Writer outFile, boolean finalFile) {
 		
+		
+		///////////////////////////////
+		//////// add slurm based options ////////
+		
 		outFile.writeLine("#!/bin/bash");
 		outFile.writeOption("--cpus-per-task=" + maxCPU);
 		outFile.writeOption("--mem=" + maxMem + "G");
@@ -272,9 +276,17 @@ public class SlurmWriter {
 		if (finalFile && options.isMail()) {
 			outFile.writeOption("--mail-type=FAIL");
 			outFile.writeOption("--mail-type=END");
+		} else if (options.isMail()) {
+			outFile.writeOption("--mail-type=FAIL");
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
 	
 	//////// concatenate string to fit in exclude and nodelist option
 	private String concatString(String[] string) {
