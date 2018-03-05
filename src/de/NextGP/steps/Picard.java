@@ -85,7 +85,6 @@ public class Picard {
 			String rgpu = curPat;
 			String rgsm = curPat;
 			String outputFile = tempDir + sep + outDir + sep + curPat + ".bam"; 
-//			String logOut = tempDir + sep + outDir + sep + curPat + ".log";
 
 
 
@@ -104,7 +103,6 @@ public class Picard {
 			cmd.add("RGSM=" + rgsm);
 			cmd.add("CREATE_INDEX=true");
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
-//			cmd.add("2> " + logOut);
 
 
 			// add command to patient object
@@ -178,7 +176,6 @@ public class Picard {
 			cmd.add("METRICS_FILE=" + metricOutFile);
 			cmd.add("VALIDATION_STRINGENCY=LENIENT");
 			cmd.add("TMP_DIR=" + config.getLocalTmp() );
-//			cmd.add("2> " + logOut);
 			
 			
 			// add command to patient object

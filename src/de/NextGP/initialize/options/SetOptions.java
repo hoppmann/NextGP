@@ -29,17 +29,17 @@ public class SetOptions {
 	// numbering of steps (to avoid to long list in declaration
 	Map<String, Integer> steps = new HashMap<>();
 	
-	String numbering = "01. Possible steps: \\n"
-			+ "\\\\t\\\\t\\\\t\\\\t01: Preprocess"
-			+ "\\t\\t\\t\\t02: alignment; "
-			+ "\\n\\t\\t\\t\\t03: remove duplicates; "
-			+ "\\n\\t\\t\\t\\t04: indel realignment; "
-			+ "\\n\\t\\t\\t\\t05: base recalibration; "
-			+ "\\n\\t\\t\\t\\t06: metrices; "
-			+ "\\n\\t\\t\\t\\t07: variant calling; "
-			+ "\\n\\t\\t\\t\\t08: annotaion; "
-			+ "\\n\\t\\t\\t\\t09: database generation"
-			+ "\\n\\t\\t\\t\\t10: annotate Alamut and HGMD";
+	String numbering = "\t\t\t\tPossible steps:"
+			+ "\n\t\t\t\t\t01: Preprocess"
+			+ "\n\t\t\t\t\t02: alignment; "
+			+ "\n\t\t\t\t\t03: remove duplicates; "
+			+ "\n\t\t\t\t\t04: indel realignment; "
+			+ "\n\t\t\t\t\t05: base recalibration; "
+			+ "\n\t\t\t\t\t06: metrices; "
+			+ "\n\t\t\t\t\t07: variant calling; "
+			+ "\n\t\t\t\t\t08: annotaion; "
+			+ "\n\t\t\t\t\t09: database generation"
+			+ "\n\t\t\t\t\t10: annotate Alamut and HGMD";
 
 	////////////////////
 	//////// constructor
@@ -93,7 +93,7 @@ public class SetOptions {
 
 		// slurm options
 		opts.put(slurm, new OptionValue(options, "slurmLog", true, "Sets the folder where to save the slurm logs."));
-		opts.put(slurm, new OptionValue(options, "exclude", true, "Set the nodes to be excluded. To exclude multiple nodes call \"exclude\" multiple times."));
+		opts.put(slurm, new OptionValue(options, "exclude", true, "\tSet the nodes to be excluded. To exclude multiple nodes call \"exclude\" multiple times."));
 		opts.put(slurm, new OptionValue(options, "restrict", true, "Sets specific nodes to be used for analysis. To set multiple nodes call \"restrict\" multiple times"));
 		
 		
@@ -110,8 +110,8 @@ public class SetOptions {
 		
 		
 		// pipeline parts
-		opts.put(misc, new OptionValue(options, "first", true, "Number of first pipeline step to start from. Default: " + numbering));
-		opts.put(misc, new OptionValue(options, "last", true, "Last step of Pipeline to run. Default 09."));
+		opts.put(misc, new OptionValue(options, "first", true, "Number of first pipeline step to start from. Default: 01.\n" + numbering));
+		opts.put(misc, new OptionValue(options, "last", true, "Last step of Pipeline to run. Default 10."));
 		opts.put(misc, new OptionValue(options, "mail", false, "If set, a notice of failing or finishing will be send to the corresponding e-mail adress deposed in slurm."));
 	}
 

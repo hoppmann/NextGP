@@ -112,8 +112,7 @@ public class Gemini {
 		ArrayList<String> chmodCmd = new ArrayList<>();
 
 		chmodCmd.add("chmod 755 " + outDB);
-		
-		if (first <= 8 && last >= 7) {
+		if (first <= step && last >= step ) {
 			combined.addCmd05(chmodCmd);
 		}
 		

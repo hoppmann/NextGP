@@ -59,7 +59,7 @@ public class GetOptions {
 	
 	// pipeline parts
 	private int first = 1;
-	private int last = 9;
+	private int last = 10;
 	private boolean mail;
 	
 
