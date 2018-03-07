@@ -83,6 +83,9 @@ public class AlamutHgmd {
 		alamutCmd.add("--in " + combined.getVcfForAnnotation());
 		alamutCmd.add("--hgmdUser hoppmann");
 		alamutCmd.add("--hgmdPasswd KiKli2016");
+		alamutCmd.add("--dogenesplicer");
+		alamutCmd.add("--donnsplice");
+		alamutCmd.add("--outputannonly");
 		alamutCmd.add("--ann " + alamutOut);
 		alamutCmd.add("--unann "  + alamutLog);
 
