@@ -38,6 +38,7 @@ public class LoadConfig {
 	private String hapmap;
 	private String omni;
 	private String vepCache;
+	private String dbNSFP;
 	
 	// misc
 	private String java;
@@ -103,6 +104,7 @@ public class LoadConfig {
 				hapmap = prop.getProperty("hapmap");
 				omni = prop.getProperty("omni");
 				vepCache = prop.getProperty("vepCache");
+				dbNSFP = prop.getProperty("dbNSFP");
 				
 				// misc
 				java = prop.getProperty("java");
@@ -296,6 +298,10 @@ public class LoadConfig {
 
 			public String getAddSetInfo() {
 				return addSetInfo;
+			}
+
+			public String getDbNSFP() {
+				return dbNSFP;
 			}
 			
 			
