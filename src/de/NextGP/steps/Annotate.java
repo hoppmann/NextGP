@@ -154,7 +154,7 @@ public class Annotate {
 		vepCmd.add("--cache");
 		vepCmd.add("--merged");
 		vepCmd.add("--offline");
-		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + "$header");
+		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",$header");
 		vepCmd.add("--species homo_sapiens");
 		vepCmd.add("--dir_cache " + config.getVepCache());
 		vepCmd.add("--cache_version 89");
