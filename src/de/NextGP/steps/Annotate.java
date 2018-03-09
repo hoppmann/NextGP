@@ -132,7 +132,7 @@ public class Annotate {
 		
 		// extract header names
 		ArrayList<String> headerCmd = new ArrayList<>(); 
-		headerCmd.add("header=$(zcat " + config.getDbNSFP() + " | head -n 1 | cut -f 11-999 | sed 's/\\t/,/g') | sed 's/ //g'");
+		headerCmd.add("header=\"$(zcat " + config.getDbNSFP() + " | head -n 1 | cut -f 11-999 | sed 's/\\t/,/g' | sed 's/ //g')\" ");
 		
 		
 		
@@ -145,7 +145,7 @@ public class Annotate {
 		vepCmd.add("--cache");
 		vepCmd.add("--merged");
 		vepCmd.add("--offline");
-		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",$header");
+		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",\"$header\"");
 //		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",SIFT_pred,Polyphen2_HDIV_pred,Polyphen2_HVAR_pred,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred,MetaSVM_pred,MetaLR_pred,PROVEAN_pred,M-CAP_pred,REVEL_score,clinvar_clnsig,clinvar_trait");
 		vepCmd.add("--species homo_sapiens");
 		vepCmd.add("--dir_cache " + config.getVepCache());
