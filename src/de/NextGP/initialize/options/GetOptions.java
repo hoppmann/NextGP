@@ -244,7 +244,7 @@ public class GetOptions {
 			mail = cmd.hasOption("mail");
 		}
 		
-		if (cmd.hasOption("skipAlamutBatch")) {
+		if (cmd.hasOption("skip")) {
 			skiptAlamutBatch = true;
 		}
 		

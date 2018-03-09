@@ -113,7 +113,7 @@ public class SetOptions {
 		opts.put(misc, new OptionValue(options, "first", true, "Number of first pipeline step to start from. Default: 01.\n" + numbering));
 		opts.put(misc, new OptionValue(options, "last", true, "Last step of Pipeline to run. Default 10."));
 		opts.put(misc, new OptionValue(options, "mail", false, "If set, a notice of failing or finishing will be send to the corresponding e-mail adress deposed in slurm."));
-		opts.put(misc, new OptionValue(options, "skipAlamutBatch", false, "Skips the alamut batch run and uses an already existing annoation file."));
+		opts.put(misc, new OptionValue(options, "skip", false, "Skips running alamut batch. Only use if an old annotation file is available."));
 	}
 
 	
