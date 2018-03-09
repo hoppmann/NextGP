@@ -132,7 +132,7 @@ public class Annotate {
 		
 		// extract header names
 		ArrayList<String> headerCmd = new ArrayList<>(); 
-		headerCmd.add("header=$(zcat " + config.getDbNSFP() + " | head -n 1 | cut -f 11-999 | sed 's/\\t/,/g')");
+		headerCmd.add("header=$(zcat " + config.getDbNSFP() + " | head -n 1 | cut -f 11-999 | sed 's/\\t/,/g') | sed 's/ //g'");
 		
 		
 		
