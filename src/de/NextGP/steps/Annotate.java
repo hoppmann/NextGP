@@ -130,10 +130,20 @@ public class Annotate {
 		 * the current dbNSFP version is 2.9.3 since it is the last one on hg19
 		 */
 		
-		String dbNsfpLineNumbers = "";
-		for (int i = 11; i < lengthDbNsfp; i++) {
-				dbNsfpLineNumbers += "," + i;
-		}
+		// extract header names
+		ArrayList<String> headerCmd = new ArrayList<>(); 
+		headerCmd.add("header=$(zcat " + config.getDbNSFP() + " | head -n 1 | cut -f 11-999 | sed 's/\\t/,/g')");
+		
+		
+		
+		
+//		String dbNsfpLineNumbers = "";
+//		for (int i = 11; i < lengthDbNsfp; i++) {
+//				dbNsfpLineNumbers += "," + i;
+//		}
+		
+		
+		
 		
 		
 		// prepare command
@@ -144,7 +154,7 @@ public class Annotate {
 		vepCmd.add("--cache");
 		vepCmd.add("--merged");
 		vepCmd.add("--offline");
-		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + dbNsfpLineNumbers);
+		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + "$header");
 		vepCmd.add("--species homo_sapiens");
 		vepCmd.add("--dir_cache " + config.getVepCache());
 		vepCmd.add("--cache_version 89");
@@ -165,6 +175,7 @@ public class Annotate {
 		Integer step = options.getSteps().get("annotate");
 
 		if (first <= step && last >= step ) {
+			combined.addCmd05(headerCmd);
 			combined.addCmd05(vepCmd);
 		}
 		combined.setLastOutFile(outVEP);
