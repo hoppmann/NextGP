@@ -61,6 +61,7 @@ public class GetOptions {
 	private int first = 1;
 	private int last = 10;
 	private boolean mail;
+	private boolean skiptAlamutBatch;
 	
 
 	////////////////
@@ -243,6 +244,10 @@ public class GetOptions {
 			mail = cmd.hasOption("mail");
 		}
 		
+		if (cmd.hasOption("skipAlamutBatch")) {
+			skiptAlamutBatch = true;
+		}
+		
 		
 		
 		
@@ -396,6 +401,10 @@ public class GetOptions {
 	public Map<String, Integer> getSteps() {
 		
 		return setOptions.getSteps();
+	}
+
+	public boolean isSkiptAlamutBatch() {
+		return skiptAlamutBatch;
 	}
 	
 	

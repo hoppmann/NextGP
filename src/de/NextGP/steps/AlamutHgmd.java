@@ -93,7 +93,9 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if ( options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addCmd05(alamutCmd);
+			if (! options.isSkiptAlamutBatch()) {
+				combined.addCmd05(alamutCmd);
+			}
 		}
 
 	}

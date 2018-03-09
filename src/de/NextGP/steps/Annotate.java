@@ -2,8 +2,6 @@
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +25,6 @@ public class Annotate {
 	private int first;
 	private int last;
 	private String tmpDir;
-	private int lengthDbNsfp = 136;
 
 
 	/////////////////////////////
