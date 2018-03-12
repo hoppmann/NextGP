@@ -37,7 +37,7 @@ public class SetOptions {
 			+ "\n\t\t\t\t\t05: base recalibration; "
 			+ "\n\t\t\t\t\t06: metrices; "
 			+ "\n\t\t\t\t\t07: variant calling; "
-			+ "\n\t\t\t\t\t08: annotaion; "
+			+ "\n\t\t\t\t\t08: annotation; "
 			+ "\n\t\t\t\t\t09: database generation"
 			+ "\n\t\t\t\t\t10: annotate Alamut and HGMD";
 
