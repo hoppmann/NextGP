@@ -168,8 +168,8 @@ public class Annotate {
 		vepCmd.add("--cache");
 		vepCmd.add("--merged");
 		vepCmd.add("--offline");
-		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + header);
-//		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",SIFT_pred,Polyphen2_HDIV_pred,Polyphen2_HVAR_pred,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred,MetaSVM_pred,MetaLR_pred,PROVEAN_pred,M-CAP_pred,REVEL_score,clinvar_clnsig,clinvar_trait");
+//		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + header);
+		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",SIFT_pred,Polyphen2_HDIV_pred,Polyphen2_HVAR_pred,LRT_pred,MutationTaster_pred,MutationAssessor_pred,FATHMM_pred,MetaSVM_pred,MetaLR_pred,PROVEAN_pred,M-CAP_pred,REVEL_score,clinvar_clnsig,clinvar_trait");
 		vepCmd.add("--species homo_sapiens");
 		vepCmd.add("--dir_cache " + config.getVepCache());
 		vepCmd.add("--cache_version 89");
