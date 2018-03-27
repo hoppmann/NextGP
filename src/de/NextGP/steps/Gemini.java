@@ -87,7 +87,7 @@ public class Gemini {
 		String outDB = outDir + sep + name + ".db";
 
 
-
+		
 		// prepare command
 		geminiCmd.add(config.getGemini());
 		geminiCmd.add("load");

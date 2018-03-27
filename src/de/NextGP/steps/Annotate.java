@@ -185,7 +185,6 @@ public class Annotate {
 		Integer step = options.getSteps().get("annotate");
 
 		if (first <= step && last >= step ) {
-//			combined.addCmd05(headerCmd);
 			combined.addCmd05(vepCmd);
 		}
 		combined.setLastOutFile(outVEP);
