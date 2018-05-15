@@ -49,8 +49,8 @@ public class SlurmWriter {
 
 		// gather general variables
 		masterScript = slurmDir + sep + "01-master.sh";
-		combGenoOut = slurmDir + sep + "03-gatkGenotyping.sh";
-		combFileOut = slurmDir + sep + "05-combined.sh";
+		combGenoOut = slurmDir + sep + "03-gatkGenotyping";
+		combFileOut = slurmDir + sep + "05-combined";
 
 
 	}
@@ -96,14 +96,16 @@ public class SlurmWriter {
 			Patients curPatObject = patients.get(curPat);
 
 			// Create batch file to write commands in.
-			// prepare writer			
-			String outFile = slurmDir + sep + "02-" + curPat + ".sh";
+			// prepare writer
+			String outPrefix = slurmDir + sep + "02-" + curPat;
+			String outFile = outPrefix + ".sh";
+			String slurmLogName = outPrefix + ".log";
 			Writer primaryCmds = new Writer();
 			primaryCmds.openWriter(outFile);
 
 
 			// write first/general lines of batch file
-			commonHeader(primaryCmds, false);			
+			commonHeader(primaryCmds, false, slurmLogName);			
 
 
 			//////// for each command created write in batch file
@@ -140,12 +142,14 @@ public class SlurmWriter {
 
 			// create batch file to write commands in
 			// prepare writer
-			String outFile = slurmDir + sep + "04-" + curPat + ".sh";
+			String outPrefix = slurmDir + sep + "04-" + curPat;
+			String outFile = outPrefix + ".sh";
+			String slurmLogName = outPrefix + ".log";
 			Writer secondary = new Writer();
 			secondary.openWriter(outFile);
 
 			// Write first/genral lines of batch file
-			commonHeader(secondary, false);
+			commonHeader(secondary, false, slurmLogName);
 			
 			//////// foreach command created write in batch file
 			for (ArrayList<String> cmd : curPatObject.getCmds04()) {
@@ -184,12 +188,15 @@ public class SlurmWriter {
 	public void savecombinedGenotyping() {
 
 		// create File
+		String outFileName = combGenoOut + ".sh";
+		String slurmLogName = combGenoOut + ".log";
 		Writer combGeno = new Writer();
-		combGeno.openWriter(combGenoOut);
+		combGeno.openWriter(outFileName);
+		
 
 
 		// add first line to file
-		commonHeader(combGeno, false);
+		commonHeader(combGeno, false, slurmLogName);
 		
 		// for each entered command save in combined file
 		for (ArrayList<String> curCmd : combined.getCmds03()) {
@@ -224,11 +231,13 @@ public class SlurmWriter {
 	public void saveCombinedCommands() {
 
 		// create file
+		String fileOut = combFileOut + ".sh";
+		String slurmLogName = combFileOut + ".log";
 		Writer comb = new Writer();
-		comb.openWriter(combFileOut);
+		comb.openWriter(fileOut);
 
 		// add first line to combined commands
-		commonHeader(comb, true);
+		commonHeader(comb, true, slurmLogName);
 		
 		// for each entered command save in combined file
 		for (ArrayList<String> curCmd : combined.getCmds05()) {
@@ -249,7 +258,7 @@ public class SlurmWriter {
 	
 	
 	//// prepare common header
-	private void commonHeader(Writer outFile, boolean finalFile) {
+	private void commonHeader(Writer outFile, boolean finalFile, String slurmLogName) {
 		
 		
 		///////////////////////////////
@@ -258,7 +267,7 @@ public class SlurmWriter {
 		outFile.writeLine("#!/bin/bash");
 		outFile.writeOption("--cpus-per-task=" + maxCPU);
 		outFile.writeOption("--mem=" + maxMem + "G");
-		outFile.writeOption("--output " + options.getSlurmLog() + sep + "slurm-%A.log");
+		outFile.writeOption("--output " + options.getSlurmLog() + sep + slurmLogName);
 		
 		
 		
