@@ -21,7 +21,9 @@ public class SlurmWriter {
 	private String sep = File.separator;
 	private String slurmDir;
 	private String combFileOutName;
+	private String combFileOutFile;
 	private String combGenoOutName;
+	private String combGenoOutFile;
 	private String masterScript;
 	private Combined combined;
 	private String slurmPatition;
@@ -50,7 +52,9 @@ public class SlurmWriter {
 		// gather general variables
 		masterScript = slurmDir + sep + "01-master.sh";
 		combGenoOutName = "03-gatkGenotyping";
+		combGenoOutFile = slurmDir + sep + combGenoOutName + ".sh";
 		combFileOutName = "05-combined";
+		combFileOutFile = slurmDir + sep + combFileOutName + ".sh";
 
 
 	}
@@ -375,8 +379,7 @@ public class SlurmWriter {
 		
 		// create slurm command for the combined genotyping step
 		String waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + 
-				" -d afterok" + waitCombinedGenotypePrep + " " 
-				+ combGenoOutName + ".sh"+ ")";
+				" -d afterok" + waitCombinedGenotypePrep + " " + combGenoOutFile + ")";
 
 		// write wait command in master file
 		master.writeLine(waitCombinedGenotype);
@@ -415,7 +418,7 @@ public class SlurmWriter {
 		}
 
 		// write wait command in master file
-		master.writeLine(waitPostCombinedGenotype + " " + combFileOutName);
+		master.writeLine(waitPostCombinedGenotype + " " + combFileOutFile);
 
 		
 
