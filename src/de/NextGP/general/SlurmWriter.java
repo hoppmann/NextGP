@@ -97,8 +97,8 @@ public class SlurmWriter {
 
 			// Create batch file to write commands in.
 			// prepare writer
-			String outPrefix = slurmDir + sep + "02-" + curPat;
-			String outFile = outPrefix + ".sh";
+			String outPrefix = "02-" + curPat;
+			String outFile = slurmDir + sep + outPrefix + ".sh";
 			String slurmLogName = outPrefix + ".log";
 			Writer primaryCmds = new Writer();
 			primaryCmds.openWriter(outFile);
