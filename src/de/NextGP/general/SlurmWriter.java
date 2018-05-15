@@ -20,8 +20,8 @@ public class SlurmWriter {
 	private static Logger logger = LoggerFactory.getLogger(SlurmWriter.class);
 	private String sep = File.separator;
 	private String slurmDir;
-	private String combFileOut;
-	private String combGenoOut;
+	private String combFileOutName;
+	private String combGenoOutName;
 	private String masterScript;
 	private Combined combined;
 	private String slurmPatition;
@@ -49,8 +49,8 @@ public class SlurmWriter {
 
 		// gather general variables
 		masterScript = slurmDir + sep + "01-master.sh";
-		combGenoOut = slurmDir + sep + "03-gatkGenotyping";
-		combFileOut = slurmDir + sep + "05-combined";
+		combGenoOutName = "03-gatkGenotyping";
+		combFileOutName = "05-combined";
 
 
 	}
@@ -188,8 +188,8 @@ public class SlurmWriter {
 	public void savecombinedGenotyping() {
 
 		// create File
-		String outFileName = combGenoOut + ".sh";
-		String slurmLogName = combGenoOut + ".log";
+		String outFileName = slurmDir + sep + combGenoOutName + ".sh";
+		String slurmLogName = combGenoOutName + ".log";
 		Writer combGeno = new Writer();
 		combGeno.openWriter(outFileName);
 		
@@ -231,8 +231,8 @@ public class SlurmWriter {
 	public void saveCombinedCommands() {
 
 		// create file
-		String fileOut = combFileOut + ".sh";
-		String slurmLogName = combFileOut + ".log";
+		String fileOut = slurmDir + sep + combFileOutName + ".sh";
+		String slurmLogName = combFileOutName + ".log";
 		Writer comb = new Writer();
 		comb.openWriter(fileOut);
 
@@ -374,7 +374,7 @@ public class SlurmWriter {
 		
 		
 		// create slurm command for the combined genotyping step
-		String waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + " -d afterok" + waitCombinedGenotypePrep + " " + combGenoOut + ")";
+		String waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + " -d afterok" + waitCombinedGenotypePrep + " " + combGenoOutName + ")";
 
 		// write wait command in master file
 		master.writeLine(waitCombinedGenotype);
@@ -413,7 +413,7 @@ public class SlurmWriter {
 		}
 
 		// write wait command in master file
-		master.writeLine(waitPostCombinedGenotype + " " + combFileOut);
+		master.writeLine(waitPostCombinedGenotype + " " + combFileOutName);
 
 		
 
