@@ -98,7 +98,7 @@ public class SlurmWriter {
 			// Create batch file to write commands in.
 			// prepare writer
 			String outPrefix = "02-" + curPat;
-			String outFile = slurmDir + sep + outPrefix + ".sh";
+			String outFile = slurmDir + sep + 	outPrefix + ".sh";
 			String slurmLogName = outPrefix + ".log";
 			Writer primaryCmds = new Writer();
 			primaryCmds.openWriter(outFile);
@@ -374,7 +374,9 @@ public class SlurmWriter {
 		
 		
 		// create slurm command for the combined genotyping step
-		String waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + " -d afterok" + waitCombinedGenotypePrep + " " + combGenoOutName + ")";
+		String waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + 
+				" -d afterok" + waitCombinedGenotypePrep + " " 
+				+ combGenoOutName + ".sh"+ ")";
 
 		// write wait command in master file
 		master.writeLine(waitCombinedGenotype);
