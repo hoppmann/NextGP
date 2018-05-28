@@ -26,7 +26,7 @@ public class GetOptions {
 	private Options options;
 	private SetOptions setOptions;
 	private String progPath;
-	CommandLine cmd = null;
+	private CommandLine cmd = null;
 	private String outDir = "out";
 	private String cpu;
 	private String mem;

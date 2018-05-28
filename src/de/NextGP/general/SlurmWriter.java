@@ -104,7 +104,7 @@ public class SlurmWriter {
 			// prepare writer
 			String outPrefix = "02-" + curPat;
 			String outFile = slurmDir + sep + 	outPrefix + ".sh";
-			String slurmLogName = outPrefix + ".log";
+			String slurmLogName = outPrefix;
 			Writer primaryCmds = new Writer();
 			primaryCmds.openWriter(outFile);
 
@@ -150,7 +150,7 @@ public class SlurmWriter {
 			// prepare writer
 			String outPrefix =  "04-" + curPat;
 			String outFile = slurmDir + sep + outPrefix + ".sh";
-			String slurmLogName = outPrefix + ".log";
+			String slurmLogName = outPrefix;
 			Writer secondary = new Writer();
 			secondary.openWriter(outFile);
 
@@ -190,12 +190,12 @@ public class SlurmWriter {
 
 
 	///////////////////////
-	//////// save command from combined genotyping 
+	//////// save command from 03 combined genotyping 
 	public void savecombinedGenotyping() {
 
 		// create File
 		String outFileName = slurmDir + sep + combGenoOutName + ".sh";
-		String slurmLogName = combGenoOutName + ".log";
+		String slurmLogName = combGenoOutName;
 		Writer combGeno = new Writer();
 		combGeno.openWriter(outFileName);
 		
@@ -238,7 +238,7 @@ public class SlurmWriter {
 
 		// create file
 		String fileOut = slurmDir + sep + combFileOutName + ".sh";
-		String slurmLogName = combFileOutName + ".log";
+		String slurmLogName = combFileOutName;
 		Writer comb = new Writer();
 		comb.openWriter(fileOut);
 
@@ -266,7 +266,14 @@ public class SlurmWriter {
 	//// prepare common header
 	private void commonHeader(Writer outFile, boolean finalFile, String slurmLogName) {
 		
+		    
 		
+	    
+	    ////////////////////////////////
+	    ///////// prepare slurm log name
+	    
+	    slurmLogName = slurmLogName + "_%j.log";
+	    
 		///////////////////////////////
 		//////// add slurm based options ////////
 		

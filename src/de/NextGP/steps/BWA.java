@@ -40,7 +40,6 @@ public class BWA {
 
 	public BWA(LoadConfig config, Map<String, Patients> patients, GetOptions opts,  Combined combined){
 
-
 		
 		// Retrieve values
 		this.config = config;
