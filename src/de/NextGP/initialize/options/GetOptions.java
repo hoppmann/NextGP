@@ -33,7 +33,7 @@ public class GetOptions {
 	private String bedFile;
 	private String slurmDir = "pipeline";
 	private int minConsCall = 2;
-	private String slurmPatition = "genepi";
+	private String slurmPatition = "";
 	private String tempDir;
 	private boolean isSolid = false;
 	private String slurmLog = "slurmLog";

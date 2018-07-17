@@ -232,7 +232,7 @@ public class SlurmWriter {
 
 
 	//////////////////
-	//////// save commands to be run on combined file
+	//////// 05 save commands to be run on combined file
 
 	public void saveCombinedCommands() {
 
@@ -256,7 +256,7 @@ public class SlurmWriter {
 		
 		// make comment to see if script finished
 		comb.writeLine("echo \"script finished\"");
-
+		
 		comb.close();
 	}
 
@@ -333,8 +333,8 @@ public class SlurmWriter {
 	
 	
 	
-	///////////////////
-	//////// prepare master script to start pipeline
+	////////////////////////////
+	//////// 01 prepare master script to start pipeline
 
 	public void saveMasterScript() {
 
@@ -377,7 +377,14 @@ public class SlurmWriter {
 
 			// write bash execution in master file and prepare wait command
 			String curPatVar = "Pat_" + curPat;
-			master.writeLine(curPatVar + "=$(sbatch -p " + slurmPatition + " " + outFile + ")");
+			
+			// check if partition is given else use slurm default
+			if (slurmPatition.equals("")) {
+				master.writeLine(curPatVar + "=$(sbatch " + outFile + ")");
+			} else {
+				master.writeLine(curPatVar + "=$(sbatch -p " + slurmPatition + " " + outFile + ")");
+			}
+			
 			master.writeLine( curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
 			waitCombinedGenotypePrep += ":$" + curPatVar;
 
@@ -386,10 +393,15 @@ public class SlurmWriter {
 		
 		
 		
+		
 		// create slurm command for the combined genotyping step
-		String waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + 
+		String waitCombinedGenotype;
+		if (slurmPatition.equals("")) {
+			 waitCombinedGenotype = "\ncomb=$(sbatch -d afterok" + waitCombinedGenotypePrep + " " + combGenoOutFile + ")";
+		} else {
+			waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + 
 				" -d afterok" + waitCombinedGenotypePrep + " " + combGenoOutFile + ")";
-
+		}
 		// write wait command in master file
 		master.writeLine(waitCombinedGenotype);
 		master.writeLine("comb=$(echo $comb | sed 's/Submitted batch job //')");
@@ -410,8 +422,12 @@ public class SlurmWriter {
 		
 
 		// prepare wait command for second combined steps
-		String waitPostCombinedGenotype ="\nsbatch -p " + slurmPatition + " -d afterok";
-
+		String waitPostCombinedGenotype;
+		if (slurmPatition.equals("")) {
+			waitPostCombinedGenotype ="\nsbatch -d afterok";
+		} else {
+			waitPostCombinedGenotype ="\nsbatch -p " + slurmPatition + " -d afterok";
+		}
 
 		for (String curPat : patients.keySet()) {
 
@@ -420,7 +436,12 @@ public class SlurmWriter {
 			String curPatVar = "Pat2_" + curPat;
 
 			// write bash execution in master file and prepare wait command
-			master.writeLine(curPatVar + "=$(sbatch -p " + slurmPatition + " -d afterok:$comb " + outFile + ")");
+			
+			if (slurmPatition.equals("")) {
+				master.writeLine(curPatVar + "=$(sbatch -d afterok:$comb " + outFile + ")");
+			} else {
+				master.writeLine(curPatVar + "=$(sbatch -p " + slurmPatition + " -d afterok:$comb " + outFile + ")");
+			}
 			master.writeLine(curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
 			waitPostCombinedGenotype += ":$" + curPatVar;
 
