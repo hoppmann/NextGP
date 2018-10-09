@@ -60,7 +60,7 @@ public class GetOptions {
 	// pipeline parts
 	private int first = 1;
 	private int last = 10;
-	private boolean mail;
+	private boolean mail = true;
 	private boolean skiptAlamutBatch;
 	
 
@@ -240,8 +240,8 @@ public class GetOptions {
 			last = Integer.valueOf(cmd.getOptionValue("last"));
 		}
 		
-		if (cmd.hasOption("mail")) {
-			mail = cmd.hasOption("mail");
+		if (cmd.hasOption("noMail")) {
+			mail = false;
 		}
 		
 		if (cmd.hasOption("skip")) {
