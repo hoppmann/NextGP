@@ -383,6 +383,7 @@ public class GetOptions {
 	}
 
 	public boolean isMail() {
+	    System.out.println(mail);
 		return mail;
 	}
 
