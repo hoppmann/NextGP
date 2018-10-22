@@ -298,13 +298,6 @@ public class SlurmWriter {
 		if (finalFile && options.isMail()) {
 			outFile.writeOption("--mail-type=FAIL");
 			outFile.writeOption("--mail-type=END");
-			
-			// add afterok option if specific PIDs given
-			if (options.getAfterOk() != null) {
-				outFile.writeOption("--dependency=afterok:" + options.getAfterOk());
-				
-			}
-			
 		} else if (options.isMail()) {
 			outFile.writeOption("--mail-type=FAIL");
 		}
@@ -352,6 +345,8 @@ public class SlurmWriter {
 		master.openWriter(masterScript);
 
 
+		
+		
 		///////////////////////////////
 		//////// Pre consensus //////// 
 		///////////////////////////////
@@ -426,7 +421,7 @@ public class SlurmWriter {
 		//////// post consensus ////////
 		////////////////////////////////
 
-		// add emtpy lines for better visibility
+		// add empty lines for better visibility
 		master.writeLine("\n");
 		
 
@@ -436,6 +431,11 @@ public class SlurmWriter {
 			waitPostCombinedGenotype ="\nsbatch -d afterok";
 		} else {
 			waitPostCombinedGenotype ="\nsbatch -p " + slurmPatition + " -d afterok";
+		}
+		
+		// check if afterOk command is given
+		if (options.getAfterOk() !=  null) {
+			waitPostCombinedGenotype += ":" + options.getAfterOk();
 		}
 
 		for (String curPat : patients.keySet()) {
@@ -455,6 +455,8 @@ public class SlurmWriter {
 			waitPostCombinedGenotype += ":$" + curPatVar;
 
 		}
+		
+		
 
 		// write wait command in master file
 		master.writeLine(waitPostCombinedGenotype + " " + combFileOutFile);
