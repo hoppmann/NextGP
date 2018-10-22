@@ -251,7 +251,7 @@ public class GetOptions {
 		}
 		
 		if (cmd.hasOption("afterOk")) {
-			afterOk = cmd.getOptionValue("afterPk");
+			afterOk = cmd.getOptionValue("afterOk");
 		}
 		
 		
