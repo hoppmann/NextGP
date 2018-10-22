@@ -63,7 +63,7 @@ public class GetOptions {
 	private int last = 10;
 	private boolean mail = true;
 	private boolean skiptAlamutBatch;
-	private String after;
+	private String afterOk;
 	
 
 	////////////////
@@ -250,8 +250,8 @@ public class GetOptions {
 			skiptAlamutBatch = true;
 		}
 		
-		if (cmd.hasOption("after")) {
-			after = cmd.getOptionValue("after");
+		if (cmd.hasOption("afterOk")) {
+			afterOk = cmd.getOptionValue("afterPk");
 		}
 		
 		
@@ -413,10 +413,10 @@ public class GetOptions {
 		return skiptAlamutBatch;
 	}
 
-	
-	public String getAfter() {
-		return after;
+	public String getAfterOk() {
+		return afterOk;
 	}
+
 	
 	
 	

@@ -303,8 +303,8 @@ public class SlurmWriter {
 		}
 		
 		// add afterok option if specific PIDs given
-		System.out.println(options.getAfter());
-		if (options.getAfter() != null) {
+		System.out.println(options.getAfterOk());
+		if (options.getAfterOk() != null) {
 			
 		}
 		
