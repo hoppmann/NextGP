@@ -298,15 +298,18 @@ public class SlurmWriter {
 		if (finalFile && options.isMail()) {
 			outFile.writeOption("--mail-type=FAIL");
 			outFile.writeOption("--mail-type=END");
+			
+			// add afterok option if specific PIDs given
+			if (options.getAfterOk() != null) {
+				outFile.writeOption("--dependency=afterok:" + options.getAfterOk());
+				
+			}
+			
 		} else if (options.isMail()) {
 			outFile.writeOption("--mail-type=FAIL");
 		}
 		
-		// add afterok option if specific PIDs given
-		if (options.getAfterOk() != null) {
-			outFile.writeOption("--dependency=afterok:" + options.getAfterOk());
-			
-		}
+		
 		
 	}
 	
