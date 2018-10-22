@@ -303,8 +303,8 @@ public class SlurmWriter {
 		}
 		
 		// add afterok option if specific PIDs given
-		System.out.println(options.getAfterOk());
 		if (options.getAfterOk() != null) {
+			outFile.writeOption("--dependency=afterok:" + options.getAfterOk());
 			
 		}
 		
