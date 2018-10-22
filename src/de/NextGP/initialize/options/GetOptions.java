@@ -39,6 +39,7 @@ public class GetOptions {
 	private String slurmLog = "slurmLog";
 	
 	
+	
 	// slurm based
 	private String[] exclude = null;
 	private String[] restrict = null;
@@ -62,6 +63,7 @@ public class GetOptions {
 	private int last = 10;
 	private boolean mail = true;
 	private boolean skiptAlamutBatch;
+	private String after;
 	
 
 	////////////////
@@ -248,6 +250,10 @@ public class GetOptions {
 			skiptAlamutBatch = true;
 		}
 		
+		if (cmd.hasOption("after")) {
+			after = cmd.getOptionValue("after");
+		}
+		
 		
 		
 		
@@ -406,6 +412,12 @@ public class GetOptions {
 	public boolean isSkiptAlamutBatch() {
 		return skiptAlamutBatch;
 	}
+
+	
+	public String getAfter() {
+		return after;
+	}
+	
 	
 	
 	

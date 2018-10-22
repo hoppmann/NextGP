@@ -114,6 +114,7 @@ public class SetOptions {
 		opts.put(misc, new OptionValue(options, "last", true, "Last step of Pipeline to run. Default 10."));
 		opts.put(misc, new OptionValue(options, "noMail", false, "If set, no notice of failing or finishing will be send to the corresponding e-mail adress deposed in slurm."));
 		opts.put(misc, new OptionValue(options, "skip", false, "Skips running alamut batch. Only use if an old annotation file is available."));
+		opts.put(misc, new OptionValue(options, "after", true, "Commaseperated list of Slurm PIDs for afterok-statur for 05-Job."));
 	}
 
 	

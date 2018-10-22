@@ -302,6 +302,12 @@ public class SlurmWriter {
 			outFile.writeOption("--mail-type=FAIL");
 		}
 		
+		// add afterok option if specific PIDs given
+		System.out.println(options.getAfter());
+		if (options.getAfter() != null) {
+			
+		}
+		
 	}
 	
 	
