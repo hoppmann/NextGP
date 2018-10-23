@@ -455,7 +455,6 @@ public class SlurmWriter {
 		if (options.getAfterAny() !=  null) {
 			waitPostCombinedGenotype += ",afterany:" + options.getAfterAny();
 		}
-		System.out.println(waitPostCombinedGenotype);
 
 		
 

@@ -250,8 +250,8 @@ public class GetOptions {
 			skiptAlamutBatch = true;
 		}
 		
-		if (cmd.hasOption("afterOk")) {
-			afterOk = cmd.getOptionValue("afterOk");
+		if (cmd.hasOption("after")) {
+			afterOk = cmd.getOptionValue("after");
 		}
 		
 		
