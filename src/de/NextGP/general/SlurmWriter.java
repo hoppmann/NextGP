@@ -433,10 +433,6 @@ public class SlurmWriter {
 			waitPostCombinedGenotype ="\nsbatch -p " + slurmPatition + " -d afterok";
 		}
 		
-		// check if afterOk command is given
-		if (options.getAfterOk() !=  null) {
-			waitPostCombinedGenotype += ":" + options.getAfterOk();
-		}
 
 		for (String curPat : patients.keySet()) {
 
@@ -455,7 +451,12 @@ public class SlurmWriter {
 			waitPostCombinedGenotype += ":$" + curPatVar;
 
 		}
-		
+		// check if afterOk command is given
+		if (options.getAfterAny() !=  null) {
+			waitPostCombinedGenotype += ",afterany:" + options.getAfterAny();
+		}
+		System.out.println(waitPostCombinedGenotype);
+
 		
 
 		// write wait command in master file

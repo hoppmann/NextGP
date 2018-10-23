@@ -413,7 +413,7 @@ public class GetOptions {
 		return skiptAlamutBatch;
 	}
 
-	public String getAfterOk() {
+	public String getAfterAny() {
 		return afterOk;
 	}
 
