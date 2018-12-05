@@ -83,16 +83,16 @@ public class SetOptions {
 		// general options
 		opts.put(general, new OptionValue(options, "help", false, "\tCalls this help."));
 		opts.put(general, new OptionValue(options, "outDir", true, "\tName of directory for output. (default = out)"));
-		opts.put(general, new OptionValue(options, "CPU", true, "\tNumber of CPU per thread (default:4)"));
-		opts.put(general, new OptionValue(options, "mem", true, "\tAmount of memory allowed per thread in Gb (default 40Gb)"));
 		opts.put(general, new OptionValue(options, "bedFile", true, "\tPath to bed file containing covered regions"));
-		opts.put(general, new OptionValue(options, "slurmDir", true, "Set directory slurm commands will be written to."));
 		opts.put(general, new OptionValue(options, "consensus", true, "Sets the threshold of how many caller need to call a variant before it's accepted. (default 2)"));
 		opts.put(general, new OptionValue(options, "tempDir", true, "\tFolder to save intermediate steps which will not be kept in the end (defauld /tempdata/ge/NextGP/)"));
 
 		// slurm options
+		opts.put(slurm, new OptionValue(options, "slurmDir", true, "Set directory slurm commands will be written to."));
 		opts.put(slurm, new OptionValue(options, "slurmPatition", true, "Define the slurm patition to run on."));
 		opts.put(slurm, new OptionValue(options, "slurmLog", true, "Sets the folder where to save the slurm logs."));
+		opts.put(slurm, new OptionValue(options, "CPU", true, "\tNumber of CPU per thread (default:4)"));
+		opts.put(slurm, new OptionValue(options, "mem", true, "\tAmount of memory allowed per thread in Gb (default 40Gb)"));
 		opts.put(slurm, new OptionValue(options, "exclude", true, "\tSet the nodes to be excluded. To exclude multiple nodes call \"exclude\" multiple times."));
 		opts.put(slurm, new OptionValue(options, "restrict", true, "Sets specific nodes to be used for analysis. To set multiple nodes call \"restrict\" multiple times"));
 		
