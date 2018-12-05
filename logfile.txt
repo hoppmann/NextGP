@@ -1,3 +1,0 @@
-22.10.2018 09:23:34 [main] INFO de.NextGP.main.Main - Reading in config file.
-22.10.2018 09:23:35 [main] INFO de.NextGP.initialize.options.GetOptions - Getting command line options.
-22.10.2018 09:23:35 [main] INFO de.NextGP.main.Main - NextGP succesfully finished
