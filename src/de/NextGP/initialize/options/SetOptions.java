@@ -89,7 +89,7 @@ public class SetOptions {
 
 		// slurm options
 		opts.put(slurm, new OptionValue(options, "slurmDir", true, "Set directory slurm commands will be written to."));
-		opts.put(slurm, new OptionValue(options, "slurmPatition", true, "Define the slurm patition to run on."));
+		opts.put(slurm, new OptionValue(options, "slurmPartition", true, "Define the slurm patition to run on."));
 		opts.put(slurm, new OptionValue(options, "slurmLog", true, "Sets the folder where to save the slurm logs."));
 		opts.put(slurm, new OptionValue(options, "CPU", true, "\tNumber of CPU per thread (default:4)"));
 		opts.put(slurm, new OptionValue(options, "mem", true, "\tAmount of memory allowed per thread in Gb (default 40Gb)"));

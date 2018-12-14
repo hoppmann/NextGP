@@ -156,7 +156,7 @@ public class GetOptions {
 		
 		// get name of slurm partition
 		if (cmd.hasOption("slurmPatition")){
-			slurmPatition = cmd.getOptionValue("slurmPatition");
+			slurmPatition = cmd.getOptionValue("slurmPartition");
 		}
 		
 		// get name of directory for intermediate files
