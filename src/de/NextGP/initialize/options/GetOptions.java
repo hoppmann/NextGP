@@ -33,7 +33,7 @@ public class GetOptions {
 	private String bedFile;
 	private String slurmDir = "pipeline";
 	private int minConsCall = 2;
-	private String slurmPatition = "";
+	private String slurmPartition = "";
 	private String tempDir;
 	private boolean isSolid = false;
 	private String slurmLog = "slurmLog";
@@ -155,8 +155,8 @@ public class GetOptions {
 		}
 		
 		// get name of slurm partition
-		if (cmd.hasOption("slurmPatition")){
-			slurmPatition = cmd.getOptionValue("slurmPartition");
+		if (cmd.hasOption("slurmPartition")){
+			slurmPartition = cmd.getOptionValue("slurmPartition");
 		}
 		
 		// get name of directory for intermediate files
@@ -372,8 +372,8 @@ public class GetOptions {
 		return last;
 	}
 
-	public String getSlurmPatition() {
-		return slurmPatition;
+	public String getSlurmPartition() {
+		return slurmPartition;
 	}
 
 	public boolean isBam() {

@@ -26,7 +26,7 @@ public class SlurmWriter {
 	private String combGenoOutFile;
 	private String masterScript;
 	private Combined combined;
-	private String slurmPatition;
+	private String slurmPartition;
 	private int maxCPU;
 	private int maxMem;
 	private GetOptions options;
@@ -41,7 +41,7 @@ public class SlurmWriter {
 		this.patients = patients;
 		this.combined = combined;
 		this.slurmDir = options.getSlurmDir();
-		this.slurmPatition = options.getSlurmPatition();
+		this.slurmPartition = options.getSlurmPartition();
 		this.maxCPU = Integer.valueOf(options.getCpu());
 		this.maxMem = Integer.valueOf(options.getMem());
 		this.options = options;
@@ -383,10 +383,10 @@ public class SlurmWriter {
 			String curPatVar = "Pat_" + curPat;
 			
 			// check if partition is given else use slurm default
-			if (slurmPatition.equals("")) {
+			if (slurmPartition.equals("")) {
 				master.writeLine(curPatVar + "=$(sbatch " + outFile + ")");
 			} else {
-				master.writeLine(curPatVar + "=$(sbatch -p " + slurmPatition + " " + outFile + ")");
+				master.writeLine(curPatVar + "=$(sbatch -p " + slurmPartition + " " + outFile + ")");
 			}
 			
 			master.writeLine( curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
@@ -400,10 +400,10 @@ public class SlurmWriter {
 		
 		// create slurm command for the combined genotyping step
 		String waitCombinedGenotype;
-		if (slurmPatition.equals("")) {
+		if (slurmPartition.equals("")) {
 			 waitCombinedGenotype = "\ncomb=$(sbatch -d afterok" + waitCombinedGenotypePrep + " " + combGenoOutFile + ")";
 		} else {
-			waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPatition + 
+			waitCombinedGenotype = "\ncomb=$(sbatch -p " + slurmPartition + 
 				" -d afterok" + waitCombinedGenotypePrep + " " + combGenoOutFile + ")";
 		}
 		// write wait command in master file
@@ -427,10 +427,10 @@ public class SlurmWriter {
 
 		// prepare wait command for second combined steps
 		String waitPostCombinedGenotype;
-		if (slurmPatition.equals("")) {
+		if (slurmPartition.equals("")) {
 			waitPostCombinedGenotype ="\nsbatch -d afterok";
 		} else {
-			waitPostCombinedGenotype ="\nsbatch -p " + slurmPatition + " -d afterok";
+			waitPostCombinedGenotype ="\nsbatch -p " + slurmPartition + " -d afterok";
 		}
 		
 
@@ -442,10 +442,10 @@ public class SlurmWriter {
 
 			// write bash execution in master file and prepare wait command
 			
-			if (slurmPatition.equals("")) {
+			if (slurmPartition.equals("")) {
 				master.writeLine(curPatVar + "=$(sbatch -d afterok:$comb " + outFile + ")");
 			} else {
-				master.writeLine(curPatVar + "=$(sbatch -p " + slurmPatition + " -d afterok:$comb " + outFile + ")");
+				master.writeLine(curPatVar + "=$(sbatch -p " + slurmPartition + " -d afterok:$comb " + outFile + ")");
 			}
 			master.writeLine(curPatVar + "=$(echo $" + curPatVar + " | sed 's/Submitted batch job //')");
 			waitPostCombinedGenotype += ":$" + curPatVar;
