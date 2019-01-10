@@ -8,7 +8,7 @@ import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
-public class Exon {
+public class Exome {
 
 	//////////////
 	//// Variables
@@ -16,12 +16,12 @@ public class Exon {
 	LoadConfig config;
 	Combined combined;
 
-	private static Logger logger = LoggerFactory.getLogger(Exon.class);
+	private static Logger logger = LoggerFactory.getLogger(Exome.class);
 
 
 	// run pipeline corresponding to an Illumina Panel
 
-	public Exon(GetOptions options, LoadConfig config) {
+	public Exome(GetOptions options, LoadConfig config) {
 
 		Log.logger(logger, "Preparing exon based pipeline");
 		

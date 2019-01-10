@@ -38,7 +38,7 @@ public class Main {
 		
 		
 		// run IonTorrentExon
-		if (options.isIonExon()){
+		if (options.isIonExome()){
 			new IonTorrent(options, config).runExon();;
 		}
 		
@@ -47,9 +47,9 @@ public class Main {
 			new IonTorrent(options, config).runPanel();
 		}
 
-		// run exonBam
-		if (options.isBamExon()){
-			new Exon(options, config);
+		// run exome
+		if (options.isExome()){
+			new Exome(options, config);
 		}
 
 		// run custom chosen pipeline

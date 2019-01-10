@@ -105,7 +105,7 @@ public class SetOptions {
 		opts.put(pipeline, new OptionValue(options, "panel", false, "\tif chosen runs all steps necessary for analysis of an Illumina panel."));
 		opts.put(pipeline, new OptionValue(options, "ionExon", false, "\tExecutes the Ion Torrent exone pipeline"));
 		opts.put(pipeline, new OptionValue(options, "ionPanel", false, "Prepares the ionTorrent panel version of the pipeline"));
-		opts.put(pipeline, new OptionValue(options, "exon", false, "\trun an exon starting with a bam file"));
+		opts.put(pipeline, new OptionValue(options, "exome", false, "\trun an whole exome analysis. Can be combined with \"bamList\""));
 		opts.put(pipeline, new OptionValue(options, "solid", false, "\tUse this option if input bam files are SOLiD files. Only needed if \"exon\" is run"));
 		
 		

@@ -293,7 +293,7 @@ public class SlurmWriter {
 		alamut.openWriter(fileOut);
 		
 		// add first line to Alamut commands
-		commonHeader(alamut, true, alamutFileOutName);
+		commonHeader(alamut, true, slurmLogName);
 		
 		
 		// for each command save in combined file

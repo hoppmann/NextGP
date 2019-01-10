@@ -51,9 +51,9 @@ public class GetOptions {
 	// pipelines
 	private boolean bwa;
 	private boolean illuminaPanel;
-	private boolean ionExon;
+	private boolean ionExome;
 	private boolean ionPanel;
-	private boolean bamExon;
+	private boolean exome;
 	private String customPipeline;
 	private boolean custom;
 	private boolean bam;
@@ -215,11 +215,11 @@ public class GetOptions {
 		}
 		
 		if (cmd.hasOption("ionExon")) {
-			ionExon = true;
+			ionExome = true;
 		}
 		
-		if (cmd.hasOption("exon")) {
-			bamExon = true;
+		if (cmd.hasOption("exome")) {
+			exome = true;
 		}
 		
 		
@@ -313,12 +313,12 @@ public class GetOptions {
 		return bamList;
 	}
 
-	public boolean isIonExon() {
-		return ionExon;
+	public boolean isIonExome() {
+		return ionExome;
 	}
 
-	public boolean isBamExon() {
-		return bamExon;
+	public boolean isExome() {
+		return exome;
 	}
 
 	public String getCustomPipeline() {
