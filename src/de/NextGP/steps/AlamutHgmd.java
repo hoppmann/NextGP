@@ -92,7 +92,7 @@ public class AlamutHgmd {
 
 		if ( options.getFirst() <= step && options.getLast() >= step ) {
 			if (! options.isSkiptAlamutBatch()) {
-				combined.addCmd05(alamutCmd);
+				combined.addAlamutCmd(alamutCmd);
 			}
 		}
 
@@ -124,7 +124,7 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if (options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addCmd05(formBedCmd);
+			combined.addAlamutCmd(formBedCmd);
 		}
 	}
 
@@ -143,7 +143,7 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if (options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addCmd05(tabixCmd);
+			combined.addAlamutCmd(tabixCmd);
 		}
 	}
 
@@ -185,7 +185,7 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if (options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addCmd05(prepColCmd);
+			combined.addAlamutCmd(prepColCmd);
 		}
 	}
 
@@ -206,7 +206,7 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if (options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addCmd05(updateGeminiCmd);
+			combined.addAlamutCmd(updateGeminiCmd);
 		}
 
 

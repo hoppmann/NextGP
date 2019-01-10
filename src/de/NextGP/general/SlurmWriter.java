@@ -24,6 +24,8 @@ public class SlurmWriter {
 	private String combFileOutFile;
 	private String combGenoOutName;
 	private String combGenoOutFile;
+	private String alamutFileOutName;
+	private String alamutFileOutFileName;
 	private String masterScript;
 	private Combined combined;
 	private String slurmPartition;
@@ -55,6 +57,8 @@ public class SlurmWriter {
 		combGenoOutFile = slurmDir + sep + combGenoOutName + ".sh";
 		combFileOutName = "05-combined";
 		combFileOutFile = slurmDir + sep + combFileOutName + ".sh";
+		alamutFileOutName = "06-alamut";
+		alamutFileOutFileName = slurmDir + sep + alamutFileOutName + ".sh";
 
 
 	}
@@ -82,6 +86,7 @@ public class SlurmWriter {
 			saveMasterScript();
 			savecombinedGenotyping();
 			saveSecondaryCommands();
+			saveAlamutCommand();
 
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
@@ -90,6 +95,10 @@ public class SlurmWriter {
 
 	}
 
+	
+	
+	
+	
 	///////////////////////
 	//////// 02 files
 	//////// for each patient save prepared pre-GATK calling commands in slurm file
@@ -136,6 +145,9 @@ public class SlurmWriter {
 
 
 
+	
+	
+	
 	///////////////////
 	//////// 04 files
 	//////// prepare patient file post gatk calling
@@ -243,7 +255,7 @@ public class SlurmWriter {
 		comb.openWriter(fileOut);
 
 		// add first line to combined commands
-		commonHeader(comb, true, slurmLogName);
+		commonHeader(comb, false, slurmLogName);
 		
 		// for each entered command save in combined file
 		for (ArrayList<String> curCmd : combined.getCmds05()) {
@@ -261,6 +273,61 @@ public class SlurmWriter {
 	}
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	/////////////////////////////////////////////////////
+	//////// 06 save Alamut annotations in singleton file
+	
+	public void saveAlamutCommand() {
+		
+		// create file
+		String fileOut = slurmDir + sep + alamutFileOutName + ".sh";
+		String slurmLogName = alamutFileOutName;
+		Writer alamut = new Writer();
+		alamut.openWriter(fileOut);
+		
+		// add first line to Alamut commands
+		commonHeader(alamut, true, alamutFileOutName);
+		
+		
+		// for each command save in combined file
+		for (ArrayList<String> curCmd : combined.getAlamutCmd()) {
+			
+			alamut.writeCmd(curCmd);
+			ArrayList<String> date = new ArrayList<>();
+			date.add("date");
+			alamut.writeCmd(date);
+
+			
+		}
+		
+
+		// make comment to see if script finished
+		alamut.writeLine("echo \"script finished\"");
+
+		
+		alamut.close();
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//// prepare common header
@@ -415,6 +482,9 @@ public class SlurmWriter {
 
 
 
+		
+		
+		
 
 
 		////////////////////////////////
@@ -428,9 +498,9 @@ public class SlurmWriter {
 		// prepare wait command for second combined steps
 		String waitPostCombinedGenotype;
 		if (slurmPartition.equals("")) {
-			waitPostCombinedGenotype ="\nsbatch -d afterok";
+			waitPostCombinedGenotype ="sbatch -d afterok";
 		} else {
-			waitPostCombinedGenotype ="\nsbatch -p " + slurmPartition + " -d afterok";
+			waitPostCombinedGenotype ="sbatch -p " + slurmPartition + " -d afterok";
 		}
 		
 
@@ -451,18 +521,29 @@ public class SlurmWriter {
 			waitPostCombinedGenotype += ":$" + curPatVar;
 
 		}
+
 		// check if afterOk command is given
 		if (options.getAfterAny() !=  null) {
 			waitPostCombinedGenotype += ",afterany:" + options.getAfterAny();
 		}
 
-		
-
 		// write wait command in master file
-		master.writeLine(waitPostCombinedGenotype + " " + combFileOutFile);
+		master.writeLine("");
+		master.writeLine("preAla=$(" + waitPostCombinedGenotype + " " + combFileOutFile+ ")");
+		master.writeLine("preAla=$(echo $preAla | sed 's/Submitted batch job //')");
 
 		
-
+		
+		// write alamut 
+		String slurmLine = "";
+		if (slurmPartition.equals("")) {
+			slurmLine = "sbatch -p " + slurmPartition + " -d afterok:$preAla,singleton ";
+		} else {
+			slurmLine = "sbatch -p " + slurmPartition + " -d afterok:$preAla,singleton";
+		}
+		
+		master.writeLine("");
+		master.writeLine(slurmLine + " " + alamutFileOutFileName);
 
 
 

@@ -2,6 +2,7 @@ package de.NextGP.general.outfiles;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Combined {
 	///////////////////////////
@@ -18,6 +19,7 @@ public class Combined {
 	private ArrayList<String> mkDirs = new ArrayList<>();
 	private LinkedList<ArrayList<String>> cmds03 = new LinkedList<>(); 
 	private LinkedList<ArrayList<String>> cmds05 = new LinkedList<>();
+	private List<ArrayList<String>> alamutCmd = new LinkedList<>();
 
 
 
@@ -50,6 +52,11 @@ public class Combined {
 		
 	}
 	
+	public void addAlamutCmd (ArrayList<String> cmd) {
+		alamutCmd.add(cmd);
+	}
+	
+	
 	
 	
 	/////////////////////////////////
@@ -67,6 +74,11 @@ public class Combined {
 
 	public LinkedList<ArrayList<String>> getCmds05() {
 		return cmds05;
+	}
+	
+	
+	public List<ArrayList<String>> getAlamutCmd() {
+		return alamutCmd;
 	}
 	
 	
@@ -125,6 +137,10 @@ public class Combined {
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
 	}
+
+
+
+	
 
 
 	
