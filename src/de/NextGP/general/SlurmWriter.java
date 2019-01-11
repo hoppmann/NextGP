@@ -537,7 +537,7 @@ public class SlurmWriter {
 		// write alamut 
 		String slurmLine = "";
 		if (slurmPartition.equals("")) {
-			slurmLine = "sbatch -p " + slurmPartition + " -d afterok:$preAla,singleton ";
+			slurmLine = "sbatch -d afterok:$preAla,singleton ";
 		} else {
 			slurmLine = "sbatch -p " + slurmPartition + " -d afterok:$preAla,singleton";
 		}
