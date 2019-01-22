@@ -128,7 +128,7 @@ public class Annotate {
 		 */
 		
 		
-		String headerNames = ",cds_strand,"
+/*		String headerNames = ",cds_strand,"
 				+ "SIFT_score,SIFT_converted_rankscore,SIFT_pred,"
 				+ "Polyphen2_HDIV_score,Polyphen2_HDIV_rankscore,Polyphen2_HDIV_pred,"
 				+ "Polyphen2_HVAR_score,Polyphen2_HVAR_rankscore,Polyphen2_HVAR_pred,"
@@ -154,7 +154,8 @@ public class Annotate {
 				+ "phastCons46way_primate,phastCons46way_primate_rankscore,"
 				+ "phastCons46way_placental,phastCons46way_placental_rankscore,"
 				+ "phastCons100way_vertebrate,phastCons100way_vertebrate_rankscore,"
-				+ "SiPhy_29way_pi,SiPhy_29way_logOdds,SiPhy_29way_logOdds_rankscore";
+				+ "SiPhy_29way_pi,SiPhy_29way_logOdds,SiPhy_29way_logOdds_rankscore"; 
+*/
 		
 		// prepare command
 		vepCmd.add(config.getVep());
@@ -164,7 +165,9 @@ public class Annotate {
 		vepCmd.add("--cache");
 		vepCmd.add("--merged");
 		vepCmd.add("--offline");
-		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + headerNames);
+//		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + headerNames);
+		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",ALL");
+
 		vepCmd.add("--species homo_sapiens");
 		vepCmd.add("--dir_cache " + config.getVepCache());
 		vepCmd.add("--cache_version 89");
