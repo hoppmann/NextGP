@@ -165,19 +165,14 @@ public class Annotate {
 		vepCmd.add("--cache");
 		vepCmd.add("--merged");
 		vepCmd.add("--offline");
+//		vepCmd.add("--use_given_ref " + config.getHg19Fasta());
 		vepCmd.add("--dir_cache " + config.getVepCache());
-		vepCmd.add("--cache_version 89");
+		vepCmd.add("--cache_version 95");
 		vepCmd.add("--assembly GRCh37");
 //		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + headerNames);
 		
 		
-		vepCmd.add("--dir_plugins " + config.getVepPluginDir());
-		
-		
-		
-		
-		
-		
+//		vepCmd.add("--dir_plugins " + config.getVepPluginDir());
 		
 		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",ALL");
 
