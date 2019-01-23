@@ -115,6 +115,7 @@ public class Annotate {
 		String sep = File.separator;
 		String outDir = tmpDir + sep + config.getAnnotation();
 		
+		
 		// get name for outfile
 		String[] splitFile = vcfFile.split(File.separator);
 		String name = splitFile[splitFile.length - 1].split("\\.")[0];
@@ -124,7 +125,6 @@ public class Annotate {
 		
 		/*
 		 * get columns of dbNSFP to be used for annotation
-		 * the current dbNSFP version is 2.9.3 since it is the last one on hg19
 		 */
 		
 		
@@ -158,6 +158,7 @@ public class Annotate {
 */
 		
 		// prepare command
+		vepCmd.add("echo \"running vep\"");
 		vepCmd.add(config.getVep());
 		vepCmd.add("-i " + outVtMaster);
 		vepCmd.add("-o " + outVEP);
