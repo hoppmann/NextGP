@@ -158,7 +158,6 @@ public class Annotate {
 */
 		
 		// prepare command
-		vepCmd.add("echo \"running vep\"");
 		vepCmd.add(config.getVep());
 		vepCmd.add("-i " + outVtMaster);
 		vepCmd.add("-o " + outVEP);
