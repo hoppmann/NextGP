@@ -5,8 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.jws.soap.SOAPBinding;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -347,7 +345,7 @@ public class SlurmWriter {
 		updateAlamut.openWriter(fileOut);
 		
 		// add first line to Alamut commands
-		commonHeader(updateAlamut, false, slurmLogName);
+		commonHeader(updateAlamut, true, slurmLogName);
 		
 		for (ArrayList<String> curCmd : combined.getUpdateGemini()) {
 			
