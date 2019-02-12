@@ -39,7 +39,7 @@ public class LoadConfig {
 	private String omni;
 	private String vepCache;
 	private String dbNSFP;
-	private String vepPluginDir;
+	private String vepCacheVersion;
 	
 	// misc
 	private String java;
@@ -105,7 +105,7 @@ public class LoadConfig {
 				hapmap = prop.getProperty("hapmap");
 				omni = prop.getProperty("omni");
 				vepCache = prop.getProperty("vepCache");
-				vepPluginDir=prop.getProperty("vepPluginDir");
+				vepCacheVersion=prop.getProperty("vepCacheVersion");
 				dbNSFP = prop.getProperty("dbNSFP");
 				
 				// misc
@@ -306,9 +306,10 @@ public class LoadConfig {
 				return dbNSFP;
 			}
 
-			public String getVepPluginDir() {
-				return vepPluginDir;
+			public String getVepCacheVersion() {
+				return vepCacheVersion;
 			}
+
 			
 			
 			

@@ -124,7 +124,7 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if (options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addAlamutCmd(formBedCmd);
+			combined.addUpdateGeminiCmd(formBedCmd);
 		}
 	}
 
@@ -143,7 +143,7 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if (options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addAlamutCmd(tabixCmd);
+			combined.addUpdateGeminiCmd(tabixCmd);
 		}
 	}
 
@@ -185,7 +185,7 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if (options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addAlamutCmd(prepColCmd);
+			combined.addUpdateGeminiCmd(prepColCmd);
 		}
 	}
 
@@ -206,7 +206,7 @@ public class AlamutHgmd {
 		Integer step = options.getSteps().get("alamut");
 
 		if (options.getFirst() <= step && options.getLast() >= step ) {
-			combined.addAlamutCmd(updateGeminiCmd);
+			combined.addUpdateGeminiCmd(updateGeminiCmd);
 		}
 
 

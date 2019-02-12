@@ -157,6 +157,13 @@ public class Annotate {
 				+ "SiPhy_29way_pi,SiPhy_29way_logOdds,SiPhy_29way_logOdds_rankscore"; 
 */
 		
+		String headerNames = ",SIFT_score,SIFT_pred"
+				+ ",Polyphen2_HVAR_score,Polyphen2_HVAR_pred"
+				+ ",MetaLR_score,MetaLR_pred,MetaSVM_score,MetaSVM_pred"
+				+ ",REVEL_score"
+				+ ",FATHMM_score,FATHMM_pred"
+				+ ",PROVEAN_score,PROVEAN_pred";
+		
 		// prepare command
 		vepCmd.add(config.getVep());
 		vepCmd.add("-i " + outVtMaster);
@@ -165,18 +172,11 @@ public class Annotate {
 		vepCmd.add("--cache");
 		vepCmd.add("--merged");
 		vepCmd.add("--offline");
-//		vepCmd.add("--use_given_ref " + config.getHg19Fasta());
 		vepCmd.add("--dir_cache " + config.getVepCache());
-		vepCmd.add("--cache_version 95");
+		vepCmd.add("--cache_version " + config.getVepCacheVersion());
 		vepCmd.add("--assembly GRCh37");
-//		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + headerNames);
-		
-		
-//		vepCmd.add("--dir_plugins " + config.getVepPluginDir());
-		
-		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + ",ALL");
-
 		vepCmd.add("--species homo_sapiens");
+		vepCmd.add("--plugin dbNSFP," + config.getDbNSFP() + headerNames);
 		vepCmd.add("--force_overwrite");
 		vepCmd.add("--sift b");
 		vepCmd.add("--polyphen b");

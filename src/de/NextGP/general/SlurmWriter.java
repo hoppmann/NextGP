@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.jws.soap.SOAPBinding;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +27,9 @@ public class SlurmWriter {
 	private String combGenoOutName;
 	private String combGenoOutFile;
 	private String alamutFileOutName;
-	private String alamutFileOutFileName;
+	private String alamutFileOutFile;
+	private String updateGeminiFileOutName;
+	private String updateGeminiFileOutFile;
 	private String masterScript;
 	private Combined combined;
 	private String slurmPartition;
@@ -58,7 +62,9 @@ public class SlurmWriter {
 		combFileOutName = "05-combined";
 		combFileOutFile = slurmDir + sep + combFileOutName + ".sh";
 		alamutFileOutName = "06-alamut";
-		alamutFileOutFileName = slurmDir + sep + alamutFileOutName + ".sh";
+		alamutFileOutFile = slurmDir + sep + alamutFileOutName + ".sh";
+		updateGeminiFileOutName = "07-updateGemini";
+		updateGeminiFileOutFile = slurmDir + sep + updateGeminiFileOutName + ".sh";
 
 
 	}
@@ -87,6 +93,7 @@ public class SlurmWriter {
 			savecombinedGenotyping();
 			saveSecondaryCommands();
 			saveAlamutCommand();
+			saveUpdateGeminiCommands();
 
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
@@ -286,38 +293,87 @@ public class SlurmWriter {
 	
 	public void saveAlamutCommand() {
 		
-		// create file
-		String fileOut = slurmDir + sep + alamutFileOutName + ".sh";
-		String slurmLogName = alamutFileOutName;
-		Writer alamut = new Writer();
-		alamut.openWriter(fileOut);
 		
-		// add first line to Alamut commands
-		commonHeader(alamut, true, slurmLogName);
+		// only create alamut files if alamut is chosen. avoids waiting for a empty file
 		
-		
-		// for each command save in combined file
-		for (ArrayList<String> curCmd : combined.getAlamutCmd()) {
+		if (combined.getAlamutCmd().size() > 0) {
 			
-			alamut.writeCmd(curCmd);
-			ArrayList<String> date = new ArrayList<>();
-			date.add("date");
-			alamut.writeCmd(date);
-
+			// create file
+			String fileOut = slurmDir + sep + alamutFileOutName + ".sh";
+			String slurmLogName = alamutFileOutName;
+			Writer alamut = new Writer();
+			alamut.openWriter(fileOut);
 			
+			// add first line to Alamut commands
+			commonHeader(alamut, false, slurmLogName);
+			
+			// for each command save in combined file
+			for (ArrayList<String> curCmd : combined.getAlamutCmd()) {
+	
+				alamut.writeCmd(curCmd);
+				ArrayList<String> date = new ArrayList<>();
+				date.add("date");
+				alamut.writeCmd(date);
+	
+				
+			}
+			
+	
+			// make comment to see if script finished
+			alamut.writeLine("echo \"script finished\"");
+	
+			
+			alamut.close();
 		}
-		
-
-		// make comment to see if script finished
-		alamut.writeLine("echo \"script finished\"");
-
-		
-		alamut.close();
-		
 		
 		
 		
 	}
+	
+	
+	
+	
+	
+	//////////////////////////////////////////////////////////
+	//////// 07 update Gemini database with alamut annotations
+	
+	
+	public void saveUpdateGeminiCommands() {
+		
+		// create file
+		String fileOut = updateGeminiFileOutFile;
+		String slurmLogName = updateGeminiFileOutName;
+		Writer updateAlamut = new Writer();
+		updateAlamut.openWriter(fileOut);
+		
+		// add first line to Alamut commands
+		commonHeader(updateAlamut, false, slurmLogName);
+		
+		for (ArrayList<String> curCmd : combined.getUpdateGemini()) {
+			
+			updateAlamut.writeCmd(curCmd);
+			ArrayList<String> date = new ArrayList<>();
+			date.add("date");
+			updateAlamut.writeCmd(date);
+			
+			
+		}
+
+		// make comment to see if script finished
+		updateAlamut.writeLine("echo \"script finished\"");
+
+		
+		updateAlamut.close();
+		
+		
+		
+	
+	
+	
+	}
+
+	
+	
 	
 	
 	
@@ -379,6 +435,8 @@ public class SlurmWriter {
 	
 	
 	
+	
+	
 	//////// concatenate string to fit in exclude and nodelist option
 	private String concatString(String[] string) {
 		
@@ -391,6 +449,8 @@ public class SlurmWriter {
 		return sb.substring(0, sb.length() -1 );
 		
 	}
+	
+	
 	
 	
 	
@@ -534,24 +594,73 @@ public class SlurmWriter {
 
 		
 		
-		// write alamut 
-		String slurmLine = "";
-		if (slurmPartition.equals("")) {
-			slurmLine = "sbatch -d afterok:$preAla,singleton ";
-		} else {
-			slurmLine = "sbatch -p " + slurmPartition + " -d afterok:$preAla,singleton";
-		}
 		
-		master.writeLine("");
-		master.writeLine(slurmLine + " " + alamutFileOutFileName);
+		// add alamut annotation dependency only if needed
+		
+		if (combined.getAlamutCmd().size() > 0) {
+		
+			
+			
+			// write alamut 
+			String slurmLine = "";
+			if (slurmPartition.equals("")) {
+				slurmLine = "sbatch -d afterok:$preAla,singleton ";
+			} else {
+				slurmLine = "sbatch -p " + slurmPartition + " -d afterok:$preAla,singleton";
+			}
+			
+			master.writeLine("");
+			master.writeLine("alamut=$(" + slurmLine + " " + alamutFileOutFile + ")");
+			master.writeLine("alamut=$(echo $alamut | sed 's/Submitted batch job //')");
+		
+			
+			slurmLine = "";
+			if (slurmPartition.equals("")) {
+				slurmLine = "sbatch -d afterok:$alamut ";
+			} else {
+				slurmLine = "sbatch -p " + slurmPartition + " -d afterok:$alamut";
+			}
+			master.writeLine("");
+			master.writeLine(slurmLine + " " + updateGeminiFileOutFile);
+			
+			
+			
+		
+		
+		} else {
+			
+			String slurmLine = "";
+			if (slurmPartition.equals("")) {
+				slurmLine = "sbatch -d afterok:$preAla ";
+			} else {
+				slurmLine = "sbatch -p " + slurmPartition + " -d afterok:$preAla";
+			}
+			
+			master.writeLine("");
+			master.writeLine(slurmLine + " " + updateGeminiFileOutFile);
+			
+			
+			
+		}
 
-
+		
+		
+		
+		
+		
+		
+		
 
 		// close master file
 		master.close();
 
 
 	}
+
+
+
+
+
 
 
 

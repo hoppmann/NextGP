@@ -20,6 +20,7 @@ public class Combined {
 	private LinkedList<ArrayList<String>> cmds03 = new LinkedList<>(); 
 	private LinkedList<ArrayList<String>> cmds05 = new LinkedList<>();
 	private List<ArrayList<String>> alamutCmd = new LinkedList<>();
+	private List<ArrayList<String>> updateGemini = new LinkedList<>();
 
 
 
@@ -57,6 +58,9 @@ public class Combined {
 	}
 	
 	
+	public void addUpdateGeminiCmd (ArrayList<String> cmd) {
+		updateGemini.add(cmd);
+	}
 	
 	
 	/////////////////////////////////
@@ -81,9 +85,12 @@ public class Combined {
 		return alamutCmd;
 	}
 	
-	
-	
-	
+	public List<ArrayList<String>> getUpdateGemini() {
+		return updateGemini;
+	}
+
+
+
 	
 	
 	
@@ -138,6 +145,9 @@ public class Combined {
 		this.dbName = dbName;
 	}
 
+
+
+	
 
 
 	
