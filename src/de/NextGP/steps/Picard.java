@@ -76,7 +76,7 @@ public class Picard {
 
 			// get directory for intermediate files
 			String sep = File.separator;
-			String tempDir = options.getTempDir() + sep + options.getOutDir();
+			String tempDir = config.getLocalTmp() + sep + options.getOutDir();
 			
 			
 			// prepare variables
@@ -155,7 +155,7 @@ public class Picard {
 		
 		// create out dir
 		String sep = File.separator;
-		String tempDir = options.getTempDir() + sep + options.getOutDir();
+		String tempDir = config.getLocalTmp() + sep + options.getOutDir();
 		String dupOutDir = tempDir + sep + config.getDuplicates();
 		combined.mkdir(dupOutDir);
 		
@@ -166,7 +166,6 @@ public class Picard {
 			// prepare our file names
 			String outFile = dupOutDir + "/" + curPat + ".dup.bam";
 			String metricOutFile = dupOutDir + "/" + curPat + ".metrics.txt";
-//			String logOut = dupOutDir + "/" + curPat + ".dup.log";
 			
 			cmd.add(config.getJava());
 			cmd.add("-jar " + config.getPicard());

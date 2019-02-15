@@ -20,6 +20,7 @@ public class Realigner {
 	private static Logger logger = LoggerFactory.getLogger(Realigner.class);
 	private LoadConfig config;
 	private GetOptions options;
+	private String localOutDir;
 	private String outDir;
 	private Map<String, Patients> patients;
 	private String sep;
@@ -36,6 +37,7 @@ public class Realigner {
 		// retrieve variables
 		this.config = config;
 		this.options = options;
+		this.localOutDir = config.getLocalTmp() + File.separator + options.getOutDir();
 		this.outDir = options.getTempDir() + File.separator + options.getOutDir();
 		this.patients = patients;
 		this.first = options.getFirst();
@@ -65,10 +67,10 @@ public class Realigner {
 		// define input / output / logfile names
 		String input = patients.get(curPat).getLastOutFile();
 		if (input == null || input.isEmpty()){
-			input = outDir + sep + config.getAlignment() + sep + curPat + ".bam";
+			input = localOutDir + sep + config.getAlignment() + sep + curPat + ".bam";
 		}
 		
-		String outputCreator  = outDir + sep + config.getRealignment() + sep + curPat + sep + curPat +".list";
+		String outputCreator  = localOutDir + sep + config.getRealignment() + sep + curPat + sep + curPat +".list";
 		String logfile = outDir + sep + config.getRealignment() + sep + curPat + sep + curPat + ".creator.log";
 
 		//////////////
@@ -112,12 +114,12 @@ public class Realigner {
 		// define input / output / logfile names
 		String input = patients.get(curPat).getLastOutFile();
 		if (input == null || input.isEmpty()){
-			input = outDir + sep + config.getAlignment() + sep + curPat + ".bam";
+			input = localOutDir + sep + config.getAlignment() + sep + curPat + ".bam";
 		}
 
-		String outFile  = outDir + sep + config.getRealignment() + sep + curPat +".bam";
+		String outFile  = localOutDir + sep + config.getRealignment() + sep + curPat +".bam";
 		String logfileRealign = outDir + sep + config.getRealignment() + sep + curPat + sep + curPat + ".realigner.log";
-		String outputCreator  = outDir + sep + config.getRealignment() + sep + curPat + sep + curPat +".list";
+		String outputCreator  = localOutDir + sep + config.getRealignment() + sep + curPat + sep + curPat +".list";
 		ArrayList<String> cmd;
 
 		//prepare command

@@ -22,13 +22,13 @@ public class BQSR {
 	private LoadConfig config; 
 	private static Logger logger = LoggerFactory.getLogger(BQSR.class); 
 	private String sep;
+	private String localOutDir;
 	private String outDir;
 	private String outputPre;
 	private String outputPost;
 	private int first;
 	private int last;
 	private boolean isSolid;
-	private String tempDir;
 
 
 	/////////////////////////////
@@ -49,9 +49,10 @@ public class BQSR {
 		Log.logger(logger, "Preparing BQSR");
 
 		// prepare general variables
-		tempDir = options.getTempDir();
+//		tempDir = options.getTempDir();
 		sep = File.separator;
-		outDir = tempDir + sep + options.getOutDir() + sep + config.getBaseReacalibration();
+		localOutDir = config.getLocalTmp() + sep + options.getOutDir() + sep + config.getBaseReacalibration();
+		outDir = options.getTempDir() + sep + options.getOutDir() + sep + config.getBaseReacalibration();
 	}
 
 
@@ -75,7 +76,7 @@ public class BQSR {
 		}
 		
 		String subFolder = "pre";
-		outputPre = outDir + sep + subFolder + sep + curPat + ".recal.grp";
+		outputPre = localOutDir + sep + subFolder + sep + curPat + ".recal.grp";
 		String logfile = outDir + sep + subFolder + sep + curPat + ".recal.log";
 
 
@@ -127,7 +128,7 @@ public class BQSR {
 
 		String bqsrIn = outputPre;
 		String subFolder = "post";
-		outputPost = outDir + sep + subFolder + sep + curPat + ".recal.grp";
+		outputPost = localOutDir + sep + subFolder + sep + curPat + ".recal.grp";
 		String logfile = outDir + sep + subFolder + sep + curPat + ".recal.log";
 		cmd = new ArrayList<>();
 
@@ -207,7 +208,8 @@ public class BQSR {
 		// init and gather variables
 		ArrayList<String> cmd = new ArrayList<>();
 		String output = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
-		String logfile = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".log";
+		String logfile = outDir + sep + curPat + ".log";
+		
 		String bqsrIn = outputPre;
 		String input = patients.get(curPat).getLastOutFile();
 		if (input == null || input.isEmpty()) {

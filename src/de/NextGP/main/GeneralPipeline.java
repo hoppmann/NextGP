@@ -272,7 +272,7 @@ public class GeneralPipeline {
 		metrics.asMetric();
 		metrics.gcbMetric();
 		metrics.isMetric();
-		metrics.coverage();
+//		metrics.coverage();
 		
 	}
 

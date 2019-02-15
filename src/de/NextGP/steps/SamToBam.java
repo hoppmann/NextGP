@@ -40,7 +40,7 @@ public class SamToBam {
 		// accept variables
 		this.config = config;
 		this.patients = patients;
-		this.outDir = options.getTempDir() + File.separator + options.getOutDir() + File.separator + config.getAlignment();
+		this.outDir = config.getLocalTmp() + File.separator + options.getOutDir() + File.separator + config.getAlignment();
 		this.combined = combined;
 		this.first = options.getFirst();
 		this.last = options.getLast();
@@ -98,7 +98,7 @@ public class SamToBam {
 			cmd.add("SortSam");
 			cmd.add("SO=coordinate");
 			cmd.add("TMP_DIR=" + config.getLocalTmp() );
-			cmd.add("INPUT=" + outDir + File.separator + "sam" + File.separator + curPat + ".sam");
+			cmd.add("INPUT=" + patients.get(curPat).getLastOutFile());
 			cmd.add("OUTPUT=" + outBam);
 			
 			// save cmd in patient object

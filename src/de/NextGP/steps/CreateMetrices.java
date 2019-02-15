@@ -259,44 +259,44 @@ public class CreateMetrices {
 	//TODO
 
 
-	/////////////
-	//////// coverage Metric 
-
-	public void coverage(){
-
-		// make log entry
-		Log.logger(logger, "Preparing coverage metrics");
-
-		for (String curPat : patients.keySet()){
-
-			// init and gather variables
-			ArrayList<String> cmd = new ArrayList<>();
-			String sep = File.separator;
-			String outDir = options.getOutDir() + sep + config.getMetrices();
-			String covOut = outDir + sep + curPat + sep + curPat + ".converageBed.hist";
-			String input = patients.get(curPat).getLastOutFile();
-			if (input == null || input.isEmpty()) {
-				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
-			}
-
-
-			// prepare command
-			cmd.add(config.getBedTools() + sep + "coverageBed");
-			cmd.add("-abam " + input);
-			cmd.add("-b " + options.getBedFile());
-			cmd.add("-hist");
-			cmd.add("> " + covOut);
-
-
-			// save command
-			Integer step = options.getSteps().get("metrices");
-
-			if (first <= step && last >= step ) {
-				patients.get(curPat).addCmd02(cmd);
-			}
-
-		}
-	}
+//	/////////////
+//	//////// coverage Metric 
+//
+//	public void coverage(){
+//
+//		// make log entry
+//		Log.logger(logger, "Preparing coverage metrics");
+//
+//		for (String curPat : patients.keySet()){
+//
+//			// init and gather variables
+//			ArrayList<String> cmd = new ArrayList<>();
+//			String sep = File.separator;
+//			String outDir = options.getOutDir() + sep + config.getMetrices();
+//			String covOut = outDir + sep + curPat + sep + curPat + ".converageBed.hist";
+//			String input = patients.get(curPat).getLastOutFile();
+//			if (input == null || input.isEmpty()) {
+//				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+//			}
+//
+//
+//			// prepare command
+//			cmd.add(config.getBedTools() + sep + "coverageBed");
+//			cmd.add("-abam " + input);
+//			cmd.add("-b " + options.getBedFile());
+//			cmd.add("-hist");
+//			cmd.add("> " + covOut);
+//
+//
+//			// save command
+//			Integer step = options.getSteps().get("metrices");
+//
+//			if (first <= step && last >= step ) {
+//				patients.get(curPat).addCmd02(cmd);
+//			}
+//
+//		}
+//	}
 
 	/////////////
 	//////// fastQC
