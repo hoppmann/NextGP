@@ -3,6 +3,7 @@ package de.NextGP.steps;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -55,7 +56,7 @@ public class BWA {
 		Log.logger(logger, "Preparing BWA");
 
 		// create directory
-		mkdir();
+//		mkdir();
 
 	}
 
@@ -64,11 +65,14 @@ public class BWA {
 	
 	////////////////
 	//////// make directory
-	private void mkdir() {
+	private void mkdir(String curPat) {
 
 		// prepare command
 		String out = outDir + File.separator + "sam";
-		combined.mkdir(out);		
+		ArrayList<String> mkdirCmd = new ArrayList<>();
+		mkdirCmd.add("mkdir -p " + out);
+
+		patients.get(curPat).addCmd02(mkdirCmd);
 	}
 	
 	
@@ -78,10 +82,16 @@ public class BWA {
 
 		for (String curPat : patients.keySet()){
 			
+			
+			// prepare mkdir 
+			mkdir(curPat);
+			
+			
+			
 			// creating read groups
 			// init variable
 			ArrayList<String> cmd = new ArrayList<>();
-			String OutFile = outDir + File.separator + "sam" + File.separator + curPat + ".sam";
+			String outFile = outDir + File.separator + "sam" + File.separator + curPat + ".sam";
 
 			//////// command
 			// add BWA path an running method
@@ -99,7 +109,7 @@ public class BWA {
 
 			// add patient forward and backward reads
 			cmd.add(patients.get(curPat).getForward());
-			cmd.add("> " + OutFile);
+			cmd.add("> " + outFile);
 
 			// save command in patient object
 			Integer step = options.getSteps().get("alignment");
@@ -107,7 +117,7 @@ public class BWA {
 			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(cmd);
 			}
-			patients.get(curPat).setLastOutFile(OutFile);
+			patients.get(curPat).setLastOutFile(outFile);
 		}
 	}
 
@@ -117,6 +127,10 @@ public class BWA {
 	public void pairedEnd(String platform) {
 
 		for (String curPat : patients.keySet()){
+			
+			// prepare mkdir
+			mkdir(curPat);
+			
 			
 			// creating read groups
 			// init variable
