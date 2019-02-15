@@ -3,7 +3,6 @@ package de.NextGP.steps;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -23,7 +22,6 @@ public class BWA {
 	private Map<String, Patients> patients = new HashMap<>();
 	private LoadConfig config;
 	private String outDir;
-	private Combined combined;
 	private static Logger logger = LoggerFactory.getLogger(BWA.class);
 	private int first;
 	private int last;
@@ -47,7 +45,6 @@ public class BWA {
 		this.outDir = config.getLocalTmp() + File.separator + opts.getOutDir() + File.separator + config.getAlignment();
 		this.patients = patients;
 		this.cpus = opts.getCpu();
-		this.combined = combined;
 		this.first = opts.getFirst();
 		this.last = opts.getLast();
 		this.options = opts;

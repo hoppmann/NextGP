@@ -129,14 +129,17 @@ public class SlurmWriter {
 
 			//////// for each command created write in batch file
 			
+			ArrayList<String> date = new ArrayList<>();
+			date.add("date");
+			primaryCmds.writeCmd(date);
 			for (ArrayList<String> cmd : curPatObject.getCmds02()) {
 				
 				// write in file
-				ArrayList<String> date = new ArrayList<>();
+				primaryCmds.writeCmd(cmd);
+				date = new ArrayList<>();
 				date.add("date");
 				primaryCmds.writeCmd(date);
-				primaryCmds.writeCmd(cmd);
-				primaryCmds.writeCmd(date);
+				
 				
 			}
 			

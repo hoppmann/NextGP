@@ -23,7 +23,6 @@ public class SamToBam {
 	private LoadConfig config;
 	private Map<String, Patients> patients;
 	private String outDir;
-	private Combined combined;
 	private int first;
 	private int last;
 	private GetOptions options;
@@ -41,7 +40,6 @@ public class SamToBam {
 		this.config = config;
 		this.patients = patients;
 		this.outDir = config.getLocalTmp() + File.separator + options.getOutDir() + File.separator + config.getAlignment();
-		this.combined = combined;
 		this.first = options.getFirst();
 		this.last = options.getLast();
 		this.options = options;
