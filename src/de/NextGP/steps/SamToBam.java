@@ -50,9 +50,6 @@ public class SamToBam {
 		// make log entry
 		Log.logger(logger, "Preparing sam to bam convertion.");
 
-		// create directory
-		mkdir();
-
 		// prepare command
 
 		prepareCmd();
@@ -68,11 +65,11 @@ public class SamToBam {
 	///////////////////
 	//////// prepare cmd to make directory
 	
-	 private void mkdir() {
+	 private void mkdir(String curPat) {
 		 String out = outDir + File.separator + "bam";
-		 String cmd = out;
-		 combined.mkdir(cmd);
-		 
+		 ArrayList<String> mkdirCmd = new ArrayList<>();
+		 mkdirCmd.add("mkdir -p " + out);
+		 patients.get(curPat).addCmd02(mkdirCmd);
 	 }
 	
 	
@@ -88,6 +85,9 @@ public class SamToBam {
 		// prepare command for each patient separately, save in Map and execute all together
 		for (String curPat : patients.keySet()){
 
+			// prepare mkdir cmd
+			mkdir(curPat);
+			
 			// prepare command
 			String outBam = outDir + File.separator + "bam" + File.separator +curPat + ".bam";
 			
