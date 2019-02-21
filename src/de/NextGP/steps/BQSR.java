@@ -27,6 +27,7 @@ public class BQSR {
 	private String outDir;
 	private String outputPre;
 	private String outputPost;
+	private String finalOutDir;
 	private int first;
 	private int last;
 	private boolean isSolid;
@@ -54,9 +55,9 @@ public class BQSR {
 		sep = File.separator;
 		localOutDir = config.getLocalTmp() + sep + options.getOutDir() + sep + config.getBaseReacalibration();
 		outDir = options.getTempDir() + sep + options.getOutDir() + sep + config.getBaseReacalibration();
+		finalOutDir = options.getOutDir() + sep + config.getBaseReacalibration();
 		
-		
-		
+		combined.mkdir(finalOutDir);
 		combined.mkdir(outDir);
 		
 		
@@ -216,7 +217,7 @@ public class BQSR {
 
 		// init and gather variables
 		ArrayList<String> cmd = new ArrayList<>();
-		String output = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
+		String output = finalOutDir + sep + curPat + ".bam";
 		String logfile = outDir + sep + curPat + ".log";
 		
 		String bqsrIn = outputPre;
