@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.NextGP.general.Log;
+import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -35,7 +36,7 @@ public class BQSR {
 	//////// constructor ////////
 	/////////////////////////////
 
-	public BQSR(Map<String, Patients> patients, LoadConfig config, GetOptions options, boolean isSolid) {
+	public BQSR(Map<String, Patients> patients, LoadConfig config, GetOptions options, boolean isSolid, Combined combined) {
 
 		// retrieve variables
 		this.patients = patients;
@@ -53,6 +54,12 @@ public class BQSR {
 		sep = File.separator;
 		localOutDir = config.getLocalTmp() + sep + options.getOutDir() + sep + config.getBaseReacalibration();
 		outDir = options.getTempDir() + sep + options.getOutDir() + sep + config.getBaseReacalibration();
+		
+		
+		
+		combined.mkdir(outDir);
+		
+		
 	}
 
 
@@ -62,6 +69,8 @@ public class BQSR {
 	//////// methods ////////
 	/////////////////////////
 
+	
+	
 	
 	///////////////
 	//////// prepare step 1
