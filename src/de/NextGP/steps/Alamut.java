@@ -215,13 +215,13 @@ public class Alamut {
 				"\n" + 
 				"\n" + 
 				"#### get all header besides chrom start stop\n" + 
-				"ALAMUT_COLS=$(zcat $bedFile | head -n 1 | cut -f $start-999 | tr \"\\t\" \",\")\n" + 
+				"ALAMUT_COLS=$(zcat " + bedFile + " | head -n 1 | cut -f $start-999 | tr \"\\t\" \",\")\n" + 
 				"IFS=',' read -r -a ALAMUT_ARRAY <<< \"$ALAMUT_COLS\"\n" + 
 				"\n" + 
 				"\n" + 
 				"\n" + 
 				"\n" + 
-				"nAnno=$(zcat $bedFile | head -n 1 | wc | awk '{ print $2 }')\n" + 
+				"nAnno=$(zcat " + bedFile + " | head -n 1 | wc | awk '{ print $2 }')\n" + 
 				"\n" + 
 				"for (( i=$start; i<=$nAnno; i++ ))\n" + 
 				"do\n" + 
