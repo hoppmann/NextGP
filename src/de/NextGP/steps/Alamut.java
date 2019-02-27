@@ -11,11 +11,11 @@ import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
-public class AlamutHgmd {
+public class Alamut {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
-	private static  Logger logger = LoggerFactory.getLogger(AlamutHgmd.class);
+	private static  Logger logger = LoggerFactory.getLogger(Alamut.class);
 
 	GetOptions options; 
 	LoadConfig config;
@@ -29,7 +29,7 @@ public class AlamutHgmd {
 	//////// constructor ////////
 	/////////////////////////////
 
-	public AlamutHgmd(GetOptions options, LoadConfig config, Combined combined) {
+	public Alamut(GetOptions options, LoadConfig config, Combined combined) {
 
 		this.options = options;
 		this.config = config;
@@ -118,7 +118,7 @@ public class AlamutHgmd {
 				"	} else { \n" + 
 				"		print $2 \"\\t\" ($3 - 1) \"\\t\" $3 + length($4) - 1 \"\\t\" $0 \n" + 
 				"	} \n" + 
-				"}' | cut -f 1-4,9-999 | sed 's/#id/rsId/' | bgzip > " + bedFile);
+				"}' | cut -f 1-3,9-999 | bgzip > " + bedFile);
 
 		// save in combined object
 		Integer step = options.getSteps().get("alamut");
@@ -155,30 +155,90 @@ public class AlamutHgmd {
 
 		ArrayList<String> prepColCmd = new ArrayList<>();
 
+//		prepColCmd.add("ALAMUT_IDXS=\"\"\n" + 
+//				"ALAMUT_COLTYPES=\"\"\n" + 
+//				"ALAMUT_MODE=\"\"\n" + 
+//				"\n" + 
+//				"\n" + 
+//				"start=4\n" + 
+//				"nAnno=$(zcat " + bedFile + " | head -n 1 | wc | awk '{ print $2 }')\n" + 
+//				"for (( i=$start; i<=$nAnno; i++ ))\n" + 
+//				"do \n" + 
+//				"	if [ $i -eq $start ]\n" + 
+//				"	then\n" + 
+//				"		ALAMUT_IDXS=$i\n" + 
+//				"		ALAMUT_COLTYPES=\"text\"\n" + 
+//				"		ALAMUT_MODE=\"list\"\n" + 
+//				"	else\n" + 
+//				"		ALAMUT_IDXS=\"$ALAMUT_IDXS,$i\"\n" + 
+//				"		ALAMUT_COLTYPES=\"$ALAMUT_COLTYPES,text\"\n" + 
+//				"		ALAMUT_MODE=\"$ALAMUT_MODE,list\"\n" + 
+//				"	fi\n" + 
+//				"done"
+//				+ "\n"
+//				+ "\n"
+//				+ "ALAMUT_COLS=$(zcat " + bedFile + " | head -n 1 | cut -f $start-999 | tr \"\\t\" \",\")"
+//				+ "");
+
+		
 		prepColCmd.add("ALAMUT_IDXS=\"\"\n" + 
 				"ALAMUT_COLTYPES=\"\"\n" + 
 				"ALAMUT_MODE=\"\"\n" + 
 				"\n" + 
 				"\n" + 
-				"start=4\n" + 
-				"nAnno=$(zcat " + bedFile + " | head -n 1 | wc | awk '{ print $2 }')\n" + 
+				"\n" + 
+				"function chooseType() {\n" + 
+				"\n" + 
+				"	if [[ $1 == *gnomad* ]]; then\n" + 
+				"		colMode=\"max\"\n" + 
+				"		colType=\"float\"\n" + 
+				"	elif [[ $1 == *1000g* ]]; then\n" + 
+				"		colMode=\"max\"\n" + 
+				"		colType=\"float\"\n" + 
+				"\n" + 
+				"	elif [[ $1 ==  *esp* ]]; then\n" + 
+				"		colMode=\"max\"\n" + 
+				"		colType=\"float\"\n" + 
+				"\n" + 
+				"	elif [[ $1 == *rsId* ]]; then\n" + 
+				"		colMode=\"first\"\n" + 
+				"		colType=text\n" + 
+				"	else\n" + 
+				"		colMode=\"list\"\n" + 
+				"		colType=\"text\"\n" + 
+				"	fi\n" + 
+				"\n" + 
+				"}\n" + 
+				"\n" + 
+				"\n" + 
+				"start=3\n" + 
+				"\n" + 
+				"\n" + 
+				"#### get all header besides chrom start stop\n" + 
+				"ALAMUT_COLS=$(zcat $bedFile | head -n 1 | cut -f $start-999 | tr \"\\t\" \",\")\n" + 
+				"IFS=',' read -r -a ALAMUT_ARRAY <<< \"$ALAMUT_COLS\"\n" + 
+				"\n" + 
+				"\n" + 
+				"\n" + 
+				"\n" + 
+				"nAnno=$(zcat $bedFile | head -n 1 | wc | awk '{ print $2 }')\n" + 
+				"\n" + 
 				"for (( i=$start; i<=$nAnno; i++ ))\n" + 
-				"do \n" + 
+				"do\n" + 
+				"\n" + 
+				"	chooseType \"${ALAMUT_ARRAY[$i - 4]}\"\n" + 
+				"\n" + 
 				"	if [ $i -eq $start ]\n" + 
 				"	then\n" + 
 				"		ALAMUT_IDXS=$i\n" + 
-				"		ALAMUT_COLTYPES=\"text\"\n" + 
-				"		ALAMUT_MODE=\"list\"\n" + 
+				"		ALAMUT_COLTYPES=$colType\n" + 
+				"		ALAMUT_MODE=$colMode\n" + 
 				"	else\n" + 
 				"		ALAMUT_IDXS=\"$ALAMUT_IDXS,$i\"\n" + 
-				"		ALAMUT_COLTYPES=\"$ALAMUT_COLTYPES,text\"\n" + 
-				"		ALAMUT_MODE=\"$ALAMUT_MODE,list\"\n" + 
+				"		ALAMUT_COLTYPES=\"$ALAMUT_COLTYPES,$colType\"\n" + 
+				"		ALAMUT_MODE=\"$ALAMUT_MODE,$colMode\"\n" + 
 				"	fi\n" + 
-				"done"
-				+ "\n"
-				+ "\n"
-				+ "ALAMUT_COLS=$(zcat " + bedFile + " | head -n 1 | cut -f $start-999 | tr \"\\t\" \",\")"
-				+ "");
+				"done");
 
 
 		// save in combined object

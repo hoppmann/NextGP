@@ -16,7 +16,7 @@ import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.ReadInputFile;
 import de.NextGP.initialize.options.GetOptions;
-import de.NextGP.steps.AlamutHgmd;
+import de.NextGP.steps.Alamut;
 import de.NextGP.steps.Annotate;
 import de.NextGP.steps.BQSR;
 import de.NextGP.steps.BWA;
@@ -382,7 +382,7 @@ public class GeneralPipeline {
 
 	//////// annoate HGMD using Alamut
 	public void annotateHGMD() {
-		new AlamutHgmd(options, config, combined);
+		new Alamut(options, config, combined);
 		
 		
 		
