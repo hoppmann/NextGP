@@ -71,7 +71,6 @@ public class Alamut {
 		String name = splitFile[splitFile.length - 1].split("\\.")[0];
 		alamutOut = outDir + sep + name + ".alamut";
 		String alamutLog = outDir + sep + name + ".log";
-		System.out.println(alamutOut);
 
 		//////// prepare command
 		ArrayList<String> alamutCmd = new ArrayList<>();
