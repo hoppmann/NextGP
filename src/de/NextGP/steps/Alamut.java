@@ -63,7 +63,7 @@ public class Alamut {
 
 		//// prepare out file name
 		String sep = File.separator;
-		String outDir = config.getTempDir() + sep + options.getOutDir() + sep + config.getAnnotation() + sep + "Alamut";
+		String outDir =  options.getOutDir() + sep + config.getAnnotation() + sep + "Alamut";
 		combined.mkdir(outDir);
 
 		String vcfFile = combined.getVcfForAnnotation();
@@ -71,7 +71,7 @@ public class Alamut {
 		String name = splitFile[splitFile.length - 1].split("\\.")[0];
 		alamutOut = outDir + sep + name + ".alamut";
 		String alamutLog = outDir + sep + name + ".log";
-
+		System.out.println(alamutOut);
 
 		//////// prepare command
 		ArrayList<String> alamutCmd = new ArrayList<>();
