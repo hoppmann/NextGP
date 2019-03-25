@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -22,7 +19,6 @@ public class BWA {
 	private Map<String, Patients> patients = new HashMap<>();
 	private LoadConfig config;
 	private String outDir;
-	private static Logger logger = LoggerFactory.getLogger(BWA.class);
 	private int first;
 	private int last;
 	private GetOptions options;
@@ -50,7 +46,7 @@ public class BWA {
 		this.options = opts;
 		
 		// write log message
-		Log.logger(logger, "Preparing BWA");
+		Log.logger( "Preparing BWA");
 
 		// create directory
 //		mkdir();

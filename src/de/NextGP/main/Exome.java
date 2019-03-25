@@ -1,8 +1,5 @@
 package de.NextGP.main;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
@@ -16,14 +13,12 @@ public class Exome {
 	LoadConfig config;
 	Combined combined;
 
-	private static Logger logger = LoggerFactory.getLogger(Exome.class);
-
 
 	// run pipeline corresponding to an Illumina Panel
 
 	public Exome(GetOptions options, LoadConfig config) {
 
-		Log.logger(logger, "Preparing exon based pipeline");
+		Log.logger( "Preparing exon based pipeline");
 		
 		//prepare and initialize variables
 		this.options = options;

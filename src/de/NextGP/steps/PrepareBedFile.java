@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.Writer;
 import de.NextGP.initialize.options.GetOptions;
@@ -16,7 +13,6 @@ public class PrepareBedFile {
 	//////// variables ////////
 	///////////////////////////
 	GetOptions options;
-	private static Logger logger = LoggerFactory.getLogger(PrepareBedFile.class);
 
 	/////////////////////////////
 	//////// constructor ////////
@@ -26,7 +22,7 @@ public class PrepareBedFile {
 	public PrepareBedFile(GetOptions options) {
 		this.options = options;
 		// make log entry for starting IonProton pipeline
-		Log.logger(logger, "Preparing .bed file.");
+		Log.logger("Preparing .bed file.");
 		
 	}
 	

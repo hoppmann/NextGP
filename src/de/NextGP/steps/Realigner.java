@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -17,7 +14,6 @@ public class Realigner {
 	//////// variables ////////
 	///////////////////////////
 
-	private static Logger logger = LoggerFactory.getLogger(Realigner.class);
 	private LoadConfig config;
 	private GetOptions options;
 	private String localOutDir;
@@ -48,7 +44,7 @@ public class Realigner {
 
 
 		// run realign target creator
-		Log.logger(logger, "Prparing indel realigner");
+		Log.logger("Prparing indel realigner");
 
 	}
 

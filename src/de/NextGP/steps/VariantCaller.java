@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -17,7 +14,6 @@ public class VariantCaller {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
-	private static Logger logger = LoggerFactory.getLogger(VariantCaller.class);
 	private GetOptions options;
 	private LoadConfig config;
 	private Map<String, Patients> patients;
@@ -47,7 +43,7 @@ public class VariantCaller {
 		this.tmpDir = options.getTempDir() + File.separator + options.getOutDir();
 
 		// make log entry
-		Log.logger(logger, "Preparing variant calling");
+		Log.logger( "Preparing variant calling");
 
 		// prepare out directories
 		makeDirs();
@@ -333,7 +329,7 @@ public class VariantCaller {
 			ArrayList<String> filterCmd =  filter.removeFiltered(output, input);
 
 			// save command
-			if (first <= 6 && last >= 6 ) {
+			if (first <= step && last >= step ) {
 				patients.get(curPat).addCmd02(filterCmd);
 			}
 

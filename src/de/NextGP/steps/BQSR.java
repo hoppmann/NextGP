@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -21,7 +18,6 @@ public class BQSR {
 	private Map<String, Patients> patients;
 	private GetOptions options; 
 	private LoadConfig config; 
-	private static Logger logger = LoggerFactory.getLogger(BQSR.class); 
 	private String sep;
 	private String localOutDir;
 	private String outDir;
@@ -48,7 +44,7 @@ public class BQSR {
 		this.isSolid = isSolid;
 
 		// make log entry
-		Log.logger(logger, "Preparing BQSR");
+		Log.logger( "Preparing BQSR");
 
 		// prepare general variables
 //		tempDir = options.getTempDir();

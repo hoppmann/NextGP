@@ -2,9 +2,6 @@ package de.NextGP.main;
 
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -21,7 +18,6 @@ public class IonTorrent {
 	Combined combined;
 	GeneralPipeline pipeline;
 
-	private static Logger logger = LoggerFactory.getLogger(IonTorrent.class);
 
 
 	// run pipeline corresponding to an Illumina Panel
@@ -47,7 +43,7 @@ public class IonTorrent {
 		pipeline = new GeneralPipeline(options, config);
 
 		// make log entry for starting IonProton pipeline
-		Log.logger(logger, "Preparing IonProton batch files.");
+		Log.logger("Preparing IonProton batch files.");
 
 		// read input file
 		patients = pipeline.readFastqList();
@@ -92,7 +88,7 @@ public class IonTorrent {
 		pipeline = new GeneralPipeline(options, config);
 		
 		// make log entry for starting IonPanel pipeline
-		Log.logger(logger, "Preparing IonPanel pipeline files");
+		Log.logger("Preparing IonPanel pipeline files");
 		
 		// read input file
 		patients = pipeline.readFastqList();

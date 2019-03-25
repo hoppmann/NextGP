@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -17,7 +14,6 @@ public class Picard {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
-	Logger logger = LoggerFactory.getLogger(Picard.class);
 	private LoadConfig config;
 	private GetOptions options;
 	private Map<String, Patients> patients;
@@ -41,7 +37,7 @@ public class Picard {
 		this.last = options.getLast();
 		
 		// make log entry
-		Log.logger(logger, "Preparing AddOrReplaceReadgroups");
+		Log.logger("Preparing AddOrReplaceReadgroups");
 	}
 
 	// constructor for markDuplicates
@@ -56,7 +52,7 @@ public class Picard {
 		this.combined = combined;
 		
 		// make log entry
-		Log.logger(logger, "Preparing markDuplicates");
+		Log.logger("Preparing markDuplicates");
 	}
 
 

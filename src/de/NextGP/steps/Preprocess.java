@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.options.GetOptions;
@@ -16,7 +13,6 @@ public class Preprocess {
 	//////// variables ////////
 	///////////////////////////
 
-	private static Logger logger = LoggerFactory.getLogger(Process.class);
 	GetOptions options;
 	Map<String, Patients> patients;
 	private int first;
@@ -37,7 +33,7 @@ public class Preprocess {
 		this.last = options.getLast();
 
 		// make log entry
-		Log.logger(logger, "Prepareing AfterQC commands.");
+		Log.logger("Prepareing AfterQC commands.");
 
 	}
 

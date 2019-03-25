@@ -6,9 +6,6 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.SlurmWriter;
 import de.NextGP.general.outfiles.Combined;
@@ -40,7 +37,6 @@ public class GeneralPipeline {
 	LoadConfig config;
 	Combined combined;
 	Map<String, Patients> patients = new HashMap<>(); 
-	private static Logger logger = LoggerFactory.getLogger(GeneralPipeline.class);
 
 
 
@@ -91,7 +87,7 @@ public class GeneralPipeline {
 
 		// check if fastq list option is chosen
 		if (fastqList == null || fastqList.isEmpty()) {
-			Log.error(logger, "No fastq input list given.");
+			Log.error("No fastq input list given.");
 			System.exit(1);
 			
 		}
@@ -133,7 +129,6 @@ public class GeneralPipeline {
 
 					// print out that there is an error with the list file
 				} else {
-					logger.error(fastqList + " incorrect!");
 					System.exit(1);
 				}
 
@@ -145,7 +140,6 @@ public class GeneralPipeline {
 
 			// print out that fastq list file does not exist and stop program
 		} else {
-			logger.error(fastqList + " does not exist!");
 			System.exit(3);
 		}
 

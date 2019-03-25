@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -17,7 +14,6 @@ public class CreateMetrices {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
-	private static Logger logger = LoggerFactory.getLogger(CreateMetrices.class);
 	private GetOptions options;
 	private LoadConfig config;
 	private Map<String, Patients> patients;
@@ -43,7 +39,7 @@ public class CreateMetrices {
 		this.last = options.getLast();
 
 		// make log etntry
-		Log.logger(logger, "Preapring metrics");
+		Log.logger( "Preapring metrics");
 
 		// create directory
 		mkdir();
@@ -77,7 +73,7 @@ public class CreateMetrices {
 	public void meanDepth() {
 
 		// make log entry
-		Log.logger(logger, "Preparing mean Depth");
+		Log.logger("Preparing mean Depth");
 
 
 		for (String curPat : patients.keySet()){
@@ -120,7 +116,7 @@ public class CreateMetrices {
 	public void asMetric(){
 
 		// make log entry
-		Log.logger(logger, "Preparing alignment summary metrics");
+		Log.logger("Preparing alignment summary metrics");
 
 
 		for (String curPat : patients.keySet()){
@@ -167,7 +163,7 @@ public class CreateMetrices {
 	public void gcbMetric() {
 
 		// make log entry
-		Log.logger(logger, "Preparing mean GC bias metrics");
+		Log.logger("Preparing mean GC bias metrics");
 
 		for (String curPat : patients.keySet()){
 
@@ -215,7 +211,7 @@ public class CreateMetrices {
 	public void isMetric(){
 
 		// make log entry
-		Log.logger(logger, "Preparing insert size metrics");
+		Log.logger("Preparing insert size metrics");
 
 		for (String curPat : patients.keySet()){
 

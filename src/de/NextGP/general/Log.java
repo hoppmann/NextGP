@@ -3,8 +3,6 @@ package de.NextGP.general;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-
 public final class Log {
 
 	//////////////////////
@@ -29,16 +27,14 @@ public final class Log {
 	}
 
 	//writes line in file and on screen
-	public static void logger(Logger logger, String line){
+	public static void logger( String line){
 		System.out.println(line);
-		logger.info(line);
 	}
 
 	//write ERROR in file and screen and close file
-	public static void error(Logger logger, String line) {
+	public static void error( String line) {
 		System.out.println("\n######## ERROR: " + line);
-		logger.error(line);
-		
+			
 	}
 
 	// print out on screen only

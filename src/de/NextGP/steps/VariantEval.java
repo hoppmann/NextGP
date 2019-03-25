@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -16,7 +13,6 @@ public class VariantEval {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
-	private static Logger logger = LoggerFactory.getLogger(VariantCaller.class);
 	GetOptions options;
 	LoadConfig config;
 	Map<String, Patients> patients;
@@ -34,7 +30,7 @@ public class VariantEval {
 		this.patients = patients;
 		
 		// make log entry
-		Log.logger(logger, "preparing variant evalutaion");
+		Log.logger("preparing variant evalutaion");
 		// prepare command
 		varEval();
 		

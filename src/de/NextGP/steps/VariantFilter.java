@@ -3,9 +3,6 @@ package de.NextGP.steps;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
@@ -17,7 +14,6 @@ public class VariantFilter {
 	//////// variables ////////
 	///////////////////////////
 
-	static private Logger logger = LoggerFactory.getLogger(VariantCaller.class);
 	private GetOptions options;
 	private LoadConfig config; 
 	private Combined combined;
@@ -39,7 +35,7 @@ public class VariantFilter {
 		this.last = options.getLast();
 		
 		// make log entry
-		Log.logger(logger, "Preparing hard filtering for " + caller);
+		Log.logger("Preparing hard filtering for " + caller);
 
 	}
 
@@ -242,7 +238,7 @@ public class VariantFilter {
 	public void vqsr() {
 
 		// make log entry
-		Log.logger(logger, "Preparing VQSR");
+		Log.logger("Preparing VQSR");
 
 
 		// initialize and gather variables

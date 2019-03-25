@@ -3,9 +3,6 @@
 import java.io.File;
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
@@ -16,7 +13,6 @@ public class Annotate {
 	//////// variables ////////
 	///////////////////////////
 
-	private static  Logger logger = LoggerFactory.getLogger(Annotate.class);
 	private GetOptions options;
 	private LoadConfig config;
 	private Combined combined;
@@ -40,7 +36,7 @@ public class Annotate {
 		this.last = options.getLast();
 
 		this.tmpDir = options.getTempDir() + File.separator + options.getOutDir();
-		Log.logger(logger, "preparing anotations");
+		Log.logger("preparing anotations");
 
 		// make directory
 		mkDir();
@@ -68,7 +64,7 @@ public class Annotate {
 	public void vtMaster(String vcfFile) {
 
 		// make log entry
-		Log.logger(logger, "preparing annotaions using VEP");
+		Log.logger("preparing annotaions using VEP");
 		
 		
 		//////// running vt-master
@@ -237,7 +233,7 @@ public class Annotate {
 	
 	public void bgzip() {
 		
-		Log.logger(logger, "Bgzipping files.");
+		Log.logger("Bgzipping files.");
 		
 		// preparing command
 		ArrayList<String> bgZipCmd = new ArrayList<>();
@@ -255,7 +251,7 @@ public class Annotate {
 	}
 	
 	public void tabix() {
-		Log.logger(logger, "Indexing files.");
+		Log.logger("Indexing files.");
 		
 		// preparing command
 		ArrayList<String> tabixCmd = new ArrayList<>();

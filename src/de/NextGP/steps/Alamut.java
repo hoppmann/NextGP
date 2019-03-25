@@ -3,9 +3,6 @@ package de.NextGP.steps;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
@@ -15,7 +12,7 @@ public class Alamut {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
-	private static  Logger logger = LoggerFactory.getLogger(Alamut.class);
+//	private static  Logger logger = LoggerFactory.getLogger(Alamut.class);
 
 	GetOptions options; 
 	LoadConfig config;
@@ -37,7 +34,7 @@ public class Alamut {
 
 
 		// make log entry
-		Log.logger(logger, "Preparing annotation with alamut");
+		Log.logger("Preparing annotation with alamut");
 
 
 		//// execute all parts needed to annotate with alamut

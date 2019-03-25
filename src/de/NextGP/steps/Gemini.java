@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -18,7 +15,6 @@ public class Gemini {
 	//////// variables ////////
 	///////////////////////////
 
-	private static Logger logger = LoggerFactory.getLogger(Gemini.class);
 	private GetOptions options;
 	private LoadConfig config;
 	private Combined combined;
@@ -38,7 +34,7 @@ public class Gemini {
 		this.last = options.getLast();
 		
 		// make log entry
-		Log.logger(logger, "Preparing Gemini");
+		Log.logger("Preparing Gemini");
 
 
 		// prepare outDir

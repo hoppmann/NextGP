@@ -145,7 +145,7 @@ public class SlurmWriter {
 			
 			
 			
-			String localTempFolder = options.getConfig().getLocalTmp() + File.separator + options.getOutDir();
+//			String localTempFolder = options.getConfig().getLocalTmp() + File.separator + options.getOutDir();
 			
 //			primaryCmds.writeLine("rm -r " + localTempFolder);
 			

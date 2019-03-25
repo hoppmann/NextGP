@@ -1,8 +1,5 @@
 package de.NextGP.main;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
@@ -16,7 +13,6 @@ public class Panel {
 	LoadConfig config;
 	Combined combined;
 
-	private static Logger logger = LoggerFactory.getLogger(Panel.class);
 
 
 	// run pipeline corresponding to an Illumina Panel
@@ -30,7 +26,7 @@ public class Panel {
 
 
 		// make log entry for starting Illumina pipeline
-		Log.logger(logger, "Preparing Illumina batch files.");
+		Log.logger("Preparing Illumina batch files.");
 
 
 		// choose different steps needed to execute pipeline

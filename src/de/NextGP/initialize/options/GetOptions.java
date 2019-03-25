@@ -7,8 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.NextGP.general.Log;
 import de.NextGP.initialize.LoadConfig;
@@ -18,7 +16,6 @@ public class GetOptions {
 	//////////////////
 	//// set variables
 
-	private static Logger logger = LoggerFactory.getLogger(GetOptions.class);
 	private LoadConfig config;
 	
 	// general stuff
@@ -98,7 +95,6 @@ public class GetOptions {
 	private void getOptions() {
 
 		// print out current job
-		logger.info("Getting command line options.");
 
 
 		//parse cammand line options
@@ -330,9 +326,9 @@ public class GetOptions {
 		return custom;
 	}
 
-	public static Logger getLogger() {
-		return logger;
-	}
+//	public static Logger getLogger() {
+//		return logger;
+//	}
 	
 
 	public LoadConfig getConfig() {
@@ -346,7 +342,7 @@ public class GetOptions {
 	
 	public String getBedFile() {
 		if (bedFile == null || bedFile.isEmpty()){
-			Log.error(logger, "No bed file chosen. Use bedFile option.");
+			Log.error("No bed file chosen. Use bedFile option.");
 			System.exit(3);
 		}
 		return bedFile;

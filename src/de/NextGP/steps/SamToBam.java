@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -28,7 +25,6 @@ public class SamToBam {
 	private GetOptions options;
 	
 	
-	private static Logger logger = LoggerFactory.getLogger(SamToBam.class);
 
 	/////////////////////////////
 	//////// constructor ////////
@@ -46,7 +42,7 @@ public class SamToBam {
 		
 		
 		// make log entry
-		Log.logger(logger, "Preparing sam to bam convertion.");
+		Log.logger("Preparing sam to bam convertion.");
 
 		// prepare command
 

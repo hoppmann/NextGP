@@ -7,15 +7,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Writer {
 
 	//////////////////
 	//////// Variables
 	private PrintWriter writer;
-	private static Logger logger = LoggerFactory.getLogger(Writer.class);
 
 
 
@@ -71,7 +67,7 @@ public class Writer {
 		try {
 			writer = new PrintWriter(file);
 		} catch (FileNotFoundException e) {
-			Log.error(logger, "Can not create file for writing");
+			Log.error( "Can not create file for writing");
 			System.exit(1);
 		}
 	}
