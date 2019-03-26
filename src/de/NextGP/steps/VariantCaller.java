@@ -333,6 +333,9 @@ public class VariantCaller {
 				patients.get(curPat).addCmd02(filterCmd);
 			}
 
+			
+			
+			
 			// sort VCF file to get rid of contig order error
 			String fileIn = output + ".recode.vcf";
 			String fileOut = output + "-sorted.vcf";
