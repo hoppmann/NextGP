@@ -62,8 +62,7 @@ public class SlurmWriter {
 		alamutFileOutName = "06-alamut";
 		alamutFileOutFile = slurmDir + sep + alamutFileOutName + ".sh";
 		updateGeminiFileOutName = "07-updateGemini";
-		updateGeminiFileOutFile = slurmDir + sep + updateGeminiFileOutName + ".sh";
-
+		updateGeminiFileOutFile = slurmDir + sep + updateGeminiFileOutName + "-" + options.getOutDir()+ ".sh";
 
 	}
 
