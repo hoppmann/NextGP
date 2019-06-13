@@ -8,7 +8,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
-import de.NextGP.general.Log;
 import de.NextGP.initialize.LoadConfig;
 
 public class GetOptions {
@@ -326,11 +325,6 @@ public class GetOptions {
 		return custom;
 	}
 
-//	public static Logger getLogger() {
-//		return logger;
-//	}
-	
-
 	public LoadConfig getConfig() {
 		return config;
 	}
@@ -342,7 +336,7 @@ public class GetOptions {
 	
 	public String getBedFile() {
 		if (bedFile == null || bedFile.isEmpty()){
-			Log.error("No bed file chosen. Use bedFile option.");
+			System.out.println("No bed file chosen. Use bedFile option.");
 			System.exit(3);
 		}
 		return bedFile;

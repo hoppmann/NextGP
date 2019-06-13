@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -42,7 +41,7 @@ public class SamToBam {
 		
 		
 		// make log entry
-		Log.logger("Preparing sam to bam convertion.");
+		System.out.println("Preparing sam to bam convertion.");
 
 		// prepare command
 

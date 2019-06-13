@@ -3,7 +3,6 @@ package de.NextGP.steps;
 import java.io.File;
 import java.util.ArrayList;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -35,7 +34,7 @@ public class VariantFilter {
 		this.last = options.getLast();
 		
 		// make log entry
-		Log.logger("Preparing hard filtering for " + caller);
+		System.out.println("Preparing hard filtering for " + caller);
 
 	}
 
@@ -238,7 +237,7 @@ public class VariantFilter {
 	public void vqsr() {
 
 		// make log entry
-		Log.logger("Preparing VQSR");
+		System.out.println("Preparing VQSR");
 
 
 		// initialize and gather variables

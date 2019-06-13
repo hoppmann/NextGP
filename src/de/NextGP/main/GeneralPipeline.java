@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.SlurmWriter;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
@@ -69,7 +68,7 @@ public class GeneralPipeline {
 	public void checkPatMap() {
 
 		if (patients.isEmpty()) {
-			Log.screen("No patients in List. Did you choose input bam/fastq files.");
+			System.out.println("No patients in List. Did you choose input bam/fastq files.");
 			System.exit(3);
 		}
 
@@ -87,7 +86,7 @@ public class GeneralPipeline {
 
 		// check if fastq list option is chosen
 		if (fastqList == null || fastqList.isEmpty()) {
-			Log.error("No fastq input list given.");
+			System.out.println("No fastq input list given.");
 			System.exit(1);
 			
 		}
@@ -116,14 +115,14 @@ public class GeneralPipeline {
 				
 				// run as single ended reads
 				if (splitLine.length == 2) {
-					Log.screen("Running single ended mode.");
+					System.out.println("Running single ended mode.");
 					patients = new ReadInputFile().readSingleFastqFile(fastqList);
 					combined.setMatePair(false);
 
 
 					// run as paired end reads
 				} else if ( splitLine.length == 3 ) {
-					Log.screen("Running in paird end mode.");
+					System.out.println("Running in paird end mode.");
 					patients = new ReadInputFile().readMateFastqFile(fastqList);
 					combined.setMatePair(true);
 

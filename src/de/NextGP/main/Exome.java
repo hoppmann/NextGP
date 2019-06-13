@@ -1,6 +1,5 @@
 package de.NextGP.main;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -18,7 +17,7 @@ public class Exome {
 
 	public Exome(GetOptions options, LoadConfig config) {
 
-		Log.logger( "Preparing exon based pipeline");
+		System.out.println( "Preparing exon based pipeline");
 		
 		//prepare and initialize variables
 		this.options = options;

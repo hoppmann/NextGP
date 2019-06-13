@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -30,7 +29,7 @@ public class VariantEval {
 		this.patients = patients;
 		
 		// make log entry
-		Log.logger("preparing variant evalutaion");
+		System.out.println("preparing variant evalutaion");
 		// prepare command
 		varEval();
 		

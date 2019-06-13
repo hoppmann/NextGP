@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -39,7 +38,7 @@ public class CreateMetrices {
 		this.last = options.getLast();
 
 		// make log etntry
-		Log.logger( "Preapring metrics");
+		System.out.println( "Preapring metrics");
 
 		// create directory
 		mkdir();
@@ -73,7 +72,7 @@ public class CreateMetrices {
 	public void meanDepth() {
 
 		// make log entry
-		Log.logger("Preparing mean Depth");
+		System.out.println("Preparing mean Depth");
 
 
 		for (String curPat : patients.keySet()){
@@ -116,7 +115,7 @@ public class CreateMetrices {
 	public void asMetric(){
 
 		// make log entry
-		Log.logger("Preparing alignment summary metrics");
+		System.out.println("Preparing alignment summary metrics");
 
 
 		for (String curPat : patients.keySet()){
@@ -163,7 +162,7 @@ public class CreateMetrices {
 	public void gcbMetric() {
 
 		// make log entry
-		Log.logger("Preparing mean GC bias metrics");
+		System.out.println("Preparing mean GC bias metrics");
 
 		for (String curPat : patients.keySet()){
 
@@ -211,7 +210,7 @@ public class CreateMetrices {
 	public void isMetric(){
 
 		// make log entry
-		Log.logger("Preparing insert size metrics");
+		System.out.println("Preparing insert size metrics");
 
 		for (String curPat : patients.keySet()){
 
@@ -251,48 +250,6 @@ public class CreateMetrices {
 	}
 
 
-	//////// InsertSize Metric for small 
-	//TODO
-
-
-//	/////////////
-//	//////// coverage Metric 
-//
-//	public void coverage(){
-//
-//		// make log entry
-//		Log.logger(logger, "Preparing coverage metrics");
-//
-//		for (String curPat : patients.keySet()){
-//
-//			// init and gather variables
-//			ArrayList<String> cmd = new ArrayList<>();
-//			String sep = File.separator;
-//			String outDir = options.getOutDir() + sep + config.getMetrices();
-//			String covOut = outDir + sep + curPat + sep + curPat + ".converageBed.hist";
-//			String input = patients.get(curPat).getLastOutFile();
-//			if (input == null || input.isEmpty()) {
-//				input = options.getOutDir() + sep + config.getBaseReacalibration() + sep + curPat + ".bam";
-//			}
-//
-//
-//			// prepare command
-//			cmd.add(config.getBedTools() + sep + "coverageBed");
-//			cmd.add("-abam " + input);
-//			cmd.add("-b " + options.getBedFile());
-//			cmd.add("-hist");
-//			cmd.add("> " + covOut);
-//
-//
-//			// save command
-//			Integer step = options.getSteps().get("metrices");
-//
-//			if (first <= step && last >= step ) {
-//				patients.get(curPat).addCmd02(cmd);
-//			}
-//
-//		}
-//	}
 
 	/////////////
 	//////// fastQC

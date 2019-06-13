@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -44,7 +43,7 @@ public class Realigner {
 
 
 		// run realign target creator
-		Log.logger("Prparing indel realigner");
+		System.out.println("Prparing indel realigner");
 
 	}
 

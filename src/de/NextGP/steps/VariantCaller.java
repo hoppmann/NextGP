@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -43,7 +42,7 @@ public class VariantCaller {
 		this.tmpDir = options.getTempDir() + File.separator + options.getOutDir();
 
 		// make log entry
-		Log.logger( "Preparing variant calling");
+		System.out.println( "Preparing variant calling");
 
 		// prepare out directories
 		makeDirs();

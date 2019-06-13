@@ -1,6 +1,5 @@
 package de.NextGP.main;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -26,7 +25,7 @@ public class Panel {
 
 
 		// make log entry for starting Illumina pipeline
-		Log.logger("Preparing Illumina batch files.");
+		System.out.println("Preparing Illumina batch files.");
 
 
 		// choose different steps needed to execute pipeline

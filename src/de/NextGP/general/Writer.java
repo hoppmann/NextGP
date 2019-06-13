@@ -67,7 +67,7 @@ public class Writer {
 		try {
 			writer = new PrintWriter(file);
 		} catch (FileNotFoundException e) {
-			Log.error( "Can not create file for writing");
+			System.out.println( "Can not create file for writing");
 			System.exit(1);
 		}
 	}

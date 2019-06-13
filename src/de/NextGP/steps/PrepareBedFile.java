@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.Writer;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -22,7 +21,7 @@ public class PrepareBedFile {
 	public PrepareBedFile(GetOptions options) {
 		this.options = options;
 		// make log entry for starting IonProton pipeline
-		Log.logger("Preparing .bed file.");
+		System.out.println("Preparing .bed file.");
 		
 	}
 	

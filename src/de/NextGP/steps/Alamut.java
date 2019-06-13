@@ -3,7 +3,6 @@ package de.NextGP.steps;
 import java.io.File;
 import java.util.ArrayList;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -34,7 +33,7 @@ public class Alamut {
 
 
 		// make log entry
-		Log.logger("Preparing annotation with alamut");
+		System.out.println("Preparing annotation with alamut");
 
 
 		//// execute all parts needed to annotate with alamut
@@ -150,31 +149,6 @@ public class Alamut {
 	public void prepareColumns() {
 
 		ArrayList<String> prepColCmd = new ArrayList<>();
-
-//		prepColCmd.add("ALAMUT_IDXS=\"\"\n" + 
-//				"ALAMUT_COLTYPES=\"\"\n" + 
-//				"ALAMUT_MODE=\"\"\n" + 
-//				"\n" + 
-//				"\n" + 
-//				"start=4\n" + 
-//				"nAnno=$(zcat " + bedFile + " | head -n 1 | wc | awk '{ print $2 }')\n" + 
-//				"for (( i=$start; i<=$nAnno; i++ ))\n" + 
-//				"do \n" + 
-//				"	if [ $i -eq $start ]\n" + 
-//				"	then\n" + 
-//				"		ALAMUT_IDXS=$i\n" + 
-//				"		ALAMUT_COLTYPES=\"text\"\n" + 
-//				"		ALAMUT_MODE=\"list\"\n" + 
-//				"	else\n" + 
-//				"		ALAMUT_IDXS=\"$ALAMUT_IDXS,$i\"\n" + 
-//				"		ALAMUT_COLTYPES=\"$ALAMUT_COLTYPES,text\"\n" + 
-//				"		ALAMUT_MODE=\"$ALAMUT_MODE,list\"\n" + 
-//				"	fi\n" + 
-//				"done"
-//				+ "\n"
-//				+ "\n"
-//				+ "ALAMUT_COLS=$(zcat " + bedFile + " | head -n 1 | cut -f $start-999 | tr \"\\t\" \",\")"
-//				+ "");
 
 		
 		prepColCmd.add("ALAMUT_IDXS=\"\"\n" + 

@@ -2,7 +2,6 @@ package de.NextGP.main;
 
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -43,7 +42,7 @@ public class IonTorrent {
 		pipeline = new GeneralPipeline(options, config);
 
 		// make log entry for starting IonProton pipeline
-		Log.logger("Preparing IonProton batch files.");
+		System.out.println("Preparing IonProton batch files.");
 
 		// read input file
 		patients = pipeline.readFastqList();
@@ -88,7 +87,7 @@ public class IonTorrent {
 		pipeline = new GeneralPipeline(options, config);
 		
 		// make log entry for starting IonPanel pipeline
-		Log.logger("Preparing IonPanel pipeline files");
+		System.out.println("Preparing IonPanel pipeline files");
 		
 		// read input file
 		patients = pipeline.readFastqList();

@@ -3,7 +3,6 @@ package de.NextGP.main;
 import java.io.File;
 import java.io.IOException;
 
-import de.NextGP.general.Log;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -16,7 +15,7 @@ public class Main {
 
 
 		// read in config data
-		Log.logger("Reading in config file.");
+		System.out.println("Reading in config file.");
 		readConfig();
 
 		
@@ -55,7 +54,7 @@ public class Main {
 		}
 		
 		// to finish close log file
-		Log.logger("NextGP succesfully finished");
+		System.out.println("NextGP succesfully finished");
 
 	}
 
@@ -69,7 +68,7 @@ public class Main {
 		try {
 			config = new LoadConfig();
 		} catch (IOException e) {
-			Log.error("Failed reading in config file.");
+			System.out.println("Failed reading in config file.");
 			System.exit(1);
 		}
 

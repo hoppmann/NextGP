@@ -3,7 +3,6 @@
 import java.io.File;
 import java.util.ArrayList;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
@@ -36,7 +35,7 @@ public class Annotate {
 		this.last = options.getLast();
 
 		this.tmpDir = options.getTempDir() + File.separator + options.getOutDir();
-		Log.logger("preparing anotations");
+		System.out.println("preparing anotations");
 
 		// make directory
 		mkDir();
@@ -64,7 +63,7 @@ public class Annotate {
 	public void vtMaster(String vcfFile) {
 
 		// make log entry
-		Log.logger("preparing annotaions using VEP");
+		System.out.println("preparing annotaions using VEP");
 		
 		
 		//////// running vt-master
@@ -233,7 +232,7 @@ public class Annotate {
 	
 	public void bgzip() {
 		
-		Log.logger("Bgzipping files.");
+		System.out.println("Bgzipping files.");
 		
 		// preparing command
 		ArrayList<String> bgZipCmd = new ArrayList<>();
@@ -251,7 +250,7 @@ public class Annotate {
 	}
 	
 	public void tabix() {
-		Log.logger("Indexing files.");
+		System.out.println("Indexing files.");
 		
 		// preparing command
 		ArrayList<String> tabixCmd = new ArrayList<>();

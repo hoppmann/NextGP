@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -44,7 +43,7 @@ public class BQSR {
 		this.isSolid = isSolid;
 
 		// make log entry
-		Log.logger( "Preparing BQSR");
+		System.out.println( "Preparing BQSR");
 
 		// prepare general variables
 //		tempDir = options.getTempDir();

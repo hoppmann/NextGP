@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -33,7 +32,7 @@ public class Preprocess {
 		this.last = options.getLast();
 
 		// make log entry
-		Log.logger("Prepareing AfterQC commands.");
+		System.out.println("Prepareing AfterQC commands.");
 
 	}
 

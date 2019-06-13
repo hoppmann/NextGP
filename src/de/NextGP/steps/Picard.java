@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -37,7 +36,7 @@ public class Picard {
 		this.last = options.getLast();
 		
 		// make log entry
-		Log.logger("Preparing AddOrReplaceReadgroups");
+		System.out.println("Preparing AddOrReplaceReadgroups");
 	}
 
 	// constructor for markDuplicates
@@ -52,7 +51,7 @@ public class Picard {
 		this.combined = combined;
 		
 		// make log entry
-		Log.logger("Preparing markDuplicates");
+		System.out.println("Preparing markDuplicates");
 	}
 
 

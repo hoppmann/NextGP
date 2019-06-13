@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
@@ -46,7 +45,7 @@ public class BWA {
 		this.options = opts;
 		
 		// write log message
-		Log.logger( "Preparing BWA");
+		System.out.println( "Preparing BWA");
 
 		// create directory
 //		mkdir();

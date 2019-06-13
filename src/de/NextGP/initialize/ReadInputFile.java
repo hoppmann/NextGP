@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Map;
 
-import de.NextGP.general.Log;
 import de.NextGP.general.Writer;
 import de.NextGP.general.outfiles.Patients;
 
@@ -23,7 +22,7 @@ public class ReadInputFile {
 
 	public ReadInputFile() {
 
-		Log.logger("Reading input file");
+		System.out.println("Reading input file");
 	}
 
 
@@ -122,7 +121,7 @@ public class ReadInputFile {
 			// if it is real line split and sort to patient
 			String[] splitLine = curLine.split("\t");
 			if ( splitLine.length < 2){
-				Log.error("Mal formed bed list!");
+				System.out.println("Mal formed bed list!");
 				System.exit(1);
 			}
 			String patID = splitLine[0];
