@@ -5,9 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.options.GetOptions;
@@ -17,7 +14,6 @@ public class SlurmWriter {
 	//////// variables ////////
 	///////////////////////////
 	private Map<String, Patients> patients;
-	private static Logger logger = LoggerFactory.getLogger(SlurmWriter.class);
 	private String sep = File.separator;
 	private String slurmDir;
 	private String combFileOutName;
