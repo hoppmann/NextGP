@@ -51,7 +51,7 @@ public class SlurmWriter {
 		this.options = options;
 
 		// make log entry
-		logger.info("Writeing commands in batch files");
+		System.out.println("Writeing commands in batch files");
 
 		// gather general variables
 		masterScript = slurmDir + sep + "01-master.sh";
