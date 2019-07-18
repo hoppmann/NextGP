@@ -32,7 +32,7 @@ public class Preprocess {
 		this.last = options.getLast();
 
 		// make log entry
-		System.out.println("Prepareing AfterQC commands.");
+		System.out.println("Prepareing preprocessing commands.");
 
 	}
 
@@ -43,6 +43,66 @@ public class Preprocess {
 	/////////////////////////
 
 
+	
+	public void fastp() {
+
+		for (String curPat : patients.keySet()) {
+			// prepare variables
+			String forward = patients.get(curPat).getForward();
+			String reverse = patients.get(curPat).getReverse();
+			String sep = File.separator;
+			String outDir = options.getConfig().getLocalTmp() + sep + options.getOutDir() + sep
+					+ options.getConfig().getAlignment() + sep + "Fastp";
+
+			String forwardClean = outDir + sep + new File(forward).getName();
+			String reverseClean = outDir + sep + new File(reverse).getName();
+			
+			
+			
+			
+			String badOut = outDir + sep + "bad";
+			String reportOut = options.getOutDir() + sep + options.getConfig().getMetrices();
+
+			// prepare command
+			ArrayList<String> cmd = new ArrayList<>();
+			cmd.add(options.getConfig().getFastp());
+
+			// add input
+			cmd.add("-i " + forward);
+			cmd.add("-I " + reverse);
+
+			cmd.add("-o " + forwardClean);
+			cmd.add("-O " + reverseClean);
+			cmd.add("--detect_adapter_for_pe");
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// set fastq path to new path
+			patients.get(curPat).setForward(forwardClean);
+			patients.get(curPat).setReverse(reverseClean);
+
+			// save command in patients object
+			Integer step = options.getSteps().get("preprocess");
+
+			if (first <= step && last >= step) {
+				patients.get(curPat).addCmd02(cmd);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	public void afterQc() {
 
 		for (String curPat : patients.keySet()) {
@@ -77,7 +137,7 @@ public class Preprocess {
 
 			/* 
 			 * modify forward and reverse name to match AfterQC output
-			 * that for check weather the file has the ending fastq of fq. And if is sipped or not. 
+			 * that for check weather the file has the ending fastq of fq. And if is zipped or not. 
 			 */
 
 			if (forward.contains(".fastq.gz")) {

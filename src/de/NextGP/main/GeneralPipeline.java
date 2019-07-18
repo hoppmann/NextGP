@@ -170,7 +170,8 @@ public class GeneralPipeline {
 	public void preprocess() {
 
 		Preprocess pre = new Preprocess(options, patients);
-		pre.afterQc();
+//		pre.afterQc();
+		pre.fastp();
 		
 	}
 	

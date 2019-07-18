@@ -26,6 +26,7 @@ public class LoadConfig {
 	private String consensus;
 	private String fastQC;
 	private String afterQC;
+	private String fastp;
 	private String alamut;
 	private String addSetInfo;
 	
@@ -53,7 +54,6 @@ public class LoadConfig {
 	private String baseReacalibration;
 	private String metrices;
 	private String variantCalling;
-//	private String extractInd;
 	private String annotation;
 	private String database;
 	private String filter;
@@ -93,6 +93,7 @@ public class LoadConfig {
 				consensus = prop.getProperty("consensus");
 				fastQC = prop.getProperty("fastQC");
 				afterQC	= prop.getProperty("afterQC");
+				fastp = prop.getProperty("fastp");
 				alamut = prop.getProperty("alamut");
 				addSetInfo = prop.getProperty("addSetInfo");
 				
@@ -120,7 +121,6 @@ public class LoadConfig {
 				baseReacalibration = prop.getProperty("baseReacalibration");
 				metrices = prop.getProperty("matrices");
 				variantCalling = prop.getProperty("variantCalling");
-//				extractInd = prop.getProperty("extractInd");
 				annotation = prop.getProperty("annotation");
 				database = prop.getProperty("database");
 				filter = prop.getProperty("filter");
@@ -226,10 +226,6 @@ public class LoadConfig {
 				return variantCalling;
 			}
 
-//			public String getExtractInd() {
-//				return extractInd;
-//			}
-
 			public String getAnnotation() {
 				return annotation;
 			}
@@ -308,6 +304,10 @@ public class LoadConfig {
 
 			public String getVepCacheVersion() {
 				return vepCacheVersion;
+			}
+
+			public String getFastp() {
+				return fastp;
 			}
 
 			
