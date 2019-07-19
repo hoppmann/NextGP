@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
+import de.NextGP.general.outfiles.Combined;
 import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -13,6 +14,7 @@ public class Preprocess {
 	///////////////////////////
 
 	GetOptions options;
+	Combined combined; 
 	Map<String, Patients> patients;
 	private int first;
 	private int last;
@@ -24,12 +26,13 @@ public class Preprocess {
 	//////// constructor ////////
 	/////////////////////////////
 
-	public Preprocess(GetOptions options, Map<String, Patients> patients) {
+	public Preprocess(GetOptions options, Map<String, Patients> patients, Combined combined) {
 
 		this.options = options;
 		this.patients = patients;
 		this.first = options.getFirst();
 		this.last = options.getLast();
+		this.combined = combined;
 
 		// make log entry
 		System.out.println("Prepareing preprocessing commands.");
@@ -60,9 +63,9 @@ public class Preprocess {
 			
 			
 			
-			String badOut = outDir + sep + "bad";
-			String reportOut = options.getOutDir() + sep + options.getConfig().getMetrices();
-
+			String reportOut = options.getOutDir() + sep + options.getConfig().getMetrices() + sep + "Fastp";
+			String htmlOut = reportOut + sep + curPat + ".html";
+			
 			// prepare command
 			ArrayList<String> cmd = new ArrayList<>();
 			cmd.add(options.getConfig().getFastp());
@@ -71,10 +74,13 @@ public class Preprocess {
 			cmd.add("-i " + forward);
 			cmd.add("-I " + reverse);
 
+			// add output
 			cmd.add("-o " + forwardClean);
 			cmd.add("-O " + reverseClean);
+			
+			// other options
 			cmd.add("--detect_adapter_for_pe");
-
+			cmd.add("-h " + htmlOut);
 			
 			
 			
@@ -91,7 +97,11 @@ public class Preprocess {
 			// save command in patients object
 			Integer step = options.getSteps().get("preprocess");
 
+			combined.mkdir(outDir);
+			combined.mkdir(reportOut);
+
 			if (first <= step && last >= step) {
+				
 				patients.get(curPat).addCmd02(cmd);
 			}
 		}

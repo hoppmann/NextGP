@@ -47,8 +47,6 @@ public class BWA {
 		// write log message
 		System.out.println( "Preparing BWA");
 
-		// create directory
-//		mkdir();
 
 	}
 
