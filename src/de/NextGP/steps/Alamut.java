@@ -41,7 +41,7 @@ public class Alamut {
 		prepareBedFile();
 		tabixBed();
 		prepareColumns();
-		updateGemini();
+		annotateGeminiWithAlamut();
 
 
 	}
@@ -94,6 +94,11 @@ public class Alamut {
 	}
 
 
+	
+	
+	
+	
+	
 
 	//////// create .bed-file out of Alamut annotation
 	public void prepareBedFile() {
@@ -221,9 +226,14 @@ public class Alamut {
 
 
 
+	
+	
+	
+	
+	//////////////////////////////
 	//// update gemini with alamut
 
-	public void updateGemini() {
+	public void annotateGeminiWithAlamut() {
 
 
 		ArrayList<String> updateGeminiCmd = new ArrayList<>();
@@ -243,6 +253,36 @@ public class Alamut {
 
 	}
 
+	
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////
+	//// add boolean to database containing if an Alamut annotation is available or not
+	
+	public void annotateInAlamutBool () {
+		
+		ArrayList<String> addOverlapCmd = new ArrayList<>();
+		
+		addOverlapCmd.add("gemini annotate");
+		addOverlapCmd.add("-f " + bedFile);
+		addOverlapCmd.add("-c inAlamut");
+		addOverlapCmd.add("-a boolean");
+		addOverlapCmd.add(combined.getDbName());
+		
+		
+		Integer step = options.getSteps().get("alamut");
+		
+		if (options.getFirst() <= step && options.getLast() >= step ) {
+			combined.addUpdateGeminiCmd(addOverlapCmd);
+		}
+		
+		
+		
+	}
+	
+	
+	
 
 
 
