@@ -240,7 +240,7 @@ public class Alamut {
 		ArrayList<String> updateGeminiCmd = new ArrayList<>();
 
 		updateGeminiCmd.add("gemini annotate ");
-		updateGeminiCmd.add(" -f " + bedFile);
+		updateGeminiCmd.add("-f " + bedFile);
 		updateGeminiCmd.add("-a extract");
 		updateGeminiCmd.add("-c $ALAMUT_COLS");
 		updateGeminiCmd.add("-e $ALAMUT_IDXS");
