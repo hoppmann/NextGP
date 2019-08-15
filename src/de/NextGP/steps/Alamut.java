@@ -42,6 +42,7 @@ public class Alamut {
 		tabixBed();
 		prepareColumns();
 		annotateGeminiWithAlamut();
+		annotateInAlamutBool();
 
 
 	}
