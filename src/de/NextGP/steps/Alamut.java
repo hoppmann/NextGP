@@ -239,10 +239,17 @@ public class Alamut {
 
 		ArrayList<String> updateGeminiCmd = new ArrayList<>();
 
-		updateGeminiCmd.add("gemini annotate " + combined.getDbName() + " -f " + bedFile + " -a extract -c $ALAMUT_COLS -e $ALAMUT_IDXS -t $ALAMUT_COLTYPES -o $ALAMUT_MODE");
+		updateGeminiCmd.add("gemini annotate ");
+		updateGeminiCmd.add(" -f " + bedFile);
+		updateGeminiCmd.add("-a extract");
+		updateGeminiCmd.add("-c $ALAMUT_COLS");
+		updateGeminiCmd.add("-e $ALAMUT_IDXS");
+		updateGeminiCmd.add("-t $ALAMUT_COLTYPES");
+		updateGeminiCmd.add("-o $ALAMUT_MODE");
 
 
-
+		
+		
 		// save in combined object
 		Integer step = options.getSteps().get("alamut");
 
