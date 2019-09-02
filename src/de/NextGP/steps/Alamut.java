@@ -246,6 +246,7 @@ public class Alamut {
 		updateGeminiCmd.add("-e $ALAMUT_IDXS");
 		updateGeminiCmd.add("-t $ALAMUT_COLTYPES");
 		updateGeminiCmd.add("-o $ALAMUT_MODE");
+		updateGeminiCmd.add(combined.getDbName());
 
 
 		
