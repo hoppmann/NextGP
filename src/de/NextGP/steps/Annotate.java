@@ -20,7 +20,7 @@ public class Annotate {
 	private int first;
 	private int last;
 	private String tmpDir;
-
+	private String mainOutDir;
 
 	/////////////////////////////
 	//////// constructor ////////
@@ -34,7 +34,8 @@ public class Annotate {
 		this.first = options.getFirst();
 		this.last = options.getLast();
 
-		this.tmpDir = config.getAnnotation() + File.separator + options.getOutDir();
+		this.tmpDir = config.getTempDir() + File.separator + options.getOutDir();
+
 		System.out.println("preparing anotations");
 
 		// make directory
@@ -171,7 +172,9 @@ public class Annotate {
 	public void snpEff (){
 		
 		// get name for outfile
-		outSnpEff = outVEP.split("\\.")[0] + "-snpEff.vcf"; 
+		outSnpEff = outVEP.split("\\.")[0] + "-snpEff.vcf";
+		String [] outFileName = outSnpEff.split("/");
+		outSnpEff = options.getOutDir() + File.separator + config.getAnnotation() + File.separator + outFileName[outFileName.length -1];
 		
 		
 		// prepare command
@@ -196,6 +199,7 @@ public class Annotate {
 			
 		}
 		combined.setLastOutFile(outSnpEff);
+	
 		
 	}
 	
