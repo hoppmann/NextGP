@@ -29,6 +29,8 @@ public class LoadConfig {
 	private String fastp;
 	private String alamut;
 	private String addSetInfo;
+	private String filterScript;
+	private String interVarScript;
 	
 	// references
 	private String hg19Fasta;
@@ -96,6 +98,8 @@ public class LoadConfig {
 				fastp = prop.getProperty("fastp");
 				alamut = prop.getProperty("alamut");
 				addSetInfo = prop.getProperty("addSetInfo");
+				filterScript = prop.getProperty("filterScriptPath");
+				interVarScript = prop.getProperty("interVarScriptPath");
 				
 				// read in reference directory names
 				hg19Fasta = prop.getProperty("hg19Fasta");
@@ -308,6 +312,16 @@ public class LoadConfig {
 
 			public String getFastp() {
 				return fastp;
+			}
+
+
+			public String getFilterScript() {
+				return filterScript;
+			}
+
+
+			public String getInterVarScript() {
+				return interVarScript;
 			}
 
 			

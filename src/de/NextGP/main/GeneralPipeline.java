@@ -12,11 +12,12 @@ import de.NextGP.general.outfiles.Patients;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.ReadInputFile;
 import de.NextGP.initialize.options.GetOptions;
-import de.NextGP.steps.Alamut;
+import de.NextGP.steps.AlamutAndPostGeminiAnnotations;
 import de.NextGP.steps.Annotate;
 import de.NextGP.steps.BQSR;
 import de.NextGP.steps.BWA;
 import de.NextGP.steps.CreateMetrices;
+import de.NextGP.steps.FilterGemini;
 import de.NextGP.steps.Gemini;
 import de.NextGP.steps.Picard;
 import de.NextGP.steps.PrepareBedFile;
@@ -376,16 +377,19 @@ public class GeneralPipeline {
 
 	//////// annoate HGMD using Alamut
 	public void annotateHGMD() {
-		new Alamut(options, config, combined);
-		
-		
-		
-		
-		
+		new AlamutAndPostGeminiAnnotations(options, config, combined);
 		
 	}
 	
 
+	
+	//////// filter variants in Gemini DB
+	public void filterGemini() {
+		new FilterGemini(options, config, combined);
+	}
+	
+	
+	
 	////////////////
 	//////// save commands
 

@@ -39,7 +39,8 @@ public class SetOptions {
 			+ "\n\t\t\t\t\t07: variant calling; "
 			+ "\n\t\t\t\t\t08: annotation; "
 			+ "\n\t\t\t\t\t09: database generation"
-			+ "\n\t\t\t\t\t10: annotate Alamut and HGMD";
+			+ "\n\t\t\t\t\t10: Alamut and other post VEP annotations"
+			+ "\n\t\t\t\t\t11: filter variants";
 
 	////////////////////
 	//////// constructor
@@ -58,6 +59,7 @@ public class SetOptions {
 		steps.put("annotate", 8);
 		steps.put("gemini", 9);
 		steps.put("alamut", 10);
+		steps.put("filter", 11);
 		
 		
 		

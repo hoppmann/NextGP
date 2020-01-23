@@ -7,7 +7,7 @@ import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
-public class Alamut {
+public class AlamutAndPostGeminiAnnotations {
 	///////////////////////////
 	//////// variables ////////
 	///////////////////////////
@@ -25,7 +25,7 @@ public class Alamut {
 	//////// constructor ////////
 	/////////////////////////////
 
-	public Alamut(GetOptions options, LoadConfig config, Combined combined) {
+	public AlamutAndPostGeminiAnnotations(GetOptions options, LoadConfig config, Combined combined) {
 
 		this.options = options;
 		this.config = config;
@@ -43,7 +43,7 @@ public class Alamut {
 		prepareColumns();
 		annotateGeminiWithAlamut();
 		annotateInAlamutBool();
-
+		runInterVar();
 
 	}
 
@@ -269,7 +269,7 @@ public class Alamut {
 	///////////////////////////////////////////////////////////////////////////////////
 	//// add boolean to database containing if an Alamut annotation is available or not
 	
-	public void annotateInAlamutBool () {
+	private void annotateInAlamutBool () {
 		
 		ArrayList<String> addOverlapCmd = new ArrayList<>();
 		
@@ -295,10 +295,64 @@ public class Alamut {
 
 
 
+	///////////////////////////
+	//// annotate ACMG Criteria 
+	
+	
+	
+	private void runInterVar() {
+		
+		ArrayList<String> intervarCmd = new ArrayList<>();
+		String interVarScript = config.getInterVarScript();
+		String sep = File.separator;
+		
+		
+		
+		intervarCmd.add(interVarScript + " " + combined.getLastOutFile() + config.getAlamut() + sep + "interVar"
+		+ " " + combined.getDbName());
+		
+		
+
+		Integer step = options.getSteps().get("alamut");
+		if (options.getFirst() <= step && options.getLast() >= step ) {
+			combined.addUpdateGeminiCmd(intervarCmd);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
-	/////////////////////////////////
-	//////// getter / setter ////////
-	/////////////////////////////////
 }

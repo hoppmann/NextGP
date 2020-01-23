@@ -20,7 +20,7 @@ public class Annotate {
 	private int first;
 	private int last;
 	private String tmpDir;
-	private String mainOutDir;
+//	private String mainOutDir;
 
 	/////////////////////////////
 	//////// constructor ////////

@@ -90,8 +90,13 @@ public class Exome {
 		// 11 annotate with hgmd and alamut
 		pipeline.annotateHGMD();
 
+		// 12 filter Gemini variants
+		pipeline.filterGemini();
+		
 		// save commands
 		pipeline.saveCommands();
+		
+		
 
 	}
 
