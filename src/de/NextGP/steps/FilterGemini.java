@@ -1,5 +1,6 @@
 package de.NextGP.steps;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import de.NextGP.general.outfiles.Combined;
@@ -54,8 +55,8 @@ public class FilterGemini {
 	
 	
 	private void filterVariants () {
-		
-		String outdir = config.getFilter();
+		String sep = File.separator;
+		String outdir = options.getOutDir() + sep + config.getFilter();
 
 		ArrayList<String> cmd = new ArrayList<>();
 		String filterScriptPath = config.getFilterScript();
