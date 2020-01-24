@@ -1,6 +1,5 @@
 package de.NextGP.main;
 
-import de.NextGP.general.outfiles.Combined;
 import de.NextGP.initialize.LoadConfig;
 import de.NextGP.initialize.options.GetOptions;
 
@@ -8,9 +7,9 @@ public class Exome {
 
 	//////////////
 	//// Variables
-	GetOptions options;
-	LoadConfig config;
-	Combined combined;
+	private GetOptions options;
+	private LoadConfig config;
+	private GeneralPipeline pipeline;
 
 
 	// run pipeline corresponding to an Illumina Panel
@@ -22,53 +21,91 @@ public class Exome {
 		//prepare and initialize variables
 		this.options = options;
 		this.config = config;
-		combined = new Combined();
 		
 		// initialize pipeline class to start desired steps
-		GeneralPipeline pipeline = new GeneralPipeline(options, config);
+		pipeline = new GeneralPipeline(options, config);
 
+		
 		// check for pipeline type (solid or illumina)
-		String sequencer;
-		if (options.isSolid()) {
-			sequencer = "SOLiD";
-		} else {
-			sequencer = "Illumina";
-		}
+				String sequencer;
+				if (options.isSolid()) {
+					sequencer = "SOLiD";
+				} else {
+					sequencer = "Illumina";
+				}
 		
-		// if not bam option chosen start with fastq file
-		if (!options.isBam()) {
+		if (options.isFastq()) {
 			
-			// read input file
-			pipeline.readFastqList();
-
-			// check if input is given
-			pipeline.checkPatMap();
-
-			// prepare bed file
-			pipeline.prepareBedFile();
-
-			// pre-processing with AfterQC
-			pipeline.preprocess();
+			startingWithFastq(sequencer);
+			runBamToVcf(sequencer);
+			runVcfTillEnd();
 			
-			// 01 align reads
-			pipeline.align(sequencer);
-
 			
-		// start with import of bam list if bam option is chosen
 		} else if (options.isBam()) {
-
-			// read input bam list
-			pipeline.readBamList(options.getBamList());
-	
-			// prepare bed file
-			pipeline.prepareBedFile();
-
+			
+			startingWithBam();
+			runBamToVcf(sequencer);
+			runVcfTillEnd();
+			
+			
+		} else if (options.isVcf()) {
+			
+			
+			
+			startingWithVcf();
+			runVcfTillEnd();
+			
 		}
+			
 		
+		
+				
+		
+
+	}
+	
+	
+	
+	
+	private void startingWithFastq (String sequencer) {
+
+		
+
+		// read input file
+		pipeline.readFastqList();
+
+		// check if input is given
+		pipeline.checkPatMap();
+
+		// prepare bed file
+		pipeline.prepareBedFile();
+
+		// pre-processing with AfterQC
+		pipeline.preprocess();
+
+		// 01 align reads
+		pipeline.align(sequencer);
+
+	}
+
+	
+	
+	private void startingWithBam () {
+
+		// read input bam list
+		pipeline.readBamList(options.getBamList());
+
+		// prepare bed file
+		pipeline.prepareBedFile();
+		
+	}
+	
+	
+	private void runBamToVcf (String sequencer) {
 		// 02 markDuplicates
 		pipeline.markDuplicates();
 		pipeline.addReplaceReadgroups(sequencer, config.getDuplicates());
-		
+
 		// 03 realign
 		pipeline.indelRealigner();
 
@@ -80,25 +117,45 @@ public class Exome {
 
 		// 06 variant calling using hard filtering
 		pipeline.panelVariantCalling();
-		
-		// 09 annotate
-		pipeline.annotate();
-
-		// 10  gemini
-		pipeline.loadInGemini();
-		
-		// 11 annotate with hgmd and alamut
-		pipeline.annotateHGMD();
-
-		// 12 filter Gemini variants
-		pipeline.filterGemini();
-		
-		// save commands
-		pipeline.saveCommands();
-		
-		
 
 	}
 
+	
+	
+	
+	
+	
+	private void startingWithVcf () {
+		
+		pipeline.readVcfList(options.getVcfList());
+		pipeline.mergeVcf();
+		
+		
+	}
+
+	
+	
+	
+	
+	
+	private void runVcfTillEnd () {
+		// 09 annotate
+				pipeline.annotate();
+
+				// 10  gemini
+				pipeline.loadInGemini();
+				
+				// 11 annotate with hgmd and alamut
+				pipeline.annotateHGMD();
+
+				// 12 filter Gemini variants
+				pipeline.filterGemini();
+				
+				// save commands
+				pipeline.saveCommands();
+	}
+	
+	
+	
 
 }

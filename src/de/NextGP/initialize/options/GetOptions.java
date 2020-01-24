@@ -43,6 +43,7 @@ public class GetOptions {
 	// alignment variables
 	private String fastqList;
 	private String bamList;
+	private String vcfList;
 	
 	// pipelines
 	private boolean bwa;
@@ -53,6 +54,9 @@ public class GetOptions {
 	private String customPipeline;
 	private boolean custom;
 	private boolean bam;
+	private boolean vcf;
+	private boolean fastq;
+	
 	
 	// pipeline parts
 	private int first = 1;
@@ -186,12 +190,20 @@ public class GetOptions {
 		//////// get alignment specific options
 		if (cmd.hasOption("fastqList")) {
 			fastqList = cmd.getOptionValue("fastqList");
+			fastq = true;
+			first = 1;
 		}
 		
 		if (cmd.hasOption("bamList")) {
 			bamList = cmd.getOptionValue("bamList");
 			bam = true;
 			first = 2; 
+		}
+		
+		if (cmd.hasOption("vcfList")) {
+			vcfList = cmd.getOptionValue("vcfList");
+			vcf = true;
+			first = 8;
 		}
 
 	
@@ -230,7 +242,9 @@ public class GetOptions {
 		
 		//////// pipeline parts
 		if (cmd.hasOption("first")){
-			first = Integer.valueOf(cmd.getOptionValue("first"));
+			if (Integer.valueOf(cmd.getOptionValue("first")) >= first){
+				first = Integer.valueOf(cmd.getOptionValue("first"));
+			}
 		}
 		
 		if (cmd.hasOption("last")){
@@ -407,6 +421,24 @@ public class GetOptions {
 		return afterOk;
 	}
 
+	public String getVcfList() {
+		return vcfList;
+	}
+
+
+	public boolean isVcf() {
+		return vcf;
+	}
+
+	public String getAfterOk() {
+		return afterOk;
+	}
+
+	public boolean isFastq() {
+		return fastq;
+	}
+
+	
 	
 	
 	

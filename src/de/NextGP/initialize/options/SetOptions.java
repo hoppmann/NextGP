@@ -21,7 +21,7 @@ public class SetOptions {
 	// names for grouping
 	String general = "general";
 	String pipeline = "pipeline";
-	String alignment = "alignment";
+	String alignment = "input";
 	String misc = "misc";
 	String slurm = "slurmOptions";
 
@@ -102,7 +102,8 @@ public class SetOptions {
 		// alignment specific options
 		opts.put(alignment, new OptionValue(options, "fastqList", true, "List containing name of forward and backward read files."));
 		opts.put(alignment, new OptionValue(options, "bamList", true, "\tList containing bamfiles. (needed if alignment not done in pipeline)"));
-				
+		opts.put(alignment, new OptionValue(options, "vcfList", true, "List containing vcf-files for annotation."));
+		
 		// pipeline
 		opts.put(pipeline, new OptionValue(options, "panel", false, "\tif chosen runs all steps necessary for analysis of an Illumina panel."));
 		opts.put(pipeline, new OptionValue(options, "ionExon", false, "\tExecutes the Ion Torrent exone pipeline"));

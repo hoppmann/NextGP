@@ -147,6 +147,10 @@ public class GeneralPipeline {
 
 	}
 
+	
+	
+	
+	
 	////////////////
 	//////// read in bam list and save in patient map
 	
@@ -157,13 +161,29 @@ public class GeneralPipeline {
 		
 	}
 
+	
+	
+	//////////////////////////////////////////////////
+	////////  read in VCF list and save in patient map
+	
+	public Map<String, Patients> readVcfList (String vcfList) {
+		patients = new ReadInputFile().readVcfList(vcfList);
+		return patients;
+	}
+	
+	
+	
+	
 	///////////////
 	//////// prepare bed file ////////
 	public void prepareBedFile() {
 		PrepareBedFile prepare = new PrepareBedFile(options);
 		prepare.createBed();
 	}
-		
+	
+	
+	
+	
 	
 	
 	///////////////////
@@ -319,6 +339,26 @@ public class GeneralPipeline {
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+	////////////////////////////
+	//////// merge multiple vcf-files
+	
+	public void mergeVcf() {
+	
+		VariantCaller caller = new VariantCaller(options, config, patients, combined);
+	
+		caller.mergeConsensusVariants();
+	
+	
+	}
+	
+	
+	
 	
 	//////////////////
 	//////// annotate Variants

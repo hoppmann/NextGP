@@ -67,6 +67,9 @@ public class ReadInputFile {
 	}
 
 
+	
+	
+	
 	////////////////
 	//////// read fastq files
 	public Map<String, Patients> readSingleFastqFile(String listName) {
@@ -101,6 +104,10 @@ public class ReadInputFile {
 	}
 
 
+	
+	
+	
+	
 	////////////////////
 	//////// read bam list file
 	public Map<String, Patients> readBamList(String listName) {
@@ -121,7 +128,7 @@ public class ReadInputFile {
 			// if it is real line split and sort to patient
 			String[] splitLine = curLine.split("\t");
 			if ( splitLine.length < 2){
-				System.out.println("Mal formed bed list!");
+				System.out.println("Mal formed bam list!");
 				System.exit(1);
 			}
 			String patID = splitLine[0];
@@ -138,6 +145,69 @@ public class ReadInputFile {
 
 	}
 
+	
+	
+	
+	
+	
+	////////////////////////////
+	//////// read VCF list file
+	
+	public Map<String, Patients> readVcfList (String listName) {
+		
+		
+		
+		LinkedList<String> lines = new Writer().openFile(listName);
+		ListIterator<String> listIterator = lines.listIterator();
+		while (listIterator.hasNext()) {
+			
+			String curLine = listIterator.next();
+			
+			// check if line start with # or is empty
+			if (curLine.isEmpty() || curLine.startsWith("#")) {
+				continue;
+			}
+			
+			// if is real line split and sort to patient
+			String[] splitLine = curLine.split("\t");
+			if (splitLine.length < 2) {
+				System.out.println("Mal formed vcf list!");
+				System.exit(1);
+			}
+
+			String patID = splitLine[0];
+			String vcf = splitLine[1];
+			
+			
+			// save to corresponding patient
+			Patients pat = new Patients();
+			pat.setLastOutFile(vcf);
+			patients.put(patID, pat);
+			
+		}
+		
+		
+		// return patient map
+		return patients;
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/////////////
 	//////// File reader

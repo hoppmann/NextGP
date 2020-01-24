@@ -694,14 +694,13 @@ public class VariantCaller {
 		// store commands
 		Integer step = options.getSteps().get("calling");
 		
-		if (first <= step && last >= step ) {
+		if ((first <= step && last >= step) || options.isVcf()) {
 			combined.addCmd05(combindeCallinCmd);
 		}
 		combined.setLastOutFile(output);
 		
 		// save vcf-file for later annotation with alamut
 		combined.setVcfForAnnotation(output);
-
 
 
 	}
