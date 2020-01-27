@@ -305,10 +305,11 @@ public class AlamutAndPostGeminiAnnotations {
 		ArrayList<String> intervarCmd = new ArrayList<>();
 		String interVarScript = config.getInterVarScript();
 		String sep = File.separator;
+		String outDir = options.getOutDir() + sep + config.getAnnotation() + sep + "interVar";
 		
 		
 		
-		intervarCmd.add(interVarScript + " " + combined.getLastOutFile() + " " + config.getAnnotation() + sep + "interVar"
+		intervarCmd.add(interVarScript + " " + combined.getLastOutFile() + " " + outDir
 		+ " " + combined.getDbName());
 		
 		
