@@ -308,7 +308,7 @@ public class AlamutAndPostGeminiAnnotations {
 		
 		
 		
-		intervarCmd.add(interVarScript + " " + combined.getLastOutFile() + " " + config.getAlamut() + sep + "interVar"
+		intervarCmd.add(interVarScript + " " + combined.getLastOutFile() + " " + config.getAnnotation() + sep + "interVar"
 		+ " " + combined.getDbName());
 		
 		
