@@ -67,7 +67,7 @@ public class FilterGemini {
 		// save commands
 		Integer step = options.getSteps().get("filter");
 		
-		
+		System.out.println(options.getFirst());
 		
 		if ( options.getFirst() <= step && options.getLast() >= step ) {
 			if (! options.isSkiptAlamutBatch()) {
