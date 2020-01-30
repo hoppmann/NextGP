@@ -44,6 +44,7 @@ public class AlamutAndPostGeminiAnnotations {
 		annotateGeminiWithAlamut();
 		annotateInAlamutBool();
 		runInterVar();
+		annotateOMIM();
 
 	}
 
@@ -331,6 +332,31 @@ public class AlamutAndPostGeminiAnnotations {
 	
 	
 	
+	
+	///////////////////////
+	//// annotate with OMIM
+	
+	private void annotateOMIM() {
+		
+		
+		ArrayList<String> omimCMD = new ArrayList<>();
+		String omimScript = config.getOmimScript();
+		String sep = File.separator;
+		
+		
+		omimCMD.add(omimScript + " " + combined.getDbName());
+		
+		
+
+		Integer step = options.getSteps().get("alamut");
+		if (options.getFirst() <= step && options.getLast() >= step ) {
+			combined.addUpdateGeminiCmd(omimCMD);
+		}
+		
+		
+		
+		
+	}
 	
 	
 	

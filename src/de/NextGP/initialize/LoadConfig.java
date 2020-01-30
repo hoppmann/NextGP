@@ -31,6 +31,7 @@ public class LoadConfig {
 	private String addSetInfo;
 	private String filterScript;
 	private String interVarScript;
+	private String omimScript;
 	
 	// references
 	private String hg19Fasta;
@@ -100,6 +101,7 @@ public class LoadConfig {
 				addSetInfo = prop.getProperty("addSetInfo");
 				filterScript = prop.getProperty("filterScriptPath");
 				interVarScript = prop.getProperty("interVarScriptPath");
+				omimScript = prop.getProperty("omimAnnotationScriptPath");
 				
 				// read in reference directory names
 				hg19Fasta = prop.getProperty("hg19Fasta");
@@ -322,6 +324,11 @@ public class LoadConfig {
 
 			public String getInterVarScript() {
 				return interVarScript;
+			}
+
+
+			public String getOmimScript() {
+				return omimScript;
 			}
 
 			
