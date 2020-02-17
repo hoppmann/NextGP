@@ -102,7 +102,7 @@ public class SetOptions {
 		// alignment specific options
 		opts.put(alignment, new OptionValue(options, "fastqList", true, "List containing name of forward and backward read files."));
 		opts.put(alignment, new OptionValue(options, "bamList", true, "\tList containing bamfiles. (needed if alignment not done in pipeline)"));
-		opts.put(alignment, new OptionValue(options, "vcfList", true, "List containing vcf-files for annotation."));
+		opts.put(alignment, new OptionValue(options, "vcfList", true, "\tList containing vcf-files for annotation."));
 		
 		// pipeline
 		opts.put(pipeline, new OptionValue(options, "panel", false, "\tif chosen runs all steps necessary for analysis of an Illumina panel."));
