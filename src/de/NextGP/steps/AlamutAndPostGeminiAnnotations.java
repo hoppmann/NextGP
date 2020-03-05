@@ -341,7 +341,6 @@ public class AlamutAndPostGeminiAnnotations {
 		
 		ArrayList<String> omimCMD = new ArrayList<>();
 		String omimScript = config.getOmimScript();
-		String sep = File.separator;
 		
 		
 		omimCMD.add(omimScript + " " + combined.getDbName());
