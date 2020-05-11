@@ -298,7 +298,7 @@ public class VariantCaller {
 
 
 			// prepare command
-			cmd.add("python " + config.getPlatypus());
+			cmd.add(config.getPlatypus());
 			cmd.add("callVariants");
 			cmd.add("--bamFiles=" + input);
 			cmd.add("--refFile=" + config.getHg19Fasta());
