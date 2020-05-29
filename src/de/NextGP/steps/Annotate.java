@@ -155,6 +155,16 @@ public class Annotate {
 		vepCmd.add("--canonical");
 		vepCmd.add("--pubmed");
 		vepCmd.add("--vcf");
+		vepCmd.add("--gene_phenotype");
+		vepCmd.add("--hgvs");
+		vepCmd.add("--fa " + config.getHg19Fasta());
+		vepCmd.add("--hgvs");
+		vepCmd.add("--hgvsg");
+		vepCmd.add("--ccds");
+		vepCmd.add("--transcript_version");
+		vepCmd.add("--protein");
+		
+		
 
 		// store command
 		Integer step = options.getSteps().get("annotate");
